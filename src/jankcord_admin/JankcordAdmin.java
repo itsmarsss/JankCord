@@ -58,10 +58,10 @@ public class JankcordAdmin {
         }
 
         if (accounts.isEmpty()) {
-            accounts.add(new FullUser(0, username, "N/A", password, ""));
+            accounts.add(new FullUser(0, username, "N/A", password, "", "active"));
         } else {
             long id = accounts.get(accounts.size() - 1).getId() + 1;
-            accounts.add(new FullUser(id, username, "N/A", password, ""));
+            accounts.add(new FullUser(id, username, "N/A", password, "", "active"));
         }
 
         return "Account \"" + username + "\" with password \"" + password + "\" created successfully";
@@ -75,7 +75,7 @@ public class JankcordAdmin {
         System.out.printf("%-10.10s | %-25.25s | %-25.25s | %-25.25s%n", "ID #", "USERNAME", "PASSWORD", "STATUS");
         System.out.println("---------------------------------------------------------------------------------");
         for (FullUser account : accounts) {
-            System.out.printf("%-10.10s | %-25.25s | %-25.25s | %-25.25s%n", account.getId(), account.getUsername(), account.getPassword(), "active");
+            System.out.printf("%-10.10s | %-25.25s | %-25.25s | %-25.25s%n", account.getId(), account.getUsername(), account.getPassword(), account.getStatus());
         }
 
         return "End of list.";
@@ -155,6 +155,35 @@ public class JankcordAdmin {
         accounts.get(index).setPassword(password);
 
         return "Account ID [" + idNum + "] now has username \"" + username + "\" and password \"" + password + "\".";
+    }
+
+    public static String setAccountStatus() {
+        System.out.print("Account ID #: ");
+        String idString = sc.next();
+        int idNum;
+
+        try {
+            idNum = Integer.parseInt(idString);
+        } catch (Exception e) {
+            return "Invalid ID #; command sequence exited";
+        }
+
+        int index = searchForAccount(idNum, 0, accounts.size() - 1);
+
+        if(index == -1) {
+            return "ID # not found.";
+        }
+
+        System.out.print("Status (10 characters max): ");
+        String status = sc.next();
+
+        if (status.length() > 10) {
+            return "Status cannot be longer than 10 character; command sequence exited";
+        }
+
+        accounts.get(index).setStatus(status);
+
+        return "Account ID [" + idNum + "] new has status \"" + status + "\".";
     }
 
     private static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
