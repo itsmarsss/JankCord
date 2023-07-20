@@ -171,16 +171,8 @@ public class ChatBoxArea extends JPanel {
 
 		// Messages
 		gbc.insets = new Insets(0, 0, 12, 5);
-		messageProfiles = new LinkedList<MessageProfile>();
-		int j = 0;
-		while(j < 100) {
-			MessageProfile mp = new MessageProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), "Bunlene", "MessageID");
-			messageProfiles.add(mp);
-			gbc.gridx = 0;
-			gbc.gridy = j;
-			chatPanel.add(mp, gbc);
-			j++;
-		}
+		messageProfiles = new LinkedList<>();
+
 		JScrollBar vertical = chatBoxScrollPane.getVerticalScrollBar();
 		vertical.setValue(vertical.getMaximum());
 		vertical.setValue(vertical.getMaximum());
@@ -229,5 +221,8 @@ public class ChatBoxArea extends JPanel {
 	}
 	public LinkedList<MessageProfile> getMessageProfiles() {
 		return messageProfiles;
+	}
+	public void appendMessageProfile(MessageProfile mp) {
+		messageProfiles.add(mp);
 	}
 }
