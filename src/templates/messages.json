@@ -1,0 +1,21 @@
+{
+  "users": [
+    1234567890,1234567890,1234567890
+  ],
+  "messages": [
+    {
+      "id": 123456789,
+      "username": "Name",
+      "avatarURL": "url",
+      "content": "Hello World",
+      "timestamp": 123456789
+    },
+    {
+      "id": 123456789,
+      "username": "Name",
+      "avatarURL": "url",
+      "content": "Hello World",
+      "timestamp": 123456789
+    }
+    ]
+}

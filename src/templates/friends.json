@@ -1,0 +1,14 @@
+{
+  "friends": [
+    {
+      "id": 123456789,
+      "username": "Name",
+      "avatarURL": "url"
+    },
+    {
+      "id": 123456789,
+      "username": "Name",
+      "avatarURL": "url"
+    }
+  ]
+}
