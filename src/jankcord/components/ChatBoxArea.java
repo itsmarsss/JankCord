@@ -221,6 +221,11 @@ public class ChatBoxArea extends JPanel {
 		return messageProfiles;
 	}
 
+	public void deleteAll() {
+		messageProfiles.clear();
+
+		chatPanel.removeAll();
+	}
 	public void addMessage(Message message, int index) {
 		MessageProfile mp = new MessageProfile(message);
 		messageProfiles.add(mp);

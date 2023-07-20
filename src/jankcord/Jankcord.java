@@ -45,7 +45,12 @@ public class Jankcord {
 	// Main Function
 	public static void main(String[] args) {
 		System.setProperty("sun.java2d.uiScale", "1");
-		new Jankcord();
+
+		// new Login(); // should return selfuser upon success
+
+		User selfuser = new User(1, "Marsss", ".");
+
+		new Jankcord(selfuser);
 	}
 
 	// Frame dragging
@@ -67,8 +72,13 @@ public class Jankcord {
 	private static ChannelList channelList;
 	private static ChatBoxArea chatBoxArea;
 
+	private String otherID;
+	private User selfUser;
+
 	// JankCord Default Constructor
-	Jankcord() {
+	public Jankcord(User selfUser) {
+		this.selfUser = selfUser;
+
 		// Init
 		frame = new JFrame("JankCord");
 		viewPanel = new JPanel();
@@ -184,10 +194,28 @@ public class Jankcord {
 
 		ArrayList<Message> messages = new ArrayList<>();
 
-		messages.add(new Message(new User(1, "Joe", "Lmao"), "content", 12039));
+		messages.add(new Message(new User(1, "Joe", "."), "content", 12039));
 
 		for(int i = 0; i < messages.size(); i++) {
 			chatBoxArea.addMessage(messages.get(i), i);
+		}
+
+
+		ArrayList<User> friends = new ArrayList<>();
+
+		friends.add(new User(1, "Bob", "."));
+		friends.add(new User(1, "Bob1", "."));
+		friends.add(new User(1, "Bob2", "."));
+		friends.add(new User(1, "Bob3", "."));
+		friends.add(new User(1, "Bob4", "."));
+		friends.add(new User(1, "Bob5", "."));
+		friends.add(new User(1, "Bob6", "."));
+		friends.add(new User(1, "Bob7", "."));
+		friends.add(new User(1, "Bob8", "."));
+		friends.add(new User(1, "Bob9", "."));
+
+		for(int i = 0 ; i < friends.size(); i++) {
+			channelList.addChannel(friends.get(i), i+2);
 		}
 	}
 
@@ -240,5 +268,13 @@ public class Jankcord {
 
 	public static JFrame getFrame() {
 		return frame;
+	}
+
+	public User getSelfUser() {
+		return selfUser;
+	}
+
+	public void setSelfUser(User selfUser) {
+		this.selfUser = selfUser;
 	}
 }
