@@ -203,7 +203,7 @@ public class Jankcord {
 
 		ArrayList<User> friends = new ArrayList<>();
 
-		friends.add(new User(1, "Bob", "."));
+		friends.add(new User(1, "Bob", "https://i.imgur.com/B5XcGDg.jpeg"));
 		friends.add(new User(1, "Bob1", "."));
 		friends.add(new User(1, "Bob2", "."));
 		friends.add(new User(1, "Bob3", "."));

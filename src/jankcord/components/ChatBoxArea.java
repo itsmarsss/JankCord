@@ -105,7 +105,7 @@ public class ChatBoxArea extends JPanel {
 		typePanel.add(typeScrollPane);
 
 		textArea.setLineWrap(true);
-		textArea.setText("Message @Bunlene");
+		textArea.setText("Write a Message");
 		textArea.setBackground(new Color(64, 68, 75));
 		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setCaretColor(new Color(255, 255, 255));
