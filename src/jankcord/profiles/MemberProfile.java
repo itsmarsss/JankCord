@@ -51,9 +51,9 @@ public class MemberProfile extends JPanel {
         add(channelIcon);
 
         // Username
-        JLabel usernameLabel = new JLabel("Place Holder");
+        JLabel usernameLabel = new JLabel(member.getUsername());
         usernameLabel.setSize(328, 40);
-        usernameLabel.setLocation(100, 12);
+        usernameLabel.setLocation(100, 23);
         usernameLabel.setForeground(new Color(142, 146, 151));
         usernameLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
 
