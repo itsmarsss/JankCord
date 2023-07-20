@@ -1,4 +1,4 @@
-package newcord.components;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,11 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import newcord.Newcord;
-import newcord.newclasses.ResourceLoader;
-import newcord.newclasses.ScrollBarUI;
-import newcord.profiles.ChannelProfile;
-import newcord.profiles.FriendProfile;
+import jankcord.Jankcord;
+import jankcord.newclasses.ResourceLoader;
+import jankcord.newclasses.ScrollBarUI;
+import jankcord.profiles.ChannelProfile;
+import jankcord.profiles.FriendProfile;
 
 public class ChannelList extends JPanel {
 	/**
@@ -35,7 +35,7 @@ public class ChannelList extends JPanel {
 		setLayout(null);		
 		setLocation(166, 50);
 		setBackground(new Color(47, 49, 54));
-		setSize(480, Newcord.getViewPanel().getHeight()-50);
+		setSize(480, Jankcord.getViewPanel().getHeight()-50);
 
 		// Channel TopBar
 		JPanel channelTopBarPanel = new JPanel();

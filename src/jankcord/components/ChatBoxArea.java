@@ -1,4 +1,4 @@
-package newcord.components;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,13 +18,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultEditorKit;
 
-import newcord.Newcord;
-import newcord.newclasses.DeletePrevCharAction;
-import newcord.newclasses.ResourceLoader;
-import newcord.newclasses.ScrollBarUI;
-import newcord.newclasses.UndoRedo;
-import newcord.profiles.MemberProfile;
-import newcord.profiles.MessageProfile;
+import jankcord.Jankcord;
+import jankcord.newclasses.DeletePrevCharAction;
+import jankcord.newclasses.ResourceLoader;
+import jankcord.newclasses.ScrollBarUI;
+import jankcord.newclasses.UndoRedo;
+import jankcord.profiles.MemberProfile;
+import jankcord.profiles.MessageProfile;
 
 public class ChatBoxArea extends JPanel {
 	/**
@@ -51,7 +51,7 @@ public class ChatBoxArea extends JPanel {
 		setLayout(null);
 		setLocation(646, 50);
 		setBackground(new Color(54, 57, 63));
-		setSize(Newcord.getViewPanel().getWidth()-646, Newcord.getViewPanel().getHeight()-50);
+		setSize(Jankcord.getViewPanel().getWidth()-646, Jankcord.getViewPanel().getHeight()-50);
 
 		// Chat TopBar
 		chatBoxTopBarPanel = new JPanel();

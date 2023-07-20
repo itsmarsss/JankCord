@@ -1,4 +1,4 @@
-package newcord.components;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import newcord.Newcord;
+import jankcord.Jankcord;
 
 public class WindowButtons extends JPanel {
 	/**
@@ -22,7 +22,7 @@ public class WindowButtons extends JPanel {
 		setLayout(null);
 		setSize(186, 50);
 		setBackground(new Color(0, 0, 0, 0));
-		setLocation(Newcord.getViewPanel().getWidth()-186, 0);
+		setLocation(Jankcord.getViewPanel().getWidth()-186, 0);
 		
 		// Buttons
 		Font windowButtonFont = new Font(null, Font.PLAIN, 28);

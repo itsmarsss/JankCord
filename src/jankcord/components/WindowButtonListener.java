@@ -1,11 +1,11 @@
-package newcord.components;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import newcord.Newcord;
+import jankcord.Jankcord;
 
 public class WindowButtonListener implements MouseListener {
 
@@ -48,13 +48,13 @@ public class WindowButtonListener implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		switch(perform) {
 		case FRAME_CLOSE:
-			Newcord.getFrame().setVisible(false);
+			Jankcord.getFrame().setVisible(false);
 			break;
 		case FRAME_FULLSCREEN:
-			Newcord.doFullscreen();
+			Jankcord.doFullscreen();
 			break;
 		case FRAME_MINIMIZE:
-			Newcord.getFrame().setExtendedState(Frame.ICONIFIED);
+			Jankcord.getFrame().setExtendedState(Frame.ICONIFIED);
 			break;
 		}
 	}

@@ -1,4 +1,4 @@
-package newcord.profiles;
+package jankcord.profiles;
 
 import java.awt.Color;
 import java.awt.Dimension;

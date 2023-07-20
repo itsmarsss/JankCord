@@ -1,4 +1,4 @@
-package newcord;
+package jankcord;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -411,7 +411,7 @@ public class ComponentResizer extends MouseAdapter
 		source.validate();
 
 
-		Newcord.resize();
+		Jankcord.resize();
 	}
 
 	/*

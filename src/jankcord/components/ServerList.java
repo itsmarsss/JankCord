@@ -1,4 +1,4 @@
-package newcord.components;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,12 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import newcord.Newcord;
-import newcord.newclasses.ResourceLoader;
-import newcord.profiles.AddServerProfile;
-import newcord.profiles.ExploreProfile;
-import newcord.profiles.HomeProfile;
-import newcord.profiles.ServerProfile;
+import jankcord.Jankcord;
+import jankcord.newclasses.ResourceLoader;
+import jankcord.profiles.AddServerProfile;
+import jankcord.profiles.ExploreProfile;
+import jankcord.profiles.HomeProfile;
+import jankcord.profiles.ServerProfile;
 
 public class ServerList extends JScrollPane {
 	/**
@@ -34,7 +34,7 @@ public class ServerList extends JScrollPane {
 		setBorder(null);
 		setLocation(30, 50);
 		setBackground(new Color(32, 34, 37));
-		setSize(106, Newcord.getFrame().getHeight()-50);
+		setSize(106, Jankcord.getFrame().getHeight()-50);
 		
 		getVerticalScrollBar().setUnitIncrement(15);
 		getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
@@ -62,7 +62,7 @@ public class ServerList extends JScrollPane {
 		serverPanel.add(dmProfile, gbc);
 
 			// Splitter
-		JLabel splitLabel = new JLabel("————", SwingConstants.CENTER);
+		JLabel splitLabel = new JLabel("ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
 		splitLabel.setForeground(new Color(85, 87, 90));
 		splitLabel.setPreferredSize(new Dimension(106, 20));
 		splitLabel.setFont(new Font("Arial", Font.BOLD, 15));

@@ -1,8 +1,8 @@
-package newcord.profiles;
+package jankcord.profiles;
 
 import javax.swing.JLabel;
 
-import newcord.newclasses.ResourceLoader;
+import jankcord.newclasses.ResourceLoader;
 
 public class ExploreProfile extends JLabel {
 	/**

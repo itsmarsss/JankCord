@@ -1,4 +1,4 @@
-package newcord.profiles;
+package jankcord.profiles;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import newcord.Newcord;
+import jankcord.Jankcord;
 
 public class MessageProfile extends JPanel {
 	/**
@@ -25,7 +25,7 @@ public class MessageProfile extends JPanel {
 		// Init
 		setLayout(null);
 		setBackground(null);
-		setPreferredSize(new Dimension(Newcord.getViewPanel().getWidth()-646, 100));
+		setPreferredSize(new Dimension(Jankcord.getViewPanel().getWidth()-646, 100));
 		
 		// Icon
 		Image scaledIcon = userIcon.getScaledInstance(80, 80, Image.SCALE_DEFAULT);

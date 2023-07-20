@@ -1,4 +1,4 @@
-package newcord.profiles;
+package jankcord.profiles;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,7 +7,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import newcord.newclasses.ResourceLoader;
+import jankcord.newclasses.ResourceLoader;
 
 public class FriendProfile extends JPanel {
 	/**
