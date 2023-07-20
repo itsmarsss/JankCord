@@ -12,10 +12,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +20,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 // Swing
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,12 +31,12 @@ import jankcord.components.ChannelList;
 import jankcord.components.ChatBoxArea;
 import jankcord.components.ServerList;
 import jankcord.components.WindowButtons;
-import jankcord.newclasses.ResourceLoader;
 import jankcord.newclasses.ScrollBarUI;
 import jankcord.objects.Message;
-import jankcord.objects.SelfUser;
+import jankcord.objects.FullUser;
 import jankcord.objects.User;
 import jankcord.profiles.MessageProfile;
+import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -50,13 +45,25 @@ import org.json.simple.parser.JSONParser;
 public class Jankcord {
     // Main Function
     public static void main(String[] args) {
-        System.setProperty("sun.java2d.uiScale", "1");
+        boolean isServer = true;
 
-        // new Login(); // should return selfuser upon success
+        for (String arg : args) {
+            if (arg.equals("--server")) {
+                isServer = true;
+            }
+        }
 
-        SelfUser selfuser = new SelfUser(1, "Marsss", ".", "flkjs", "http://localhost:6969/api/v1/");
+        if (isServer) {
+            JankcordAdmin.startAdmin();
+        } else {
+            System.setProperty("sun.java2d.uiScale", "1");
 
-        new Jankcord(selfuser);
+            // new Login(); // should return selfuser upon success
+
+            FullUser selfuser = new FullUser(1, "Marsss", ".", "flkjs", "http://localhost:6969/api/v1/");
+
+            new Jankcord(selfuser);
+        }
     }
 
     // Frame dragging
@@ -79,11 +86,11 @@ public class Jankcord {
     private static ChatBoxArea chatBoxArea;
 
     private static String otherID;
-    private static SelfUser selfUser;
+    private static FullUser fullUser;
 
     // JankCord Default Constructor
-    public Jankcord(SelfUser selfUser) {
-        this.selfUser = selfUser;
+    public Jankcord(FullUser fullUser) {
+        this.fullUser = fullUser;
 
         // Init
         frame = new JFrame("JankCord");
@@ -202,11 +209,11 @@ public class Jankcord {
         // Get messages
         HashMap<String, String> headers = new HashMap<>();
 
-        headers.put("username", selfUser.getUsername());
-        headers.put("password", selfUser.getPassword());
+        headers.put("username", fullUser.getUsername());
+        headers.put("password", fullUser.getPassword());
         headers.put("otherID", otherID);
 
-        String messagesJSON = ServerCommunicator.sendHttpRequest(selfUser.getEndPointHost() + "messages", headers);
+        String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "messages", headers);
         ArrayList<Message> messages = new ArrayList<>();
         ArrayList<User> members = new ArrayList<>();
 
@@ -257,10 +264,10 @@ public class Jankcord {
 
 
         headers.clear();
-        headers.put("username", selfUser.getUsername());
-        headers.put("password", selfUser.getPassword());
+        headers.put("username", fullUser.getUsername());
+        headers.put("password", fullUser.getPassword());
 
-        String friendsJSON = ServerCommunicator.sendHttpRequest(selfUser.getEndPointHost() + "friends", headers);
+        String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
         ArrayList<User> friends = new ArrayList<>();
 
         try {
