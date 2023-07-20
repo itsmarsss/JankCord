@@ -1,15 +1,22 @@
 package jankcord_admin;
 
+import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
+import jankcord_admin.apihandlers.GetFriends;
+import jankcord_admin.apihandlers.GetMessages;
+import jankcord_admin.apihandlers.Login;
+import jankcord_admin.apihandlers.MainPage;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class JankcordAdmin {
     private static Scanner sc = new Scanner(System.in);
-    private static ArrayList<FullUser> accounts = new ArrayList<>();
+    public static ArrayList<FullUser> accounts = new ArrayList<>();
 
     public static void startAdmin() {
         System.out.println("Welcome to JankCord Admin Dashboard.");
@@ -184,6 +191,34 @@ public class JankcordAdmin {
         accounts.get(index).setStatus(status);
 
         return "Account ID [" + idNum + "] new has status \"" + status + "\".";
+    }
+
+
+    private static int port;
+    private static HttpServer server;
+
+
+    public static String startServer() {
+        try {
+            server = HttpServer.create(new InetSocketAddress("0.0.0.0", 0), 0);
+        } catch (IOException e) {
+            return "JankCord server failed to start.";
+        }
+        server.createContext("/", new MainPage());
+        server.createContext("/api/v1/login", new Login());
+        server.createContext("/api/v1/getmessages", new GetMessages());
+        server.createContext("/api/v1/getfriends", new GetFriends());
+        server.setExecutor(null);
+        server.start();
+
+        port = server.getAddress().getPort();
+
+        return "JankCord server started.";
+    }
+
+    public static String stopServer() {
+        server.stop(0);
+        return "JankCord server stopped.";
     }
 
     private static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
