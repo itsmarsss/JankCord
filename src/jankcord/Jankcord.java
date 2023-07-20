@@ -217,6 +217,16 @@ public class Jankcord {
 		for(int i = 0 ; i < friends.size(); i++) {
 			channelList.addChannel(friends.get(i), i+2);
 		}
+
+
+		ArrayList<User> members = new ArrayList<>();
+
+		members.add(new User(1, "Bob8", "https://i.imgur.com/B5XcGDg.jpeg"));
+		members.add(new User(1, "Bob9", "."));
+
+		for(int i = 0 ; i < members.size(); i++) {
+			chatBoxArea.addMember(members.get(i), i);
+		}
 	}
 
 	public static void doFullscreen() {
