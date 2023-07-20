@@ -1,5 +1,7 @@
 package jankcord.objects;
 
+import java.util.Base64;
+
 public class SelfUser extends User {
     private String password;
     private String endPointHost;
@@ -8,7 +10,14 @@ public class SelfUser extends User {
         super(id, username, avatarURL);
 
         this.password = password;
-        this.endPointHost = endPointHost;
+        this.endPointHost = decode(endPointHost) + "/api/v1/";
+    }
+
+    private String decode(String endPointHost) {
+        byte[] decodedBytes = Base64.getDecoder().decode(endPointHost);
+        String decodedString = new String(decodedBytes);
+
+        return decodedString;
     }
 
     public String getPassword() {
