@@ -1,21 +1,14 @@
 package jankcord.components;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.LinkedList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
@@ -23,6 +16,8 @@ import jankcord.newclasses.DeletePrevCharAction;
 import jankcord.newclasses.ResourceLoader;
 import jankcord.newclasses.ScrollBarUI;
 import jankcord.newclasses.UndoRedo;
+import jankcord.objects.Message;
+import jankcord.objects.User;
 import jankcord.profiles.MemberProfile;
 import jankcord.profiles.MessageProfile;
 
@@ -33,6 +28,7 @@ public class ChatBoxArea extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel chatBoxTopBarPanel;
+	private JPanel chatPanel;
 	private JScrollPane chatBoxScrollPane;
 	private JPanel typePanel;
 
@@ -42,6 +38,8 @@ public class ChatBoxArea extends JPanel {
 	private JScrollPane membersScrollPane;
 
 	private LinkedList<MessageProfile>messageProfiles;
+
+	private GridBagConstraints gbc;
 	public ChatBoxArea() {
 		// Init
 		setName("ChatBoxArea");
@@ -64,7 +62,7 @@ public class ChatBoxArea extends JPanel {
 		add(chatBoxTopBarPanel);
 
 		// Chat Section
-		JPanel chatPanel = new JPanel();
+		chatPanel = new JPanel();
 		chatBoxScrollPane = new JScrollPane(chatPanel);
 		chatPanel.setBackground(new Color(54, 57, 63));
 
@@ -151,11 +149,11 @@ public class ChatBoxArea extends JPanel {
 
 		// Add Members
 		membersPanel.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+		gbc = new GridBagConstraints();
 
 		// Members
 		gbc.insets = new Insets(0, 25, 12, 25);
-		LinkedList<MemberProfile>memberProfiles = new LinkedList<MemberProfile>();
+		LinkedList<MemberProfile>memberProfiles = new LinkedList<>();
 		int i = 0;
 		while(i < 10) {
 			MemberProfile cp = new MemberProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), "UserID");
@@ -222,7 +220,16 @@ public class ChatBoxArea extends JPanel {
 	public LinkedList<MessageProfile> getMessageProfiles() {
 		return messageProfiles;
 	}
-	public void appendMessageProfile(MessageProfile mp) {
+
+	public void addMessage(Message message, int index) {
+		MessageProfile mp = new MessageProfile(message);
 		messageProfiles.add(mp);
+
+		gbc.gridx = 0;
+		gbc.gridy = index;
+		chatPanel.add(mp, gbc);
+
+		reline();
 	}
+
 }

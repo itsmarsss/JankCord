@@ -11,10 +11,18 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 // Swing
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +34,10 @@ import jankcord.components.ChannelList;
 import jankcord.components.ChatBoxArea;
 import jankcord.components.ServerList;
 import jankcord.components.WindowButtons;
+import jankcord.newclasses.ResourceLoader;
 import jankcord.newclasses.ScrollBarUI;
+import jankcord.objects.Message;
+import jankcord.objects.User;
 import jankcord.profiles.MessageProfile;
 
 // JankCord Class
@@ -163,6 +174,21 @@ public class Jankcord {
 		channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(47, 49, 54), new Color(32, 34, 37), true));
 
 		frame.setVisible(true);
+
+		ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+		ses.scheduleAtFixedRate(Jankcord::queryForNewMessage, 0, 1, TimeUnit.SECONDS);
+	}
+
+	private static void queryForNewMessage() {
+		// Query api endpoint
+
+		ArrayList<Message> messages = new ArrayList<>();
+
+		messages.add(new Message(new User(1, "Joe", "Lmao"), "content", 12039));
+
+		for(int i = 0; i < messages.size(); i++) {
+			chatBoxArea.addMessage(messages.get(i), i);
+		}
 	}
 
 	public static void doFullscreen() {
