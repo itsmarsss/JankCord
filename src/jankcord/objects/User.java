@@ -34,4 +34,18 @@ public class User {
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
     }
+
+    public boolean isEqual(User tempFriend) {
+        if(id != tempFriend.id) {
+            return false;
+        }
+        if(username != tempFriend.username) {
+            return false;
+        }
+        if(avatarURL != tempFriend.avatarURL) {
+            return false;
+        }
+
+        return true;
+    }
 }
