@@ -223,7 +223,7 @@ public class Jankcord {
             JSONObject jsonObject = (JSONObject) parser.parse(messagesJSON);
 
             // Get the "members" array from the JSON object
-            JSONArray membersArray = (JSONArray) jsonObject.get("members");
+            JSONArray membersArray = (JSONArray) jsonObject.get("users");
 
             // Loop through the "messages" array
             for (Object message : membersArray) {
@@ -273,7 +273,7 @@ public class Jankcord {
         try {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(messagesJSON);
+            JSONObject jsonObject = (JSONObject) parser.parse(friendsJSON);
 
             // Get the "messages" array from the JSON object
             JSONArray messagesArray = (JSONArray) jsonObject.get("friends");
