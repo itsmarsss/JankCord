@@ -8,10 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.LinkedList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import jankcord.Jankcord;
 import jankcord.newclasses.ResourceLoader;
@@ -131,8 +128,9 @@ public class ChannelList extends JPanel {
         // Splitter
         JLabel splitLabel = new JLabel("DIRECT MESSAGES                  ➕");
         splitLabel.setForeground(new Color(142, 146, 151));
-        splitLabel.setPreferredSize(new Dimension(420, 25));
+        splitLabel.setPreferredSize(new Dimension(420, 40));
         splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
+        splitLabel.setVerticalAlignment(SwingConstants.TOP);
         gbc.gridx = 0;
         gbc.gridy = 1;
 
