@@ -271,7 +271,7 @@ public class JankcordAdmin {
 
     public static String startServer() {
         try {
-            server = HttpServer.create(new InetSocketAddress("0.0.0.0", 0), 0);
+            server = HttpServer.create(new InetSocketAddress("0.0.0.0", 6969), 0);
         } catch (IOException e) {
             return "JankCord server failed to start.";
         }
