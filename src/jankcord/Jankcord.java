@@ -57,47 +57,9 @@ public class Jankcord {
         if (isServer) {
             JankcordAdmin.startAdmin();
         } else {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Welcome to JankCord.");
-            System.out.print("Username: ");
-            String username = sc.next();
-            System.out.print("Password: ");
-            String password = sc.next();
-            System.out.print("Server: ");
-            String server = sc.next();
-
-            HashMap<String, String> headers = new HashMap<>();
-
-            headers.put("username", username);
-            headers.put("password", password);
-
-            String response = ServerCommunicator.sendHttpRequest(server + "/api/v1/login", headers);
-
-            System.out.println(response);
-
-            if (response.equals("403")) {
-                System.out.println("Credentials incorrect; exiting program");
-            }
-
-            long id = 0;
-            String avatarURL = null;
-
-            try {
-                // Parse the JSON string
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(response);
-
-                // Read values from each message object
-                id = (Long) jsonObject.get("id");
-                avatarURL = (String) jsonObject.get("avatarURL");
-            } catch (Exception e) {
-            }
-
-            FullUser selfuser = new FullUser(id, username, avatarURL, password, server + "/api/v1/");
-
             System.setProperty("sun.java2d.uiScale", "1");
 
-            new Jankcord(selfuser);
+            new JankLogin().setVisible(true);
         }
     }
 
@@ -124,19 +86,21 @@ public class Jankcord {
     private static FullUser fullUser;
 
     // JankCord Default Constructor
-    public Jankcord(FullUser fullUser) {
-        this.fullUser = fullUser;
-
+    public Jankcord() {
         // Init
         frame = new JFrame("JankCord");
         viewPanel = new JPanel();
         drawUI();
     }
 
+    public static void setFullUser(FullUser otherFullUser) {
+        fullUser = otherFullUser;
+    }
+
     // render frame and viewPanel
     private void drawUI() {
         // Frame Icon
-        List<Image> icons = new ArrayList<Image>();
+        List<Image> icons = new ArrayList<>();
         icons.add(new ImageIcon("src/resources/Icon1.png").getImage());
         icons.add(new ImageIcon("src/resources/Icon2.png").getImage());
         icons.add(new ImageIcon("src/resources/Icon3.png").getImage());
@@ -235,14 +199,78 @@ public class Jankcord {
         frame.setVisible(true);
 
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleAtFixedRate(Jankcord::queryForNewMessage, 0, 1, TimeUnit.SECONDS);
+        ses.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
+
+        ScheduledExecutorService ses1 = Executors.newSingleThreadScheduledExecutor();
+        ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 1, TimeUnit.SECONDS);
     }
 
-    private static void queryForNewMessage() {
+    private static ArrayList<User> tempFriends = new ArrayList<>();
 
-        System.out.println("New query");
+    private static void queryForNewFriend() {
+        System.out.println("New friend query");
         // Query api endpoint
 
+        // Get messages
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("username", fullUser.getUsername());
+        headers.put("password", fullUser.getPassword());
+
+        String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
+
+        System.out.println(friendsJSON);
+
+        ArrayList<User> friends = new ArrayList<>();
+
+        try {
+            // Parse the JSON string
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(friendsJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray messagesArray = (JSONArray) jsonObject.get("friends");
+
+            // Loop through the "messages" array
+            for (Object message : messagesArray) {
+                JSONObject messageObject = (JSONObject) message;
+
+                // Read values from each message object
+                long id = (Long) messageObject.get("id");
+                String username = (String) messageObject.get("username");
+                String avatarURL = (String) messageObject.get("avatarURL");
+
+                friends.add(new User(id, username, avatarURL));
+            }
+        } catch (Exception e) {
+        }
+
+        if (friends.size() != tempFriends.size()) {
+            return;
+        }
+
+        for(int i = 0; i < friends.size(); i++) {
+            User friend = friends.get(i);
+            User tempFriend = friends.get(i);
+
+            if(!friend.isEqual(tempFriend)) {
+                return;
+            }
+        }
+
+        tempFriends = friends;
+
+        channelList.initChannelPanel();
+
+        for (int i = 0; i < friends.size(); i++) {
+            if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
+                channelList.addChannel(friends.get(i), i + 2);
+            }
+        }
+    }
+
+    private static void queryForNewMessages() {
+        System.out.println("New messages query");
+        // Query api endpoint
         // Get messages
         HashMap<String, String> headers = new HashMap<>();
 
@@ -308,44 +336,6 @@ public class Jankcord {
 
 
         headers.clear();
-        headers.put("username", fullUser.getUsername());
-        headers.put("password", fullUser.getPassword());
-
-        String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
-
-        System.out.println(friendsJSON);
-
-        ArrayList<User> friends = new ArrayList<>();
-
-        try {
-            // Parse the JSON string
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(friendsJSON);
-
-            // Get the "messages" array from the JSON object
-            JSONArray messagesArray = (JSONArray) jsonObject.get("friends");
-
-            // Loop through the "messages" array
-            for (Object message : messagesArray) {
-                JSONObject messageObject = (JSONObject) message;
-
-                // Read values from each message object
-                long id = (Long) messageObject.get("id");
-                String username = (String) messageObject.get("username");
-                String avatarURL = (String) messageObject.get("avatarURL");
-
-                friends.add(new User(id, username, avatarURL));
-            }
-        } catch (Exception e) {
-        }
-
-        channelList.initChannelPanel();
-
-        for (int i = 0; i < friends.size(); i++) {
-            if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
-                channelList.addChannel(friends.get(i), i + 2);
-            }
-        }
     }
 
     public static void doFullscreen() {

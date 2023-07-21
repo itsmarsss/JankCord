@@ -43,7 +43,7 @@ public class WindowButtonListener implements MouseListener {
 		this.exitBack = exitBack;
 		this.exitFore = exitFore;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		switch(perform) {
