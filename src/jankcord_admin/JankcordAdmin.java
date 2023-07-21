@@ -5,10 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
 import jankcord.objects.User;
-import jankcord_admin.apihandlers.GetFriends;
-import jankcord_admin.apihandlers.GetMessages;
-import jankcord_admin.apihandlers.Login;
-import jankcord_admin.apihandlers.MainPage;
+import jankcord_admin.apihandlers.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -369,7 +366,7 @@ public class JankcordAdmin {
         server.createContext("/api/v1/login", new Login());
         server.createContext("/api/v1/messages", new GetMessages());
         server.createContext("/api/v1/friends", new GetFriends());
-        server.createContext("/api/v1/sendmessage", new GetFriends());
+        server.createContext("/api/v1/sendmessage", new NewMessage());
         server.setExecutor(null);
         server.start();
 
