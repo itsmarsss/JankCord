@@ -129,7 +129,9 @@ public class ChatBoxArea extends JPanel {
                     headers.put("otherID", Jankcord.getOtherID());
                     headers.put("content", textArea.getText());
 
-                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+                    String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+
+                    textArea.setText("");
                 } else {
                     reline();
                 }
@@ -141,6 +143,9 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    textArea.setText("");
+                }
             }
 
         });
@@ -251,6 +256,9 @@ public class ChatBoxArea extends JPanel {
         gbc.gridy = index;
         chatPanel.add(mp, gbc);
 
+        chatPanel.revalidate();
+        chatPanel.repaint();
+
         reline();
     }
 
@@ -262,6 +270,9 @@ public class ChatBoxArea extends JPanel {
         gbc.gridy = index;
 
         membersPanel.add(cp, gbc);
+
+        membersPanel.revalidate();
+        membersPanel.repaint();
     }
 
 }
