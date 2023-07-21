@@ -223,16 +223,27 @@ public class JankcordAdmin {
             return "Password cannot be longer than 20 character; command sequence exited";
         }
 
-        for (FullUser account : accounts) {
-            if (account.getUsername().equalsIgnoreCase(username)) {
-                return "Username already in use; command sequence exited";
+
+        System.out.print("AvatarURL [" + user.getAvatarURL() + "]: ");
+        String avatarURL = sc.nextLine();
+        if (avatarURL.contains(" ")) {
+            return "AvatarURL cannot contain spaces; command sequence exited";
+        }
+
+        if (!user.getUsername().equals(username)) {
+            for (FullUser account : accounts) {
+                if (account.getUsername().equalsIgnoreCase(username)) {
+                    return "Username already in use; command sequence exited";
+                }
             }
         }
 
+
         accounts.get(index).setUsername(username);
         accounts.get(index).setPassword(password);
+        accounts.get(index).setAvatarURL(avatarURL);
 
-        return "Account ID [" + idNum + "] now has username \"" + username + "\" and password \"" + password + "\".";
+        return "Account ID [" + idNum + "] now has username \"" + username + "\", password \"" + password + "\", and avatarURL \"" + avatarURL + "\".";
     }
 
     public static String setAccountStatus() {
@@ -329,8 +340,8 @@ public class JankcordAdmin {
         String username = requestHeaders.get("username").get(0);
         String password = requestHeaders.get("password").get(0);
 
-        for(FullUser account : JankcordAdmin.accounts) {
-            if(account.getUsername().equals(username) && account.getPassword().equals(password)) {
+        for (FullUser account : JankcordAdmin.accounts) {
+            if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 return true;
             }
         }
