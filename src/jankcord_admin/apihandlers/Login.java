@@ -15,7 +15,28 @@ public class Login implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         System.out.println("Account Login Requested");
 
-        String response = JankcordAdmin.authorized(exchange) ? "200" : "403";
+        String response = "403";
+
+        if(JankcordAdmin.authorized(exchange)) {
+            Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
+
+            String username = requestHeaders.get("username").get(0);
+
+            FullUser user = null;
+
+            for(FullUser account : JankcordAdmin.accounts) {
+                if(account.getUsername().equals(username)){
+                    user = account;
+                }
+            }
+
+            response = """
+                    {
+                        "id": %s,
+                        "avatarURL": %s 
+                    }
+                    """.formatted(user.getId(), user.getAvatarURL());
+        }
 
         exchange.getResponseHeaders().set("Content-Type", "text/html");
         exchange.sendResponseHeaders(200, response.length());
