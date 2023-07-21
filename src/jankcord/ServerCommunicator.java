@@ -14,6 +14,7 @@ public class ServerCommunicator {
             URL url = new URL(apiEndpoint);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
 
             for (Map.Entry<String, String> entry : header.entrySet()) {
                 connection.setRequestProperty(entry.getKey(), entry.getValue());
@@ -35,8 +36,8 @@ public class ServerCommunicator {
             } else {
                 return null;
             }
-        } catch (Exception e) {}
-
-        return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
