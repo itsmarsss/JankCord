@@ -277,8 +277,8 @@ public class JankcordAdmin {
         }
         server.createContext("/", new MainPage());
         server.createContext("/api/v1/login", new Login());
-        server.createContext("/api/v1/getmessages", new GetMessages());
-        server.createContext("/api/v1/getfriends", new GetFriends());
+        server.createContext("/api/v1/messages", new GetMessages());
+        server.createContext("/api/v1/friends", new GetFriends());
         server.setExecutor(null);
         server.start();
 
