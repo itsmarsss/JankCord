@@ -287,6 +287,10 @@ public class Jankcord {
         }
     }
 
+
+    private static ArrayList<Message> tempMessages = new ArrayList<>();
+    private static ArrayList<User> tempMembers = new ArrayList<>();
+
     private static void queryForNewMessages() {
         System.out.println("New messages query");
         // Query api endpoint
@@ -343,12 +347,56 @@ public class Jankcord {
         } catch (Exception e) {
         }
 
-        chatBoxArea.deleteAll();
 
-        for (int i = 0; i < messages.size(); i++) {
-            chatBoxArea.addMessage(messages.get(i), i);
+        boolean isSame = true;
+        if (messages.size() != tempMessages.size()) {
+            isSame = false;
+        } else {
+            for (int i = 0; i < messages.size(); i++) {
+                Message message = messages.get(i);
+                Message tempMessage = tempMessages.get(i);
+
+                if (!message.isEqual(tempMessage)) {
+                    isSame = false;
+                }
+            }
         }
 
+        if (isSame) {
+            System.out.println("Message list no updates");
+        } else {
+            tempMessages = messages;
+
+            chatBoxArea.resetMessages();
+            for (int i = 0; i < messages.size(); i++) {
+                chatBoxArea.addMessage(messages.get(i), i);
+            }
+
+            chatBoxArea.setMaxChatScroll();
+        }
+
+
+        boolean isSame2 = true;
+        if (members.size() != tempMembers.size()) {
+            isSame2 = false;
+        } else {
+            for (int i = 0; i < members.size(); i++) {
+                User member = members.get(i);
+                User tempMember = tempMembers.get(i);
+
+                if (!member.isEqual(tempMember)) {
+                    isSame2 = false;
+                }
+            }
+        }
+
+        if (isSame2) {
+            System.out.println("Member list no updates");
+            return;
+        }
+        tempMembers = members;
+
+        chatBoxArea.resetMembers();
         for (int i = 0; i < members.size(); i++) {
             chatBoxArea.addMember(members.get(i), i);
         }

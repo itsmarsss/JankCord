@@ -34,4 +34,18 @@ public class Message {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+    public boolean isEqual(Message tempMessage) {
+        if(!sender.isEqual(tempMessage.getSender())) {
+            return false;
+        }
+        if(!content.equals(tempMessage.getContent())) {
+            return false;
+        }
+        if(timestamp != tempMessage.getTimestamp()) {
+            return false;
+        }
+
+        return true;
+    }
 }
