@@ -75,7 +75,7 @@ public class Jankcord {
 
             System.out.println(response);
 
-            if(response.equals("denied")) {
+            if(response.equals("403")) {
                 System.out.println("Credentials incorrect; exiting program");
             }
 
