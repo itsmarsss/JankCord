@@ -240,14 +240,6 @@ public class ChatBoxArea extends JPanel {
         return messageProfiles;
     }
 
-    public void deleteAll() {
-        messageProfiles.clear();
-        memberProfiles.clear();
-
-        chatPanel.removeAll();
-        membersPanel.removeAll();
-    }
-
     public void addMessage(Message message, int index) {
         MessageProfile mp = new MessageProfile(message);
         messageProfiles.add(mp);
@@ -256,8 +248,8 @@ public class ChatBoxArea extends JPanel {
         gbc.gridy = index;
         chatPanel.add(mp, gbc);
 
-        chatPanel.revalidate();
-        chatPanel.repaint();
+        membersScrollPane.revalidate();
+        membersScrollPane.repaint();
 
         reline();
     }
@@ -275,4 +267,24 @@ public class ChatBoxArea extends JPanel {
         membersPanel.repaint();
     }
 
+    public void resetMessages() {
+        chatPanel.removeAll();
+        messageProfiles.clear();
+    }
+
+    public void resetMembers() {
+        membersPanel.removeAll();
+        memberProfiles.clear();
+    }
+
+    public void setMaxChatScroll() {
+        SwingUtilities.invokeLater(() -> {
+            JViewport viewport = membersScrollPane.getViewport();
+            Point bottom = new Point(0, chatPanel.getHeight());
+            viewport.setViewPosition(bottom);
+//            JScrollBar vertical = membersScrollPane.getVerticalScrollBar();
+//            vertical.setValue(vertical.getMaximum());
+            System.out.println("scroll");
+        });
+    }
 }
