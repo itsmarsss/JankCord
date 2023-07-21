@@ -75,7 +75,7 @@ public class Jankcord {
 
             System.out.println(response);
 
-            if(response.equals("403")) {
+            if (response.equals("403")) {
                 System.out.println("Credentials incorrect; exiting program");
             }
 
@@ -338,7 +338,9 @@ public class Jankcord {
         channelList.initChannelPanel();
 
         for (int i = 0; i < friends.size(); i++) {
-            channelList.addChannel(friends.get(i), i + 2);
+            if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
+                channelList.addChannel(friends.get(i), i + 2);
+            }
         }
     }
 
