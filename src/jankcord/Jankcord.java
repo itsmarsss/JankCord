@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -56,11 +57,42 @@ public class Jankcord {
         if (isServer) {
             JankcordAdmin.startAdmin();
         } else {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Welcome to JankCord.");
+            System.out.print("Username: ");
+            String username = sc.next();
+            System.out.print("Password: ");
+            String password = sc.next();
+            System.out.print("Server: ");
+            String server = sc.next();
+
+            HashMap<String, String> headers = new HashMap<>();
+
+            headers.put("username", username);
+            headers.put("password", password);
+
+            String response = ServerCommunicator.sendHttpRequest(server + "/api/v1/login", headers);
+
+            if(response.equals("denied")) {
+
+            }
+
+            long id;
+            String avatarURL;
+
+            try {
+                // Parse the JSON string
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(response);
+
+                // Read values from each message object
+                long id = (Long) jsonObject.get("id");
+                String avatarURL = (String) jsonObject.get("avatarURL");
+            } catch (Exception e) {
+            }
+            FullUser selfuser = new FullUser(1, username, "", password, server + "/api/v1/");
+
             System.setProperty("sun.java2d.uiScale", "1");
-
-            // new Login(); // should return selfuser upon success
-
-            FullUser selfuser = new FullUser(1, "Marsss", ".", "flkjs", "http://localhost:6969/api/v1/");
 
             new Jankcord(selfuser);
         }
@@ -226,13 +258,13 @@ public class Jankcord {
             JSONArray membersArray = (JSONArray) jsonObject.get("users");
 
             // Loop through the "messages" array
-            for (Object message : membersArray) {
-                JSONObject messageObject = (JSONObject) message;
+            for (Object member : membersArray) {
+                JSONObject memberObject = (JSONObject) member;
 
                 // Read values from each message object
-                long id = (Long) messageObject.get("id");
-                String username = (String) messageObject.get("username");
-                String avatarURL = (String) messageObject.get("avatarURL");
+                long id = (Long) memberObject.get("id");
+                String username = (String) memberObject.get("username");
+                String avatarURL = (String) memberObject.get("avatarURL");
 
                 members.add(new User(id, username, avatarURL));
             }
