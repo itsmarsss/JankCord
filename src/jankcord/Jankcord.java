@@ -335,6 +335,8 @@ public class Jankcord {
         } catch (Exception e) {
         }
 
+        channelList.initChannelPanel();
+
         for (int i = 0; i < friends.size(); i++) {
             channelList.addChannel(friends.get(i), i + 2);
         }

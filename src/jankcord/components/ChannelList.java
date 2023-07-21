@@ -87,26 +87,9 @@ public class ChannelList extends JPanel {
         channelPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
-        // Friend Profile
-        FriendProfile friendProfile = new FriendProfile();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 25, 10, 1);
-
-        channelPanel.add(friendProfile, gbc);
-
-        // Splitter
-        JLabel splitLabel = new JLabel("DIRECT MESSAGES                  ➕");
-        splitLabel.setForeground(new Color(142, 146, 151));
-        splitLabel.setPreferredSize(new Dimension(420, 25));
-        splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-
-        channelPanel.add(splitLabel, gbc);
-
         // Channels
-        channelProfiles = new LinkedList<>();
+        initChannelPanel();
+
         int i = 2;
 
         gbc.insets = new Insets(0, 25, 3, 1);
@@ -130,5 +113,29 @@ public class ChannelList extends JPanel {
 
         channelPanel.revalidate();
         channelPanel.repaint();
+    }
+
+    public void initChannelPanel() {
+        channelProfiles = new LinkedList<>();
+
+        channelPanel.removeAll();
+
+        // Friend Profile
+        FriendProfile friendProfile = new FriendProfile();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 25, 10, 1);
+
+        channelPanel.add(friendProfile, gbc);
+
+        // Splitter
+        JLabel splitLabel = new JLabel("DIRECT MESSAGES                  ➕");
+        splitLabel.setForeground(new Color(142, 146, 151));
+        splitLabel.setPreferredSize(new Dimension(420, 25));
+        splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+
+        channelPanel.add(splitLabel, gbc);
     }
 }
