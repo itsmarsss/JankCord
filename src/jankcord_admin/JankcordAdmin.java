@@ -40,6 +40,9 @@ public class JankcordAdmin {
 
         System.out.println("Parent path: " + parent);
 
+        System.out.println("Reading accounts...");
+        System.out.println(readAccounts());
+
         while (true) {
             System.out.print(">> ");
 
@@ -53,13 +56,87 @@ public class JankcordAdmin {
         }
     }
 
+    public static void writeAccounts() {
+        String accountList = "";
+
+        for (FullUser account : accounts) {
+            accountList += """
+                      {
+                          "id": %s,
+                          "username": "%s",
+                          "password": "%S",
+                          "avatarURL": "%s"
+                      },
+                    """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL());
+        }
+
+        String accounts = """
+                {
+                    "users": [
+                        %s
+                    ]
+                }
+                """.formatted(accountList);
+
+        JankFileWriter.writeFile(parent + "/accounts/accounts.json", accounts);
+    }
+
+    public static String readAccounts() {
+        String textJSON = "";
+
+        // Try to read file
+        try {
+            // Create BufferedReader to ready inventory.txt
+            BufferedReader br = new BufferedReader(new FileReader(parent + "/accounts/accounts.json"));
+
+            // Declare String line to be used later on
+            String line;
+
+            // While the read line is not empty
+            while ((line = br.readLine()) != null) {
+                textJSON += line + "\n";
+            }
+        } catch (Exception e) { // If error
+            // Notify user that there was a reading error
+            return "IO error reading.";
+        }
+
+        ArrayList<Message> messages = new ArrayList<>();
+
+        try {
+            // Parse the JSON string
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray messagesArray = (JSONArray) jsonObject.get("users");
+
+            // Loop through the "messages" array
+            for (Object message : messagesArray) {
+                JSONObject messageObject = (JSONObject) message;
+
+                // Read values from each message object
+                long id = (Long) messageObject.get("id");
+                String username = (String) messageObject.get("username");
+                String password = (String) messageObject.get("password");
+                String avatarURL = (String) messageObject.get("avatarURL");
+
+                accounts.add(new FullUser(id, username, avatarURL, password, ""));
+            }
+        } catch (Exception e) {
+            return "JSON error parsing.";
+        }
+
+        return "Successfully read accounts.json file.";
+    }
+
     public static String readMessages(String fileName) {
         String textJSON = "";
 
         // Try to read file
         try {
             // Create BufferedReader to ready inventory.txt
-            BufferedReader br = new BufferedReader(new FileReader(JankcordAdmin.parent + "/messages/" + fileName + ".json"));
+            BufferedReader br = new BufferedReader(new FileReader(parent + "/messages/" + fileName + ".json"));
 
 
             // Declare String line to be used later on
