@@ -251,7 +251,7 @@ public class Jankcord {
         } else {
             for (int i = 0; i < friends.size(); i++) {
                 User friend = friends.get(i);
-                User tempFriend = friends.get(i);
+                User tempFriend = tempFriends.get(i);
 
                 if (!friend.isEqual(tempFriend)) {
                     isSame = false;
@@ -260,6 +260,7 @@ public class Jankcord {
         }
 
         if (isSame) {
+            System.out.println("Friend list no updates");
             return;
         }
 
