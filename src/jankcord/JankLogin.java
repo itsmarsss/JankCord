@@ -2,12 +2,14 @@ package jankcord;
 
 import jankcord.components.WindowButtonListener;
 import jankcord.components.WindowButtons;
+import jankcord.newclasses.DeletePrevCharAction;
 import jankcord.objects.FullUser;
 import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
+import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -116,6 +118,7 @@ public class JankLogin extends JFrame {
         usernameInput.setCaretColor(Color.white);
         usernameInput.setFont(new Font("Whitney", Font.BOLD, 28));
         usernameInput.setBorder(null);
+        usernameInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
         getContentPane().add(usernameInput);
 
         passwordLabel.setSize(150, 30);
@@ -131,6 +134,7 @@ public class JankLogin extends JFrame {
         passwordInput.setCaretColor(Color.white);
         passwordInput.setFont(new Font("Whitney", Font.BOLD, 28));
         passwordInput.setBorder(null);
+        passwordInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
         getContentPane().add(passwordInput);
 
         serverLabel.setSize(150, 30);
@@ -146,6 +150,7 @@ public class JankLogin extends JFrame {
         serverInput.setCaretColor(Color.white);
         serverInput.setFont(new Font("Whitney", Font.BOLD, 28));
         serverInput.setBorder(null);
+        serverInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
         getContentPane().add(serverInput);
 
         statusLabel.setSize(300, 30);
