@@ -46,7 +46,7 @@ import org.json.simple.parser.JSONParser;
 public class Jankcord {
     // Main Function
     public static void main(String[] args) {
-        boolean isServer = true;
+        boolean isServer = false;
 
         for (String arg : args) {
             if (arg.equals("--server")) {
@@ -73,12 +73,14 @@ public class Jankcord {
 
             String response = ServerCommunicator.sendHttpRequest(server + "/api/v1/login", headers);
 
-            if(response.equals("denied")) {
+            System.out.println(response);
 
+            if(response.equals("denied")) {
+                System.out.println("Credentials incorrect; exiting program");
             }
 
-            long id;
-            String avatarURL;
+            long id = 0;
+            String avatarURL = null;
 
             try {
                 // Parse the JSON string
@@ -86,11 +88,12 @@ public class Jankcord {
                 JSONObject jsonObject = (JSONObject) parser.parse(response);
 
                 // Read values from each message object
-                long id = (Long) jsonObject.get("id");
-                String avatarURL = (String) jsonObject.get("avatarURL");
+                id = (Long) jsonObject.get("id");
+                avatarURL = (String) jsonObject.get("avatarURL");
             } catch (Exception e) {
             }
-            FullUser selfuser = new FullUser(1, username, "", password, server + "/api/v1/");
+
+            FullUser selfuser = new FullUser(id, username, avatarURL, password, server + "/api/v1/");
 
             System.setProperty("sun.java2d.uiScale", "1");
 
@@ -236,6 +239,8 @@ public class Jankcord {
     }
 
     private static void queryForNewMessage() {
+
+        System.out.println("New query");
         // Query api endpoint
 
         // Get messages
@@ -246,6 +251,9 @@ public class Jankcord {
         headers.put("otherID", otherID);
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "messages", headers);
+
+        System.out.println(messagesJSON);
+
         ArrayList<Message> messages = new ArrayList<>();
         ArrayList<User> members = new ArrayList<>();
 
@@ -300,6 +308,9 @@ public class Jankcord {
         headers.put("password", fullUser.getPassword());
 
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
+
+        System.out.println(friendsJSON);
+
         ArrayList<User> friends = new ArrayList<>();
 
         try {
