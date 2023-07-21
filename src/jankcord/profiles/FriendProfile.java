@@ -18,7 +18,7 @@ public class FriendProfile extends JPanel {
     public FriendProfile() {
         // Init
         setLayout(null);
-        setBackground(new Color(47, 49, 54));
+        setBackground(new Color(43, 45, 49));
         setPreferredSize(new Dimension(448, 92));
 
         // Icon

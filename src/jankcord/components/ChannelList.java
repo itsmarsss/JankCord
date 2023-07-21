@@ -39,7 +39,7 @@ public class ChannelList extends JPanel {
         setBorder(null);
         setLayout(null);
         setLocation(166, 50);
-        setBackground(new Color(47, 49, 54));
+        setBackground(new Color(43, 45, 49));
         setSize(480, Jankcord.getViewPanel().getHeight() - 50);
 
         // Channel TopBar
@@ -47,7 +47,7 @@ public class ChannelList extends JPanel {
         // Channel TopBar Init
         channelTopBarPanel.setLayout(null);
         channelTopBarPanel.setSize(480, 106);
-        channelTopBarPanel.setBackground(new Color(47, 49, 54));
+        channelTopBarPanel.setBackground(new Color(43, 45, 49));
         channelTopBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(39, 40, 45)));
 
         add(channelTopBarPanel);
@@ -68,18 +68,18 @@ public class ChannelList extends JPanel {
         // Channel Section
         channelPanel = new JPanel();
         channelScrollPane = new JScrollPane(channelPanel);
-        channelPanel.setBackground(new Color(47, 49, 54));
+        channelPanel.setBackground(new Color(43, 45, 49));
 
         // Channel Init
         channelScrollPane.setOpaque(true);
         channelScrollPane.setBorder(null);
         channelScrollPane.setLocation(0, 106);
         channelScrollPane.setSize(477, getHeight() - 110);
-        channelScrollPane.setBackground(new Color(47, 49, 54));
+        channelScrollPane.setBackground(new Color(43, 45, 49));
         channelScrollPane.getVerticalScrollBar().setUnitIncrement(15);
         channelScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         channelScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(47, 49, 54), new Color(32, 34, 37), false));
+        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), false));
 
         // Add Channels
 

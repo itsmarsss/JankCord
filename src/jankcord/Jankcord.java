@@ -190,11 +190,11 @@ public class Jankcord {
 
         // Friend list panel
         JScrollPane friendsScrollPane = new JScrollPane();
-        friendsScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(47, 49, 54), new Color(32, 34, 37), true));
+        friendsScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
         // Channel list panel
         JScrollPane channelScrollPane = new JScrollPane();
-        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(47, 49, 54), new Color(32, 34, 37), true));
+        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
         frame.setVisible(true);
 

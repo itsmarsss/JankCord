@@ -138,13 +138,13 @@ public class ChatBoxArea extends JPanel {
         // Members Section
         membersPanel = new JPanel();
         membersScrollPane = new JScrollPane(membersPanel);
-        membersPanel.setBackground(new Color(47, 49, 54));
+        membersPanel.setBackground(new Color(43, 45, 49));
 
         // MemberList Init
         membersScrollPane.setOpaque(true);
         membersScrollPane.setBorder(null);
         membersScrollPane.setSize(540, getHeight() - 106);
-        membersScrollPane.setBackground(new Color(47, 49, 54));
+        membersScrollPane.setBackground(new Color(43, 45, 49));
         membersScrollPane.setLocation(chatBoxScrollPane.getWidth() + 5, 106);
         membersScrollPane.getVerticalScrollBar().setUnitIncrement(15);
         membersScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
