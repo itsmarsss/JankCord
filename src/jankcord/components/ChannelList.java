@@ -137,5 +137,8 @@ public class ChannelList extends JPanel {
         gbc.gridy = 1;
 
         channelPanel.add(splitLabel, gbc);
+
+        channelPanel.revalidate();
+        channelPanel.repaint();
     }
 }
