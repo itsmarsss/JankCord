@@ -295,9 +295,13 @@ public class Jankcord {
             }
         } catch (Exception e) {
         }
+
+        chatBoxArea.deleteAll();
+
         for (int i = 0; i < messages.size(); i++) {
             chatBoxArea.addMessage(messages.get(i), i);
         }
+
         for (int i = 0; i < members.size(); i++) {
             chatBoxArea.addMember(members.get(i), i);
         }
