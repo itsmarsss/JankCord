@@ -244,17 +244,23 @@ public class Jankcord {
         } catch (Exception e) {
         }
 
+
+        boolean isSame = true;
         if (friends.size() != tempFriends.size()) {
-            return;
+            isSame = false;
+        } else {
+            for (int i = 0; i < friends.size(); i++) {
+                User friend = friends.get(i);
+                User tempFriend = friends.get(i);
+
+                if (!friend.isEqual(tempFriend)) {
+                    isSame = false;
+                }
+            }
         }
 
-        for(int i = 0; i < friends.size(); i++) {
-            User friend = friends.get(i);
-            User tempFriend = friends.get(i);
-
-            if(!friend.isEqual(tempFriend)) {
-                return;
-            }
+        if (isSame) {
+            return;
         }
 
         tempFriends = friends;
