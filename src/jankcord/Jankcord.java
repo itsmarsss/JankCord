@@ -97,8 +97,16 @@ public class Jankcord {
         fullUser = otherFullUser;
     }
 
+    public static FullUser getFullUser() {
+        return fullUser;
+    }
+
     public static void setOtherID(long id) {
         otherID = String.valueOf(id);
+    }
+
+    public static String getOtherID() {
+        return otherID;
     }
 
     // render frame and viewPanel
