@@ -53,15 +53,19 @@ public class GetMessages implements HttpHandler {
 
         String messages = "";
 
-        for (Message msg : JankcordAdmin.conversations.get(fileName)) {
-            messages += message.formatted(msg.getSender().getId(), msg.getSender().getUsername(), msg.getSender().getAvatarURL(), msg.getContent(), msg.getTimestamp());
+        if (!JankcordAdmin.conversations.containsKey(fileName)) {
+            messages = JankcordAdmin.readMessages(fileName);
+        } else {
+            for (Message msg : JankcordAdmin.conversations.get(fileName)) {
+                messages += message.formatted(msg.getSender().getId(), msg.getSender().getUsername(), msg.getSender().getAvatarURL(), msg.getContent(), msg.getTimestamp());
+            }
         }
 
         String textJSON = """
                 {
                     "users": [%s, %s],
                     "messages": [
-                    %s
+                        %s
                     ]
                 }
                 """.formatted(currentIDNum, otherIDNum, messages);

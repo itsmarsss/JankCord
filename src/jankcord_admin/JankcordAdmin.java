@@ -4,10 +4,14 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
+import jankcord.objects.User;
 import jankcord_admin.apihandlers.GetFriends;
 import jankcord_admin.apihandlers.GetMessages;
 import jankcord_admin.apihandlers.Login;
 import jankcord_admin.apihandlers.MainPage;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,8 +40,6 @@ public class JankcordAdmin {
 
         System.out.println("Parent path: " + parent);
 
-        readMessages();
-
         while (true) {
             System.out.print(">> ");
 
@@ -51,7 +53,7 @@ public class JankcordAdmin {
         }
     }
 
-    public static String readMessages() {
+    public static String readMessages(String fileName) {
         String textJSON = "";
 
         // Try to read file
@@ -71,6 +73,34 @@ public class JankcordAdmin {
             // Notify user that there was a reading error
             System.out.println("IO error reading.");
         }
+
+        ArrayList<Message> messages = new ArrayList<>();
+
+        try {
+            // Parse the JSON string
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray messagesArray = (JSONArray) jsonObject.get("messages");
+
+            // Loop through the "messages" array
+            for (Object message : messagesArray) {
+                JSONObject messageObject = (JSONObject) message;
+
+                // Read values from each message object
+                long id = (Long) messageObject.get("id");
+                String username = (String) messageObject.get("username");
+                String avatarURL = (String) messageObject.get("avatarURL");
+                String content = (String) messageObject.get("content");
+                long timestamp = (Long) messageObject.get("timestamp");
+
+                messages.add(new Message(new User(id, username, avatarURL), content, timestamp));
+            }
+        } catch (Exception e) {
+        }
+
+        conversations.put(fileName, messages);
 
         return textJSON;
     }
