@@ -28,16 +28,30 @@ public class GetMessages implements HttpHandler {
 
         String username = requestHeaders.get("username").get(0);
         String otherID = requestHeaders.get("otherID").get(0);
-        String currentID = "";
+
+        FullUser current = null;
+        FullUser other = null;
 
         for (FullUser account : JankcordAdmin.accounts) {
             if (account.getUsername().equals(username)) {
-                currentID = String.valueOf(account.getId());
+                current = account;
+            }
+
+            if(String.valueOf(account.getId()).equals(otherID)) {
+                other = account;
             }
         }
 
+        if(other == null) {
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write("403".getBytes());
+            outputStream.close();
+
+            return;
+        }
+
         long otherIDNum = Long.parseLong(otherID);
-        long currentIDNum = Long.parseLong(otherID);
+        long currentIDNum = current.getId();
 
         String fileName = Math.min(otherIDNum, currentIDNum) + "-" + Math.max(otherIDNum, currentIDNum);
 
@@ -63,12 +77,23 @@ public class GetMessages implements HttpHandler {
 
         String textJSON = """
                 {
-                    "users": [%s, %s],
+                    "users": [
+                        {
+                            "id": %s,
+                            "username": "%s",
+                            "avatarURL": "%s"
+                        },
+                        {
+                            "id": %s,
+                            "username": "%s",
+                            "avatarURL": "%s"
+                        }
+                    ],
                     "messages": [
                         %s
                     ]
                 }
-                """.formatted(currentIDNum, otherIDNum, messages);
+                """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages);
 
         exchange.getResponseHeaders().set("Content-Type", "text/json");
         exchange.sendResponseHeaders(200, textJSON.length());
