@@ -109,6 +109,8 @@ public class JankcordAdmin {
             return "IO error reading.";
         }
 
+        accounts.clear();
+
         try {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
