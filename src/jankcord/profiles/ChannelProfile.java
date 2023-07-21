@@ -1,5 +1,6 @@
 package jankcord.profiles;
 
+import jankcord.Jankcord;
 import jankcord.newclasses.ResourceLoader;
 import jankcord.objects.User;
 
@@ -64,7 +65,8 @@ public class ChannelProfile extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                Jankcord.setOtherID(friend.getId());
+                System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
             }
 
             @Override
