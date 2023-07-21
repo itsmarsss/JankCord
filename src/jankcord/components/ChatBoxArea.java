@@ -225,8 +225,10 @@ public class ChatBoxArea extends JPanel {
 
     public void deleteAll() {
         messageProfiles.clear();
+        memberProfiles.clear();
 
         chatPanel.removeAll();
+        membersPanel.removeAll();
     }
 
     public void addMessage(Message message, int index) {
@@ -243,8 +245,10 @@ public class ChatBoxArea extends JPanel {
     public void addMember(User member, int index) {
         MemberProfile cp = new MemberProfile(member);
         memberProfiles.add(cp);
+
         gbc.gridx = 0;
         gbc.gridy = index;
+
         membersPanel.add(cp, gbc);
     }
 
