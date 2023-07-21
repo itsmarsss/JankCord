@@ -36,13 +36,13 @@ public class User {
     }
 
     public boolean isEqual(User tempFriend) {
-        if(id != tempFriend.id) {
+        if (id != tempFriend.id) {
             return false;
         }
-        if(username != tempFriend.username) {
+        if (!username.equals(tempFriend.getUsername())) {
             return false;
         }
-        if(avatarURL != tempFriend.avatarURL) {
+        if (!avatarURL.equals(tempFriend.getAvatarURL())) {
             return false;
         }
 
