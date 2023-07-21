@@ -16,7 +16,12 @@ import java.util.Map;
 public class GetMessages implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        //System.out.println("Messages Requested");
+
         if (!JankcordAdmin.authorized(exchange)) {
+            exchange.getResponseHeaders().set("Content-Type", "text/json");
+            exchange.sendResponseHeaders(200, 3);
+
             OutputStream outputStream = exchange.getResponseBody();
             outputStream.write("403".getBytes());
             outputStream.close();
