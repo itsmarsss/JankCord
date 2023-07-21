@@ -61,8 +61,8 @@ public class JankcordAdmin {
 
         String help = "";
 
-        for(Method method : methods) {
-            if(method.getName().equals("equals")) {
+        for (Method method : methods) {
+            if (method.getName().equals("equals")) {
                 break;
             }
 
@@ -95,7 +95,7 @@ public class JankcordAdmin {
                 }
                 """.formatted(accountList);
 
-        if(JankFileKit.writeFile(parent + "/accounts/accounts.json", accounts)) {
+        if (JankFileKit.writeFile(parent + "/accounts/accounts.json", accounts)) {
             return "Successfully written accounts.json file.";
         } else {
             return "IO error writing.";
@@ -178,6 +178,8 @@ public class JankcordAdmin {
         }
 
         conversations.put(fileName, messages);
+
+        System.out.println("File read. [" + fileName + "]");
 
         return textJSON;
     }
