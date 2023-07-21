@@ -11,7 +11,8 @@ public class FullUser extends User {
         super(id, username, avatarURL);
 
         this.password = password;
-        this.endPointHost = decode(endPointHost) + "/api/v1/";
+        //this.endPointHost = decode(endPointHost) + "/api/v1/";
+        this.endPointHost = endPointHost;
     }
 
     public FullUser(long id, String username, String avatarURL, String password, String endPointHost, String status) {
