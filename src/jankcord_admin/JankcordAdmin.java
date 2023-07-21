@@ -56,7 +56,23 @@ public class JankcordAdmin {
         }
     }
 
-    public static void writeAccounts() {
+    public static String help() {
+        Method[] methods = JankcordAdmin.class.getMethods();
+
+        String help = "";
+
+        for(Method method : methods) {
+            if(method.getName().equals("equals")) {
+                break;
+            }
+
+            help += method.getName() + "\n";
+        }
+
+        return help;
+    }
+
+    public static String writeAccounts() {
         String accountList = "";
 
         for (FullUser account : accounts) {
@@ -65,9 +81,10 @@ public class JankcordAdmin {
                           "id": %s,
                           "username": "%s",
                           "password": "%S",
-                          "avatarURL": "%s"
+                          "avatarURL": "%s",
+                          "status": "%s"
                       },
-                    """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL());
+                    """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL(), account.getStatus());
         }
 
         String accounts = """
@@ -78,30 +95,19 @@ public class JankcordAdmin {
                 }
                 """.formatted(accountList);
 
-        JankFileWriter.writeFile(parent + "/accounts/accounts.json", accounts);
+        if(JankFileKit.writeFile(parent + "/accounts/accounts.json", accounts)) {
+            return "Successfully written accounts.json file.";
+        } else {
+            return "IO error writing.";
+        }
     }
 
     public static String readAccounts() {
-        String textJSON = "";
+        String textJSON = JankFileKit.readFile(parent + "/accounts/accounts.json");
 
-        // Try to read file
-        try {
-            // Create BufferedReader to ready inventory.txt
-            BufferedReader br = new BufferedReader(new FileReader(parent + "/accounts/accounts.json"));
-
-            // Declare String line to be used later on
-            String line;
-
-            // While the read line is not empty
-            while ((line = br.readLine()) != null) {
-                textJSON += line + "\n";
-            }
-        } catch (Exception e) { // If error
-            // Notify user that there was a reading error
+        if (textJSON == null) {
             return "IO error reading.";
         }
-
-        ArrayList<Message> messages = new ArrayList<>();
 
         try {
             // Parse the JSON string
@@ -120,8 +126,9 @@ public class JankcordAdmin {
                 String username = (String) messageObject.get("username");
                 String password = (String) messageObject.get("password");
                 String avatarURL = (String) messageObject.get("avatarURL");
+                String status = (String) messageObject.get("status");
 
-                accounts.add(new FullUser(id, username, avatarURL, password, ""));
+                accounts.add(new FullUser(id, username, avatarURL, password, "", status));
             }
         } catch (Exception e) {
             return "JSON error parsing.";
@@ -130,24 +137,15 @@ public class JankcordAdmin {
         return "Successfully read accounts.json file.";
     }
 
+    public static String writeMessages(String fileName) {
+        return null;
+    }
+
     public static String readMessages(String fileName) {
-        String textJSON = "";
+        String textJSON = JankFileKit.readFile(parent + "/messages/" + fileName + ".json");
 
-        // Try to read file
-        try {
-            // Create BufferedReader to ready inventory.txt
-            BufferedReader br = new BufferedReader(new FileReader(parent + "/messages/" + fileName + ".json"));
-
-
-            // Declare String line to be used later on
-            String line;
-
-            // While the read line is not empty
-            while ((line = br.readLine()) != null) {
-                textJSON += line + "\n";
-            }
-        } catch (Exception e) { // If error
-            // Notify user that there was a reading error
+        if (textJSON == null) {
+            textJSON = "";
             System.out.println("IO error reading.");
         }
 
