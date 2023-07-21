@@ -127,5 +127,8 @@ public class ChannelList extends JPanel {
 //            gbc.insets = new Insets(0, 25, 10, 1);
 //        }
         channelPanel.add(cp, gbc);
+
+        channelPanel.revalidate();
+        channelPanel.repaint();
     }
 }
