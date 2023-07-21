@@ -1,25 +1,42 @@
 package jankcord_admin;
 
+import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
+import jankcord.objects.Message;
 import jankcord_admin.apihandlers.GetFriends;
 import jankcord_admin.apihandlers.GetMessages;
 import jankcord_admin.apihandlers.Login;
 import jankcord_admin.apihandlers.MainPage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class JankcordAdmin {
+
     private static Scanner sc = new Scanner(System.in);
     public static ArrayList<FullUser> accounts = new ArrayList<>();
+    public static HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
+    public static String parent;
 
     public static void startAdmin() {
         System.out.println("Welcome to JankCord Admin Dashboard.");
+
+        try {
+            parent = new File(JankcordAdmin.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        } catch (Exception e) {
+            System.out.println("Unable to obtain parent path.");
+            System.exit(1);
+        }
+
+        System.out.println("Parent path: " + parent);
+
+        readMessages();
 
         while (true) {
             System.out.print(">> ");
@@ -32,6 +49,30 @@ public class JankcordAdmin {
                 System.out.println("Command \"" + cmdReq + "\" is not recognized. Use 'help' for more commands.");
             }
         }
+    }
+
+    public static String readMessages() {
+        String textJSON = "";
+
+        // Try to read file
+        try {
+            // Create BufferedReader to ready inventory.txt
+            BufferedReader br = new BufferedReader(new FileReader(JankcordAdmin.parent + "/messages/" + fileName + ".json"));
+
+
+            // Declare String line to be used later on
+            String line;
+
+            // While the read line is not empty
+            while ((line = br.readLine()) != null) {
+                textJSON += line + "\n";
+            }
+        } catch (Exception e) { // If error
+            // Notify user that there was a reading error
+            System.out.println("IO error reading.");
+        }
+
+        return textJSON;
     }
 
     public static String createAccount() {
@@ -101,7 +142,7 @@ public class JankcordAdmin {
 
         int index = searchForAccount(idNum, 0, accounts.size() - 1);
 
-        if(index == -1) {
+        if (index == -1) {
             return "ID # not found.";
         }
 
@@ -123,7 +164,7 @@ public class JankcordAdmin {
 
         int index = searchForAccount(idNum, 0, accounts.size() - 1);
 
-        if(index == -1) {
+        if (index == -1) {
             return "ID # not found.";
         }
 
@@ -177,7 +218,7 @@ public class JankcordAdmin {
 
         int index = searchForAccount(idNum, 0, accounts.size() - 1);
 
-        if(index == -1) {
+        if (index == -1) {
             return "ID # not found.";
         }
 
@@ -212,6 +253,8 @@ public class JankcordAdmin {
         server.start();
 
         port = server.getAddress().getPort();
+
+        System.out.println(port);
 
         return "JankCord server started.";
     }
@@ -248,5 +291,20 @@ public class JankcordAdmin {
             // Use recursion; search right of middle, so middle + 1 to rightPoint
             return searchForAccount(idNum, middle + 1, rightPoint);
         }
+    }
+
+    public static boolean authorized(HttpExchange exchange) {
+        Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
+
+        String username = requestHeaders.get("username").get(0);
+        String password = requestHeaders.get("password").get(0);
+
+        for(FullUser account : JankcordAdmin.accounts) {
+            if(account.getUsername().equals(username) && account.getPassword().equals(password)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

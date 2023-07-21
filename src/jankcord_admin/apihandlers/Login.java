@@ -13,18 +13,9 @@ import java.util.Map;
 public class Login implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
+        System.out.println("Account Login Requested");
 
-        String username = requestHeaders.get("username").get(0);
-        String password = requestHeaders.get("password").get(0);
-
-        String response = "denied";
-
-        for(FullUser account : JankcordAdmin.accounts) {
-            if(account.getUsername().equals(username) && account.getPassword().equals(password)) {
-                response = "succeeded";
-            }
-        }
+        String response = JankcordAdmin.authorized(exchange) ? "200" : "403";
 
         exchange.getResponseHeaders().set("Content-Type", "text/html");
         exchange.sendResponseHeaders(200, response.length());

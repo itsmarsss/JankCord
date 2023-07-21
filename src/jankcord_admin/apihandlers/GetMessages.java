@@ -2,7 +2,12 @@ package jankcord_admin.apihandlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import jankcord.objects.FullUser;
+import jankcord.objects.Message;
+import jankcord_admin.JankcordAdmin;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -11,28 +16,61 @@ import java.util.Map;
 public class GetMessages implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
+        if (!JankcordAdmin.authorized(exchange)) {
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write("403".getBytes());
+            outputStream.close();
 
-        // Prepare the response
-        StringBuilder response = new StringBuilder();
-        response.append("<html><body>");
-
-        response.append("<h1>Request Headers:</h1>");
-        for (Map.Entry<String, List<String>> entry : requestHeaders.entrySet()) {
-            String headerName = entry.getKey();
-            List<String> headerValues = entry.getValue();
-            response.append("<p>").append(headerName).append(": ").append(headerValues).append("</p>");
+            return;
         }
 
-        response.append("</body></html>");
+        Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
 
-        // Set the response headers
-        exchange.getResponseHeaders().set("Content-Type", "text/html");
-        exchange.sendResponseHeaders(200, response.length());
+        String username = requestHeaders.get("username").get(0);
+        String otherID = requestHeaders.get("otherID").get(0);
+        String currentID = "";
 
-        // Send the response
+        for (FullUser account : JankcordAdmin.accounts) {
+            if (account.getUsername().equals(username)) {
+                currentID = String.valueOf(account.getId());
+            }
+        }
+
+        long otherIDNum = Long.parseLong(otherID);
+        long currentIDNum = Long.parseLong(otherID);
+
+        String fileName = Math.min(otherIDNum, currentIDNum) + "-" + Math.max(otherIDNum, currentIDNum);
+
+        String message = """
+                {
+                    "id": %s,
+                    "username": "%s",
+                    "avatarURL": "%s",
+                    "content": "%s",
+                    "timestamp": %s
+                },
+                """;
+
+        String messages = "";
+
+        for (Message msg : JankcordAdmin.conversations.get(fileName)) {
+            messages += message.formatted(msg.getSender().getId(), msg.getSender().getUsername(), msg.getSender().getAvatarURL(), msg.getContent(), msg.getTimestamp());
+        }
+
+        String textJSON = """
+                {
+                    "users": [%s, %s],
+                    "messages": [
+                    %s
+                    ]
+                }
+                """.formatted(currentIDNum, otherIDNum, messages);
+
+        exchange.getResponseHeaders().set("Content-Type", "text/json");
+        exchange.sendResponseHeaders(200, textJSON.length());
+
         OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(response.toString().getBytes());
+        outputStream.write(textJSON.getBytes());
         outputStream.close();
     }
 }
