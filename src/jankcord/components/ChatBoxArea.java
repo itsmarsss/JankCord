@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
+import jankcord.ServerCommunicator;
 import jankcord.newclasses.DeletePrevCharAction;
 import jankcord.newclasses.ResourceLoader;
 import jankcord.newclasses.ScrollBarUI;
@@ -120,7 +122,17 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                reline();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("username", Jankcord.getFullUser().getUsername());
+                    headers.put("password", Jankcord.getFullUser().getPassword());
+                    headers.put("otherID", Jankcord.getOtherID());
+                    headers.put("content", textArea.getText());
+
+                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+                } else {
+                    reline();
+                }
             }
 
             @Override
