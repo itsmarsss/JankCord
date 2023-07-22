@@ -33,7 +33,7 @@ public class Login implements HttpHandler {
             response = """
                     {
                         "id": %s,
-                        "avatarURL": "%s" 
+                        "avatarURL": "%s"
                     }
                     """.formatted(user.getId(), user.getAvatarURL());
         }

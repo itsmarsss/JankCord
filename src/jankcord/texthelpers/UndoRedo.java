@@ -3,6 +3,7 @@ package jankcord.texthelpers;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.Serial;
 
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
@@ -19,16 +20,13 @@ public class UndoRedo {
 
 	public static void makeUndoable(JTextComponent pTextComponent) {
 		final UndoManager undoMgr = new UndoManager();
-		pTextComponent.getDocument().addUndoableEditListener(new UndoableEditListener() {
-			public void undoableEditHappened(UndoableEditEvent evt) {
-				undoMgr.addEdit(evt.getEdit());
-			}
-		});
+		pTextComponent.getDocument().addUndoableEditListener(evt -> undoMgr.addEdit(evt.getEdit()));
 
 		pTextComponent.getActionMap().put(UNDO_ACTION, new AbstractAction(UNDO_ACTION) {
 			/**
 			 * 
 			 */
+			@Serial
 			private static final long serialVersionUID = 1L;
 
 			public void actionPerformed(ActionEvent evt) {
@@ -47,6 +45,7 @@ public class UndoRedo {
 			/**
 			 * 
 			 */
+			@Serial
 			private static final long serialVersionUID = 1L;
 
 			public void actionPerformed(ActionEvent evt) {

@@ -42,10 +42,6 @@ public class User {
         if (!username.equals(tempFriend.getUsername())) {
             return false;
         }
-        if (!avatarURL.equals(tempFriend.getAvatarURL())) {
-            return false;
-        }
-
-        return true;
+        return avatarURL.equals(tempFriend.getAvatarURL());
     }
 }

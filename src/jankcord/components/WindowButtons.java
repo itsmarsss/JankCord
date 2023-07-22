@@ -2,6 +2,7 @@ package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serial;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ public class WindowButtons extends JPanel {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public WindowButtons() {

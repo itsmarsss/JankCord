@@ -3,6 +3,7 @@ package jankcord.components;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -22,6 +23,7 @@ public class ChatBoxArea extends JPanel {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private JPanel chatBoxTopBarPanel;

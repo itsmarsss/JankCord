@@ -1,6 +1,7 @@
 package jankcord.texthelpers;
 
 import java.awt.event.ActionEvent;
+import java.io.Serial;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Caret;
@@ -13,6 +14,7 @@ public class DeletePrevCharAction extends TextAction {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public DeletePrevCharAction() {

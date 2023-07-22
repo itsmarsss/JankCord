@@ -39,10 +39,6 @@ public class Message {
         if(!content.equals(tempMessage.getContent())) {
             return false;
         }
-        if(timestamp != tempMessage.getTimestamp()) {
-            return false;
-        }
-
-        return true;
+        return timestamp == tempMessage.getTimestamp();
     }
 }

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.Serial;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class ServerList extends JScrollPane {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public ServerList() {
@@ -73,7 +75,7 @@ public class ServerList extends JScrollPane {
 		serverPanel.add(splitLabel, gbc);
 		
 			// Servers
-		LinkedList<ServerProfile>serverProfiles = new LinkedList<ServerProfile>();
+		LinkedList<ServerProfile>serverProfiles = new LinkedList<>();
 		int i = 2;
 		while(i < 12) {
 			ServerProfile sp = new ServerProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), "ID");

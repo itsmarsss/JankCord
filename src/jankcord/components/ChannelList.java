@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.Serial;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class ChannelList extends JPanel {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private JPanel channelPanel;
@@ -84,8 +86,6 @@ public class ChannelList extends JPanel {
 
         // Channels
         initChannelPanel();
-
-        int i = 2;
 
         gbc.insets = new Insets(0, 25, 3, 1);
 

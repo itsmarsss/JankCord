@@ -3,6 +3,7 @@ package jankcord.profiles;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.Serial;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ public class FriendProfile extends JPanel {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public FriendProfile() {

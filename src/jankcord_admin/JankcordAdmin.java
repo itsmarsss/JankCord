@@ -4,15 +4,12 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
-import jankcord.objects.User;
 import jankcord_admin.apihandlers.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
@@ -45,6 +42,10 @@ public class JankcordAdmin {
 
             String cmdReq = sc.next();
 
+            if(cmdReq.equals("quit")) {
+                break;
+            }
+
             try {
                 System.out.println(JankcordAdmin.class.getMethod(cmdReq).invoke(null));
             } catch (Exception e) {
@@ -56,24 +57,24 @@ public class JankcordAdmin {
     public static String help() {
         Method[] methods = JankcordAdmin.class.getMethods();
 
-        String help = "";
+        StringBuilder help = new StringBuilder();
 
         for (Method method : methods) {
             if (method.getName().equals("equals")) {
                 break;
             }
 
-            help += method.getName() + "\n";
+            help.append(method.getName()).append("\n");
         }
 
-        return help;
+        return help.toString();
     }
 
     public static String writeAccounts() {
-        String accountList = "";
+        StringBuilder accountList = new StringBuilder();
 
         for (FullUser account : accounts) {
-            accountList += """
+            accountList.append("""
                       {
                           "id": %s,
                           "username": "%s",
@@ -81,7 +82,7 @@ public class JankcordAdmin {
                           "avatarURL": "%s",
                           "status": "%s"
                       },
-                    """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL(), account.getStatus());
+                    """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL(), account.getStatus()));
         }
 
         String accounts = """
@@ -90,7 +91,7 @@ public class JankcordAdmin {
                         %s
                     ]
                 }
-                """.formatted(accountList);
+                """.formatted(accountList.toString());
 
         if (JankFileKit.writeFile(parent + "/accounts/accounts.json", accounts)) {
             return "Successfully written accounts.json file.";

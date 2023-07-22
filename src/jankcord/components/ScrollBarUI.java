@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.io.Serial;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -29,6 +30,7 @@ public class ScrollBarUI extends BasicScrollBarUI {
 			/**
 			 * 
 			 */
+			@Serial
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -44,6 +46,7 @@ public class ScrollBarUI extends BasicScrollBarUI {
 			/**
 			 * 
 			 */
+			@Serial
 			private static final long serialVersionUID = 1L;
 
 			@Override

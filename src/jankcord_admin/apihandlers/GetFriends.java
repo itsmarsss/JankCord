@@ -24,16 +24,16 @@ public class GetFriends implements HttpHandler {
             return;
         }
 
-        String friendsList = "";
+        StringBuilder friendsList = new StringBuilder();
 
         for (FullUser account : JankcordAdmin.accounts) {
-            friendsList += """
+            friendsList.append("""
                     {
                         "id": %s,
                         "username": "%s",
                         "avatarURL": "%s"
                     },
-                    """.formatted(account.getId(), account.getUsername(), account.getAvatarURL());
+                    """.formatted(account.getId(), account.getUsername(), account.getAvatarURL()));
         }
 
         String friends = """
@@ -41,9 +41,8 @@ public class GetFriends implements HttpHandler {
                     "friends": [
                         %s
                     ]
-                }        
-                """.formatted(friendsList);
-        ;
+                }
+                """.formatted(friendsList.toString());
 
         exchange.getResponseHeaders().set("Content-Type", "text/json");
         exchange.sendResponseHeaders(200, friends.length());

@@ -6,8 +6,6 @@ import jankcord.objects.FullUser;
 import jankcord.objects.Message;
 import jankcord_admin.JankcordAdmin;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -71,13 +69,13 @@ public class GetMessages implements HttpHandler {
                 },
                 """;
 
-        String messages = "";
+        StringBuilder messages = new StringBuilder();
 
         if (!JankcordAdmin.conversations.containsKey(fileName)) {
-            messages = JankcordAdmin.readMessages(fileName);
+            messages = new StringBuilder(JankcordAdmin.readMessages(fileName));
         } else {
             for (Message msg : JankcordAdmin.conversations.get(fileName)) {
-                messages += message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp());
+                messages.append(message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp()));
             }
         }
 
@@ -99,7 +97,7 @@ public class GetMessages implements HttpHandler {
                         %s
                     ]
                 }
-                """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages);
+                """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages.toString());
 
         exchange.getResponseHeaders().set("Content-Type", "text/json");
         exchange.sendResponseHeaders(200, textJSON.length());

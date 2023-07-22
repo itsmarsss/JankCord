@@ -16,13 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class JankLogin extends JFrame {
-    private JLabel usernameLabel = new JLabel("Username:");
     private JTextField usernameInput = new JTextField();
-    private JLabel passwordLabel = new JLabel("Password:");
     private JPasswordField passwordInput = new JPasswordField();
-    private JLabel serverLabel = new JLabel("Server:");
     private JTextField serverInput = new JTextField();
-    private JButton loginButton = new JButton("Login");
     private JLabel statusLabel = new JLabel("");
 
     // Frame dragging
@@ -103,6 +99,7 @@ public class JankLogin extends JFrame {
 
         getContentPane().add(closeButton);
 
+        JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setSize(150, 30);
         usernameLabel.setLocation(100, 100);
         usernameLabel.setForeground(new Color(114, 118, 125));
@@ -119,6 +116,7 @@ public class JankLogin extends JFrame {
         usernameInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
         getContentPane().add(usernameInput);
 
+        JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setSize(150, 30);
         passwordLabel.setLocation(100, 250);
         passwordLabel.setForeground(new Color(114, 118, 125));
@@ -135,6 +133,7 @@ public class JankLogin extends JFrame {
         passwordInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
         getContentPane().add(passwordInput);
 
+        JLabel serverLabel = new JLabel("Server:");
         serverLabel.setSize(150, 30);
         serverLabel.setLocation(100, 400);
         serverLabel.setForeground(new Color(114, 118, 125));
@@ -157,6 +156,7 @@ public class JankLogin extends JFrame {
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
         getContentPane().add(statusLabel);
 
+        JButton loginButton = new JButton("Login");
         loginButton.setSize(300, 50);
         loginButton.setLocation(100, 600);
         loginButton.setFont(new Font("Whitney", Font.BOLD, 28));

@@ -50,6 +50,7 @@ public class Jankcord {
         for (String arg : args) {
             if (arg.equals("--server")) {
                 isServer = true;
+                break;
             }
         }
 

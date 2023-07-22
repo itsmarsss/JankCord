@@ -23,7 +23,7 @@ public class JankFileKit {
     }
 
     public static String readFile(String file) {
-        String textJSON = "";
+        StringBuilder textJSON = new StringBuilder();
 
         // Try to read file
         try {
@@ -35,7 +35,7 @@ public class JankFileKit {
 
             // While the read line is not empty
             while ((line = br.readLine()) != null) {
-                textJSON += line + "\n";
+                textJSON.append(line).append("\n");
             }
 
             br.close();
@@ -44,6 +44,6 @@ public class JankFileKit {
             return null;
         }
 
-        return textJSON;
+        return textJSON.toString();
     }
 }

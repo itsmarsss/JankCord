@@ -1,6 +1,7 @@
 package jankcord.profiles;
 
 import java.awt.Image;
+import java.io.Serial;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ public class ServerProfile extends JLabel {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String serverID;
