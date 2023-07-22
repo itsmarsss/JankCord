@@ -161,6 +161,8 @@ public class JankLogin extends JFrame {
         JButton loginButton = new JButton("Login");
         loginButton.setSize(300, 50);
         loginButton.setLocation(100, 600);
+        loginButton.setBackground(new Color(78, 80, 88));
+        loginButton.setForeground(new Color(219, 222, 225));
         loginButton.setFont(new Font("Whitney", Font.BOLD, 28));
         loginButton.setBorder(null);
         loginButton.addMouseListener(new MouseListener() {
@@ -230,8 +232,6 @@ public class JankLogin extends JFrame {
                 }
             }
         });
-        loginButton.setBackground(new Color(78, 80, 88));
-        loginButton.setForeground(new Color(219, 222, 225));
 
         getContentPane().add(loginButton);
     }
