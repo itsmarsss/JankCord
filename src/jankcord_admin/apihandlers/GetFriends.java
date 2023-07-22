@@ -26,7 +26,7 @@ public class GetFriends implements HttpHandler {
 
         String friendsList = "";
 
-        for(FullUser account : JankcordAdmin.accounts) {
+        for (FullUser account : JankcordAdmin.accounts) {
             friendsList += """
                     {
                         "id": %s,
@@ -43,6 +43,7 @@ public class GetFriends implements HttpHandler {
                     ]
                 }        
                 """.formatted(friendsList);
+        ;
 
         exchange.getResponseHeaders().set("Content-Type", "text/json");
         exchange.sendResponseHeaders(200, friends.length());

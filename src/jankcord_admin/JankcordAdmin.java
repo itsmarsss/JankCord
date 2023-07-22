@@ -164,12 +164,10 @@ public class JankcordAdmin {
 
                 // Read values from each message object
                 long id = (Long) messageObject.get("id");
-                String username = (String) messageObject.get("username");
-                String avatarURL = (String) messageObject.get("avatarURL");
                 String content = (String) messageObject.get("content");
                 long timestamp = (Long) messageObject.get("timestamp");
 
-                messages.add(new Message(new User(id, username, avatarURL), content, timestamp));
+                messages.add(new Message(id, content, timestamp));
             }
         } catch (Exception e) {
         }

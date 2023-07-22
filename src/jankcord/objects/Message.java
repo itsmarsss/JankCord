@@ -1,22 +1,22 @@
 package jankcord.objects;
 
 public class Message {
-    private User sender;
+    private long senderID;
     private String content;
     private long timestamp;
 
-    public Message(User sender, String content, long timestamp) {
-        this.sender = sender;
+    public Message(long senderID, String content, long timestamp) {
+        this.senderID = senderID;
         this.content = content;
         this.timestamp = timestamp;
     }
 
-    public User getSender() {
-        return sender;
+    public long getSenderID() {
+        return senderID;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderID(long senderID) {
+        this.senderID = senderID;
     }
 
     public String getContent() {
@@ -36,9 +36,6 @@ public class Message {
     }
 
     public boolean isEqual(Message tempMessage) {
-        if(!sender.isEqual(tempMessage.getSender())) {
-            return false;
-        }
         if(!content.equals(tempMessage.getContent())) {
             return false;
         }

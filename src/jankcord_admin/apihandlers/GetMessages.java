@@ -66,8 +66,6 @@ public class GetMessages implements HttpHandler {
         String message = """
                 {
                     "id": %s,
-                    "username": "%s",
-                    "avatarURL": "%s",
                     "content": "%s",
                     "timestamp": %s
                 },
@@ -79,7 +77,7 @@ public class GetMessages implements HttpHandler {
             messages = JankcordAdmin.readMessages(fileName);
         } else {
             for (Message msg : JankcordAdmin.conversations.get(fileName)) {
-                messages += message.formatted(msg.getSender().getId(), msg.getSender().getUsername(), msg.getSender().getAvatarURL(), msg.getContent(), msg.getTimestamp());
+                messages += message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp());
             }
         }
 

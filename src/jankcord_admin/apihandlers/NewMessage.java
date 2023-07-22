@@ -62,7 +62,7 @@ public class NewMessage implements HttpHandler {
 
         String fileName = Math.min(otherIDNum, currentIDNum) + "-" + Math.max(otherIDNum, currentIDNum);
 
-        JankcordAdmin.conversations.get(fileName).add(new Message(current, content, System.currentTimeMillis()));
+        JankcordAdmin.conversations.get(fileName).add(new Message(current.getId(), content, System.currentTimeMillis()));
 
         exchange.getResponseHeaders().set("Content-Type", "text/html");
         exchange.sendResponseHeaders(200, 3);
