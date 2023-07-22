@@ -1,8 +1,15 @@
 package jankcord.popups;
 
+import jankcord.Jankcord;
+import jankcord.components.button.JankButton;
+import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.objects.FullUser;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.texthelpers.DeletePrevCharAction;
+import jankcord.tools.ServerCommunicator;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
@@ -11,12 +18,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RequestGroupChat extends JFrame {
-
-    private JLabel reasonLabel;
-    private JTextArea reasonTextArea;
-    private JButton submitButton;
 
     // Frame dragging
     private int posX = 0, posY = 0;
@@ -99,14 +103,16 @@ public class RequestGroupChat extends JFrame {
 
         getContentPane().add(closeButton);
 
-        reasonLabel = new JLabel("Reason:");
+
+        JLabel reasonLabel = new JLabel("Reason:");
         reasonLabel.setSize(200, 30);
         reasonLabel.setLocation(100, 100);
         reasonLabel.setForeground(new Color(114, 118, 125));
         reasonLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(reasonLabel);
 
-        reasonTextArea = new JTextArea();
+
+        JTextArea reasonTextArea = new JTextArea();
         reasonTextArea.setSize(350, 450);
         reasonTextArea.setLocation(100, 150);
         reasonTextArea.setBackground(new Color(56, 58, 64));
@@ -129,35 +135,21 @@ public class RequestGroupChat extends JFrame {
         reasonTextAreaCont.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(12, 14, 17), false));
         getContentPane().add(reasonTextAreaCont);
 
-        submitButton = new JButton("Submit");
-        submitButton.setSize(350, 50);
-        submitButton.setLocation(100, 600);
-        submitButton.setBackground(new Color(78, 80, 88));
-        submitButton.setForeground(new Color(219, 222, 225));
-        submitButton.setFont(new Font("Whitney", Font.BOLD, 28));
-        submitButton.setBorder(null);
-        submitButton.addMouseListener(new MouseListener() {
+        JankButton submitButton = new JankButton("Submit", 350, 50, 100, 600);
+        submitButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void run() {
+                HashMap<String, String> headers = new HashMap<>();
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                e.getComponent().setBackground(new Color(128, 132, 142));
-            }
+                String username = Jankcord.getFullUser().getUsername();
+                String password = Jankcord.getFullUser().getPassword();
+                String server = Jankcord.getFullUser().getEndPointHost();
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                e.getComponent().setBackground(new Color(109, 111, 120));
-            }
+                headers.put("username", username);
+                headers.put("password", password);
+                headers.put("reason", reasonTextArea.getText());
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                e.getComponent().setBackground(new Color(78, 80, 88));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
+                ServerCommunicator.sendHttpRequest(server + "/requestgroupchat", headers);
             }
         });
 

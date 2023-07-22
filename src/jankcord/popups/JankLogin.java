@@ -1,6 +1,8 @@
 package jankcord.popups;
 
 import jankcord.Jankcord;
+import jankcord.components.button.JankButton;
+import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.texthelpers.DeletePrevCharAction;
@@ -160,35 +162,10 @@ public class JankLogin extends JFrame {
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
         getContentPane().add(statusLabel);
 
-        JButton loginButton = new JButton("Login");
-        loginButton.setSize(300, 50);
-        loginButton.setLocation(100, 600);
-        loginButton.setBackground(new Color(78, 80, 88));
-        loginButton.setForeground(new Color(219, 222, 225));
-        loginButton.setFont(new Font("Whitney", Font.BOLD, 28));
-        loginButton.setBorder(null);
-        loginButton.addMouseListener(new MouseListener() {
+        JankButton loginButton = new JankButton("Login", 300, 50, 100, 600);
+        loginButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                e.getComponent().setBackground(new Color(128, 132, 142));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                e.getComponent().setBackground(new Color(109, 111, 120));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                e.getComponent().setBackground(new Color(78, 80, 88));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
+            public void run() {
                 HashMap<String, String> headers = new HashMap<>();
 
                 String username = usernameInput.getText();
