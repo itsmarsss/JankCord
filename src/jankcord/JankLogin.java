@@ -69,7 +69,7 @@ public class JankLogin extends JFrame {
         closeButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
+                System.exit(0);
             }
 
             @Override
