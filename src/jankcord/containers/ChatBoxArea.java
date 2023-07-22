@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
+import jankcord.components.texts.JankTextArea;
 import jankcord.tools.ServerCommunicator;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.texthelpers.DeletePrevCharAction;
@@ -25,7 +26,7 @@ public class ChatBoxArea extends JPanel {
     private JScrollPane chatBoxScrollPane;
     private JPanel typePanel;
 
-    private JTextArea textArea;
+    private JankTextArea textArea;
     private JScrollPane typeScrollPane;
     private JPanel membersPanel;
     private JScrollPane membersScrollPane;
@@ -84,7 +85,7 @@ public class ChatBoxArea extends JPanel {
         typePanel.setBackground(new Color(64, 68, 75));
         typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 75);
 
-        textArea = new JTextArea();
+        textArea = new JankTextArea();
         typeScrollPane = new JScrollPane(textArea);
         typeScrollPane.setBorder(null);
         typeScrollPane.setLocation(10, 8);
@@ -103,9 +104,7 @@ public class ChatBoxArea extends JPanel {
         textArea.setText("Write a Message");
         textArea.setBackground(new Color(64, 68, 75));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setCaretColor(new Color(255, 255, 255));
         textArea.setFont(new Font("Whitney", Font.PLAIN, 30));
-        textArea.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
 
         UndoRedo.makeUndoable(textArea);
 

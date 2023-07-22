@@ -3,6 +3,7 @@ package jankcord.popups;
 import jankcord.Jankcord;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.components.texts.JankTextArea;
 import jankcord.objects.FullUser;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
@@ -112,15 +113,7 @@ public class RequestGroupChat extends JFrame {
         getContentPane().add(reasonLabel);
 
 
-        JTextArea reasonTextArea = new JTextArea();
-        reasonTextArea.setSize(350, 450);
-        reasonTextArea.setLocation(100, 150);
-        reasonTextArea.setBackground(new Color(56, 58, 64));
-        reasonTextArea.setForeground(new Color(219, 222, 225));
-        reasonTextArea.setCaretColor(Color.white);
-        reasonTextArea.setFont(new Font("Whitney", Font.BOLD, 28));
-        reasonTextArea.setBorder(null);
-        reasonTextArea.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
+        JankTextArea reasonTextArea = new JankTextArea(300, 450, 100, 150);
 
         JScrollPane reasonTextAreaCont = new JScrollPane(reasonTextArea);
 
