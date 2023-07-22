@@ -1,6 +1,6 @@
 package jankcord.objects;
 
-import jankcord.ResourceLoader;
+import jankcord.tools.ResourceLoader;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package jankcord.components;
+package jankcord.components.windowbuttons;
 
 import java.awt.Color;
 import java.awt.Frame;

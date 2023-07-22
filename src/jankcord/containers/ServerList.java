@@ -1,4 +1,4 @@
-package jankcord.components;
+package jankcord.containers;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import jankcord.Jankcord;
-import jankcord.ResourceLoader;
+import jankcord.tools.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
 import jankcord.profiles.ExploreProfile;
 import jankcord.profiles.HomeProfile;

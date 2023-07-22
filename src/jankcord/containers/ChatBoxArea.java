@@ -1,4 +1,4 @@
-package jankcord.components;
+package jankcord.containers;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,7 +10,8 @@ import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
-import jankcord.ServerCommunicator;
+import jankcord.tools.ServerCommunicator;
+import jankcord.components.ScrollBarUI;
 import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.texthelpers.UndoRedo;
 import jankcord.objects.Message;

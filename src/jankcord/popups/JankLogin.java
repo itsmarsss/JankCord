@@ -1,5 +1,8 @@
-package jankcord;
+package jankcord.popups;
 
+import jankcord.Jankcord;
+import jankcord.tools.ResourceLoader;
+import jankcord.tools.ServerCommunicator;
 import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.objects.FullUser;
 import org.json.simple.JSONObject;
@@ -13,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class JankLogin extends JFrame {
     private JTextField usernameInput = new JTextField();

@@ -1,6 +1,7 @@
-package jankcord.components;
+package jankcord.popups;
 
-import jankcord.ResourceLoader;
+import jankcord.tools.ResourceLoader;
+import jankcord.components.ScrollBarUI;
 import jankcord.texthelpers.DeletePrevCharAction;
 
 import javax.swing.*;

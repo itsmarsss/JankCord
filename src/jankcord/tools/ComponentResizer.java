@@ -1,4 +1,6 @@
-package jankcord;
+package jankcord.tools;
+
+import jankcord.Jankcord;
 
 import java.awt.*;
 import java.awt.event.*;

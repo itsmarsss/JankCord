@@ -1,4 +1,4 @@
-package jankcord;
+package jankcord.tools;
 
 import javax.swing.ImageIcon;
 

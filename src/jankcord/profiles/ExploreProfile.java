@@ -2,7 +2,7 @@ package jankcord.profiles;
 
 import javax.swing.JLabel;
 
-import jankcord.ResourceLoader;
+import jankcord.tools.ResourceLoader;
 
 public class ExploreProfile extends JLabel {
 	public ExploreProfile() {

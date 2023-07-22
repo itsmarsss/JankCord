@@ -1,4 +1,4 @@
-package jankcord.components;
+package jankcord.containers;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +13,9 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 import jankcord.Jankcord;
+import jankcord.components.ScrollBarUI;
 import jankcord.objects.User;
+import jankcord.popups.RequestGroupChat;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 

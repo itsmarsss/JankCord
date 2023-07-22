@@ -7,7 +7,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import jankcord.ResourceLoader;
+import jankcord.tools.ResourceLoader;
 
 public class FriendProfile extends JPanel {
     public FriendProfile() {
