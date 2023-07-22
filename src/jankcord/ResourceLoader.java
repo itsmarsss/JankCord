@@ -1,9 +1,6 @@
-package jankcord.newclasses;
+package jankcord;
 
 import javax.swing.ImageIcon;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ResourceLoader {
     public static ResourceLoader loader = new ResourceLoader();

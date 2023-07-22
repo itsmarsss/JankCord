@@ -13,10 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import jankcord.Jankcord;
-import jankcord.newclasses.ResourceLoader;
 import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
-import jankcord.objects.User;
 
 public class MessageProfile extends JPanel {
     /**

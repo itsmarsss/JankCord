@@ -1,4 +1,4 @@
-package jankcord.newclasses;
+package jankcord.texthelpers;
 
 import java.awt.event.ActionEvent;
 

@@ -3,21 +3,16 @@ package jankcord.components;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
 import jankcord.ServerCommunicator;
-import jankcord.newclasses.DeletePrevCharAction;
-import jankcord.newclasses.ResourceLoader;
-import jankcord.newclasses.ScrollBarUI;
-import jankcord.newclasses.UndoRedo;
+import jankcord.texthelpers.DeletePrevCharAction;
+import jankcord.texthelpers.UndoRedo;
 import jankcord.objects.Message;
 import jankcord.objects.User;
 import jankcord.profiles.MemberProfile;

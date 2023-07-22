@@ -1,4 +1,4 @@
-package jankcord.newclasses;
+package jankcord.components;
 
 import java.awt.Color;
 import java.awt.Dimension;

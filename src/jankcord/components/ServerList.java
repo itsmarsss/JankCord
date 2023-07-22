@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import jankcord.Jankcord;
-import jankcord.newclasses.ResourceLoader;
+import jankcord.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
 import jankcord.profiles.ExploreProfile;
 import jankcord.profiles.HomeProfile;

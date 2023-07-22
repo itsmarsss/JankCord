@@ -1,7 +1,6 @@
 package jankcord.profiles;
 
 import jankcord.Jankcord;
-import jankcord.newclasses.ResourceLoader;
 import jankcord.objects.SimpleUserCache;
 import jankcord.objects.User;
 

@@ -11,8 +11,6 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 import jankcord.Jankcord;
-import jankcord.newclasses.ResourceLoader;
-import jankcord.newclasses.ScrollBarUI;
 import jankcord.objects.User;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;

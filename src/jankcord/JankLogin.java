@@ -1,11 +1,7 @@
 package jankcord;
 
-import jankcord.components.WindowButtonListener;
-import jankcord.components.WindowButtons;
-import jankcord.newclasses.DeletePrevCharAction;
-import jankcord.newclasses.ResourceLoader;
+import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.objects.FullUser;
-import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
