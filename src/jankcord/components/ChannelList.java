@@ -148,7 +148,9 @@ public class ChannelList extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                requestGroupChat.dispose();
+                if (requestGroupChat != null) {
+                    requestGroupChat.dispose();
+                }
                 requestGroupChat = new RequestGroupChat();
                 requestGroupChat.setVisible(true);
             }
