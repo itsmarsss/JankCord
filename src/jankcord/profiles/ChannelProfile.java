@@ -10,19 +10,12 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.Serial;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ChannelProfile extends JPanel {
-    /**
-     *
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     private User friend;
 
     public ChannelProfile(User friend) {

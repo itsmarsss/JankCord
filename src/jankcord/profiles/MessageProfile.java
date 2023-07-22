@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import java.io.Serial;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -18,12 +17,6 @@ import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
 
 public class MessageProfile extends JPanel {
-    /**
-     *
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     private Message message;
 
     public MessageProfile(Message message) {

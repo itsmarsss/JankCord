@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.Serial;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
@@ -22,12 +21,6 @@ import jankcord.profiles.HomeProfile;
 import jankcord.profiles.ServerProfile;
 
 public class ServerList extends JScrollPane {
-	/**
-	 * 
-	 */
-	@Serial
-	private static final long serialVersionUID = 1L;
-
 	public ServerList() {
 		// Init
 		setName("ServerList");

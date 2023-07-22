@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.Serial;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -17,12 +16,6 @@ import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
 public class ChannelList extends JPanel {
-    /**
-     *
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     private JPanel channelPanel;
     private JScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;

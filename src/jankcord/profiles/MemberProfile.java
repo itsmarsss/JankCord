@@ -8,19 +8,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.io.Serial;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MemberProfile extends JPanel {
-    /**
-     *
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     private User member;
 
     public MemberProfile(User member) {
