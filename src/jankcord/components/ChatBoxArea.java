@@ -270,11 +270,17 @@ public class ChatBoxArea extends JPanel {
     public void resetMessages() {
         chatPanel.removeAll();
         messageProfiles.clear();
+
+        chatPanel.revalidate();
+        chatPanel.repaint();
     }
 
     public void resetMembers() {
         membersPanel.removeAll();
         memberProfiles.clear();
+
+        membersPanel.revalidate();
+        membersPanel.repaint();
     }
 
     public void setMaxChatScroll() {
