@@ -133,23 +133,23 @@ public class ChannelList extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                splitLabel.setBackground(new Color(59, 60, 66));
+                splitLabel.setBackground(new Color(255, 255, 255));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                splitLabel.setForeground(new Color(219, 222, 225));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                splitLabel.setForeground(new Color(142, 146, 151));
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 requestGroupChat = new RequestGroupChat();
                 requestGroupChat.setVisible(true);
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                splitLabel.setBackground(new Color(54, 55, 61));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                splitLabel.setBackground(null);
             }
         });
         gbc.gridx = 0;
@@ -162,7 +162,7 @@ public class ChannelList extends JPanel {
     }
 
     public void resetDisplays() {
-        for(ChannelProfile profile : channelProfiles) {
+        for (ChannelProfile profile : channelProfiles) {
             profile.resetDisplay();
         }
     }
