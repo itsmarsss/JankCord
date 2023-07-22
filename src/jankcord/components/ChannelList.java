@@ -129,8 +129,6 @@ public class ChannelList extends JPanel {
         splitLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                requestGroupChat = new RequestGroupChat();
-                requestGroupChat.setVisible(true);
             }
 
             @Override
@@ -140,6 +138,8 @@ public class ChannelList extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                requestGroupChat = new RequestGroupChat();
+                requestGroupChat.setVisible(true);
             }
 
             @Override

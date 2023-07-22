@@ -26,7 +26,9 @@ public class JankLogin extends JFrame {
     private boolean drag = false;
 
     public JankLogin() {
-        List<Image> icons = new ArrayList<>();
+        super("JankCord Login");
+
+        ArrayList<Image> icons = new ArrayList<>();
         icons.add(ResourceLoader.loader.getIcon1().getImage());
         icons.add(ResourceLoader.loader.getIcon2().getImage());
         icons.add(ResourceLoader.loader.getIcon3().getImage());
@@ -69,7 +71,6 @@ public class JankLogin extends JFrame {
         closeButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
             }
 
             @Override
@@ -92,6 +93,7 @@ public class JankLogin extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                System.exit(0);
             }
         });
         closeButton.setBackground(new Color(32, 34, 37));
@@ -164,6 +166,25 @@ public class JankLogin extends JFrame {
         loginButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                e.getComponent().setBackground(new Color(128, 132, 142));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                e.getComponent().setBackground(new Color(109, 111, 120));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                e.getComponent().setBackground(new Color(78, 80, 88));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 HashMap<String, String> headers = new HashMap<>();
 
                 String username = usernameInput.getText();
@@ -207,25 +228,6 @@ public class JankLogin extends JFrame {
                     new Jankcord();
                 } catch (Exception ex) {
                 }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                e.getComponent().setBackground(new Color(128, 132, 142));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                e.getComponent().setBackground(new Color(109, 111, 120));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                e.getComponent().setBackground(new Color(78, 80, 88));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
             }
         });
         loginButton.setBackground(new Color(78, 80, 88));

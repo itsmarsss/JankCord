@@ -46,11 +46,6 @@ public class WindowButtonListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		switch (perform) {
-			case FRAME_CLOSE -> System.exit(0);
-			case FRAME_FULLSCREEN -> Jankcord.doFullscreen();
-			case FRAME_MINIMIZE -> Jankcord.getFrame().setExtendedState(Frame.ICONIFIED);
-		}
 	}
 
 	@Override
@@ -72,6 +67,12 @@ public class WindowButtonListener implements MouseListener {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		switch (perform) {
+			case FRAME_CLOSE -> System.exit(0);
+			case FRAME_FULLSCREEN -> Jankcord.doFullscreen();
+			case FRAME_MINIMIZE -> Jankcord.getFrame().setExtendedState(Frame.ICONIFIED);
+		}
+	}
 
 }

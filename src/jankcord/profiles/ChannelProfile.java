@@ -47,13 +47,6 @@ public class ChannelProfile extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!Jankcord.getOtherID().equals(friend.getId() + "")) {
-                    Jankcord.setOtherID(friend.getId());
-                    Jankcord.getChatBoxArea().resetMessages();
-                    Jankcord.queryForNewMessages();
-                    Jankcord.getChannelList().resetDisplays();
-                    System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
-                }
             }
 
             @Override
@@ -64,6 +57,17 @@ public class ChannelProfile extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (!Jankcord.getOtherID().equals(friend.getId() + "")) {
+                    Jankcord.setOtherID(friend.getId());
+                    Jankcord.getChatBoxArea().resetMessages();
+                    Jankcord.queryForNewMessages();
+                    Jankcord.getChannelList().resetDisplays();
+
+                    setBackground(new Color(59, 60, 66));
+                    usernameLabel.setForeground(new Color(255, 255, 255));
+
+                    System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
+                }
             }
 
             @Override
