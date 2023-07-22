@@ -25,7 +25,7 @@ public class ChannelProfile extends JPanel {
     private User friend;
 
     public ChannelProfile(User friend) {
-        Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
+        Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache()).getAvatar72();
 
         // Init
         setLayout(null);
@@ -33,11 +33,10 @@ public class ChannelProfile extends JPanel {
         setPreferredSize(new Dimension(448, 92));
 
         // Icon
-        Image scaledIcon = avatar.getScaledInstance(72, 72, Image.SCALE_DEFAULT);
         JLabel channelIcon = new JLabel();
         channelIcon.setSize(72, 72);
         channelIcon.setLocation(12, 8);
-        channelIcon.setIcon(new ImageIcon(scaledIcon));
+        channelIcon.setIcon(new ImageIcon(avatar));
 
         add(channelIcon);
 
@@ -54,6 +53,8 @@ public class ChannelProfile extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Jankcord.setOtherID(friend.getId());
+                Jankcord.getChatBoxArea().resetMembers();
+                Jankcord.queryForNewMessages();
                 System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
             }
 

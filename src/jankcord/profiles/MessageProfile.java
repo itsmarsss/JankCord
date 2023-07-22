@@ -29,7 +29,7 @@ public class MessageProfile extends JPanel {
     public MessageProfile(Message message) {
         SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
 
-        Image avatar = Jankcord.avatarCache.getOrDefault(message.getSenderID(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
+        Image avatar = Jankcord.avatarCache.getOrDefault(message.getSenderID(), new SimpleUserCache()).getAvatar80();
 
         // Init
         setLayout(null);
@@ -37,11 +37,10 @@ public class MessageProfile extends JPanel {
         setPreferredSize(new Dimension(Jankcord.getViewPanel().getWidth() - 646, 100));
 
         // Icon
-        Image scaledIcon = avatar.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
         JLabel usersIcon = new JLabel();
         usersIcon.setSize(80, 80);
         usersIcon.setLocation(15, 10);
-        usersIcon.setIcon(new ImageIcon(scaledIcon));
+        usersIcon.setIcon(new ImageIcon(avatar));
 
         add(usersIcon);
 

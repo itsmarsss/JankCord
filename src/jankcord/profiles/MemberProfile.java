@@ -23,7 +23,7 @@ public class MemberProfile extends JPanel {
     private User member;
 
     public MemberProfile(User member) {
-        Image avatar = Jankcord.avatarCache.getOrDefault(member.getId(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
+        Image avatar = Jankcord.avatarCache.getOrDefault(member.getId(), new SimpleUserCache()).getAvatar72();
 
         // Init
         setLayout(null);
@@ -31,11 +31,10 @@ public class MemberProfile extends JPanel {
         setPreferredSize(new Dimension(475, 92));
 
         // Icon
-        Image scaledIcon = avatar.getScaledInstance(72, 72, Image.SCALE_DEFAULT);
         JLabel channelIcon = new JLabel();
         channelIcon.setSize(72, 72);
         channelIcon.setLocation(12, 8);
-        channelIcon.setIcon(new ImageIcon(scaledIcon));
+        channelIcon.setIcon(new ImageIcon(avatar));
 
         add(channelIcon);
 
