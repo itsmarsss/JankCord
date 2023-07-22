@@ -240,7 +240,9 @@ public class ChatBoxArea extends JPanel {
         return messageProfiles;
     }
 
-    public void addMessage(Message message, int index) {
+    public int index = 0;
+
+    public void addMessage(Message message) {
         MessageProfile mp = new MessageProfile(message);
         messageProfiles.add(mp);
 
@@ -252,6 +254,8 @@ public class ChatBoxArea extends JPanel {
         membersScrollPane.repaint();
 
         reline();
+
+        index++;
     }
 
     public void addMember(User member, int index) {
@@ -273,6 +277,8 @@ public class ChatBoxArea extends JPanel {
 
         chatPanel.revalidate();
         chatPanel.repaint();
+
+        index = 0;
     }
 
     public void resetMembers() {
@@ -292,5 +298,9 @@ public class ChatBoxArea extends JPanel {
 //            vertical.setValue(vertical.getMaximum());
             System.out.println("scroll");
         });
+    }
+
+    public int getMessageIndex() {
+        return index;
     }
 }

@@ -372,7 +372,6 @@ public class Jankcord {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
 
@@ -395,10 +394,10 @@ public class Jankcord {
         } else {
             tempMessages = messages;
 
-            chatBoxArea.resetMessages();
-            for (int i = 0; i < messages.size(); i++) {
-                chatBoxArea.addMessage(messages.get(i), i);
+            for (int i = chatBoxArea.getMessageIndex(); i < messages.size(); i++) {
+                chatBoxArea.addMessage(messages.get(i));
             }
+
             SwingUtilities.invokeLater(() -> chatBoxArea.setMaxChatScroll());
         }
 
