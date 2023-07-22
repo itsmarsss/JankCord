@@ -52,9 +52,11 @@ public class ChannelProfile extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Jankcord.setOtherID(friend.getId());
-                Jankcord.getChatBoxArea().resetMessages();
-                Jankcord.queryForNewMessages();
+                if (!Jankcord.getOtherID().equals(friend.getId())) {
+                    Jankcord.setOtherID(friend.getId());
+                    Jankcord.getChatBoxArea().resetMessages();
+                    Jankcord.queryForNewMessages();
+                }
                 System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
             }
 
