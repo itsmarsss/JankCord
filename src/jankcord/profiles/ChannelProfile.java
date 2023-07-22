@@ -2,6 +2,7 @@ package jankcord.profiles;
 
 import jankcord.Jankcord;
 import jankcord.newclasses.ResourceLoader;
+import jankcord.objects.SimpleUserCache;
 import jankcord.objects.User;
 
 import java.awt.Color;
@@ -10,10 +11,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,17 +25,7 @@ public class ChannelProfile extends JPanel {
     private User friend;
 
     public ChannelProfile(User friend) {
-        Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
-
-        try {
-            URL url = new URL(friend.getAvatarURL());
-
-            BufferedImage image = ImageIO.read(url);
-
-            avatar = new ImageIcon(image).getImage();
-        } catch (Exception e) {
-            System.out.println("Error getting avatar");
-        }
+        Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
 
         // Init
         setLayout(null);

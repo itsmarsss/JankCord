@@ -1,16 +1,15 @@
 package jankcord.profiles;
 
+import jankcord.Jankcord;
 import jankcord.newclasses.ResourceLoader;
+import jankcord.objects.SimpleUserCache;
 import jankcord.objects.User;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,17 +23,7 @@ public class MemberProfile extends JPanel {
     private User member;
 
     public MemberProfile(User member) {
-        Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
-
-        try {
-            URL url = new URL(member.getAvatarURL());
-
-            BufferedImage image = ImageIO.read(url);
-
-            avatar = new ImageIcon(image).getImage();
-        } catch (Exception e) {
-            System.out.println("Error getting avatar");
-        }
+        Image avatar = Jankcord.avatarCache.getOrDefault(member.getId(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
 
         // Init
         setLayout(null);

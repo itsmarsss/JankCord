@@ -6,17 +6,15 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import jankcord.Jankcord;
 import jankcord.newclasses.ResourceLoader;
+import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
 import jankcord.objects.User;
 
@@ -29,19 +27,9 @@ public class MessageProfile extends JPanel {
     private Message message;
 
     public MessageProfile(Message message) {
-        User user = message.getSender();
+        SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
 
-        Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
-
-        try {
-            URL url = new URL(user.getAvatarURL());
-
-            BufferedImage image = ImageIO.read(url);
-
-            avatar = new ImageIcon(image).getImage();
-        } catch (Exception e) {
-            System.out.println("Error getting avatar");
-        }
+        Image avatar = Jankcord.avatarCache.getOrDefault(message.getSenderID(), new SimpleUserCache(ResourceLoader.loader.getTempProfileIcon().getImage())).getAvatar();
 
         // Init
         setLayout(null);
@@ -58,14 +46,14 @@ public class MessageProfile extends JPanel {
         add(usersIcon);
 
         // Username
-        JLabel usernameLabel = new JLabel(user.getUsername());
+        JLabel usernameLabel = new JLabel(cachedUser.getUsername());
         Font font = new Font("Whitney", Font.PLAIN, 28);
         usernameLabel.setFont(font);
         usernameLabel.setLocation(110, 10);
         usernameLabel.setForeground(new Color(255, 255, 255));
 
         FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
-        int w = (int) (font.getStringBounds(user.getUsername(), frc).getWidth());
+        int w = (int) (font.getStringBounds(cachedUser.getUsername(), frc).getWidth());
 
         usernameLabel.setSize(w + 5, 40);
 
