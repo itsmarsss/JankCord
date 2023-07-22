@@ -31,10 +31,7 @@ import jankcord.components.ChatBoxArea;
 import jankcord.components.ServerList;
 import jankcord.components.WindowButtons;
 import jankcord.components.ScrollBarUI;
-import jankcord.objects.SimpleUserCache;
-import jankcord.objects.Message;
-import jankcord.objects.FullUser;
-import jankcord.objects.User;
+import jankcord.objects.*;
 import jankcord.profiles.MessageProfile;
 import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONArray;
@@ -112,7 +109,7 @@ public class Jankcord {
     // render frame and viewPanel
     private void drawUI() {
         // Frame Icon
-        List<Image> icons = new ArrayList<>();
+        ArrayList<Image> icons = new ArrayList<>();
         icons.add(ResourceLoader.loader.getIcon1().getImage());
         icons.add(ResourceLoader.loader.getIcon2().getImage());
         icons.add(ResourceLoader.loader.getIcon3().getImage());
@@ -491,6 +488,9 @@ public class Jankcord {
 
     public static ChatBoxArea getChatBoxArea() {
         return chatBoxArea;
+    }
+    public static ChannelList getChannelList() {
+        return channelList;
     }
 
     public static JPanel getViewPanel() {

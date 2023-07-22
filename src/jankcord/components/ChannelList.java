@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -20,6 +22,8 @@ public class ChannelList extends JPanel {
     private JScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;
     private GridBagConstraints gbc;
+
+    private RequestGroupChat requestGroupChat;
 
     public ChannelList() {
         // Init
@@ -122,6 +126,32 @@ public class ChannelList extends JPanel {
         splitLabel.setPreferredSize(new Dimension(420, 40));
         splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
         splitLabel.setVerticalAlignment(SwingConstants.TOP);
+        splitLabel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                requestGroupChat = new RequestGroupChat();
+                requestGroupChat.setVisible(true);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                splitLabel.setBackground(new Color(59, 60, 66));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                splitLabel.setBackground(new Color(54, 55, 61));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                splitLabel.setBackground(null);
+            }
+        });
         gbc.gridx = 0;
         gbc.gridy = 1;
 
@@ -129,5 +159,11 @@ public class ChannelList extends JPanel {
 
         channelPanel.revalidate();
         channelPanel.repaint();
+    }
+
+    public void resetDisplays() {
+        for(ChannelProfile profile : channelProfiles) {
+            profile.resetDisplay();
+        }
     }
 }

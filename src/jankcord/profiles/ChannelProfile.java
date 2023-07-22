@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 public class ChannelProfile extends JPanel {
     private User friend;
+    private JLabel usernameLabel;
 
     public ChannelProfile(User friend) {
         Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache()).getAvatar72();
@@ -35,7 +36,7 @@ public class ChannelProfile extends JPanel {
         add(channelIcon);
 
         // Username
-        JLabel usernameLabel = new JLabel(friend.getUsername());
+        usernameLabel = new JLabel(friend.getUsername());
         usernameLabel.setSize(328, 40);
         usernameLabel.setLocation(100, 23);
         usernameLabel.setForeground(new Color(142, 146, 151));
@@ -46,10 +47,11 @@ public class ChannelProfile extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!Jankcord.getOtherID().equals(friend.getId()+"")) {
+                if (!Jankcord.getOtherID().equals(friend.getId() + "")) {
                     Jankcord.setOtherID(friend.getId());
                     Jankcord.getChatBoxArea().resetMessages();
                     Jankcord.queryForNewMessages();
+                    Jankcord.getChannelList().resetDisplays();
                     System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
                 }
             }
@@ -57,6 +59,7 @@ public class ChannelProfile extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 setBackground(new Color(59, 60, 66));
+                usernameLabel.setForeground(new Color(255, 255, 255));
             }
 
             @Override
@@ -65,12 +68,18 @@ public class ChannelProfile extends JPanel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                setBackground(new Color(54, 55, 61));
+                if (!Jankcord.getOtherID().equals(friend.getId() + "")) {
+                    setBackground(new Color(54, 55, 61));
+                    usernameLabel.setForeground(new Color(219, 222, 225));
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                setBackground(null);
+                if (!Jankcord.getOtherID().equals(friend.getId() + "")) {
+                    setBackground(null);
+                    usernameLabel.setForeground(new Color(142, 146, 151));
+                }
             }
         });
 
@@ -83,5 +92,10 @@ public class ChannelProfile extends JPanel {
 
     public void setFriend(User friend) {
         this.friend = friend;
+    }
+
+    public void resetDisplay() {
+        setBackground(null);
+        usernameLabel.setForeground(new Color(142, 146, 151));
     }
 }
