@@ -3,6 +3,8 @@ package jankcord.popups;
 import jankcord.Jankcord;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.components.textfield.JankPasswordField;
+import jankcord.components.textfield.JankTextField;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.texthelpers.DeletePrevCharAction;
@@ -20,10 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JankLogin extends JFrame {
-    private JTextField usernameInput = new JTextField();
-    private JPasswordField passwordInput = new JPasswordField();
-    private JTextField serverInput = new JTextField();
-    private JLabel statusLabel = new JLabel("");
 
     // Frame dragging
     private int posX = 0, posY = 0;
@@ -112,14 +110,8 @@ public class JankLogin extends JFrame {
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(usernameLabel);
 
-        usernameInput.setSize(300, 45);
-        usernameInput.setLocation(100, 150);
-        usernameInput.setBackground(new Color(56, 58, 64));
-        usernameInput.setForeground(new Color(219, 222, 225));
-        usernameInput.setCaretColor(Color.white);
-        usernameInput.setFont(new Font("Whitney", Font.BOLD, 28));
-        usernameInput.setBorder(null);
-        usernameInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
+        JankTextField usernameInput = new JankTextField(300, 45, 100, 150);
+
         getContentPane().add(usernameInput);
 
         JLabel passwordLabel = new JLabel("Password:");
@@ -129,14 +121,8 @@ public class JankLogin extends JFrame {
         passwordLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(passwordLabel);
 
-        passwordInput.setSize(300, 45);
-        passwordInput.setLocation(100, 300);
-        passwordInput.setBackground(new Color(56, 58, 64));
-        passwordInput.setForeground(new Color(219, 222, 225));
-        passwordInput.setCaretColor(Color.white);
-        passwordInput.setFont(new Font("Whitney", Font.BOLD, 28));
-        passwordInput.setBorder(null);
-        passwordInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
+        JankPasswordField passwordInput = new JankPasswordField(300, 45, 100, 300);
+
         getContentPane().add(passwordInput);
 
         JLabel serverLabel = new JLabel("Server:");
@@ -146,16 +132,11 @@ public class JankLogin extends JFrame {
         serverLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(serverLabel);
 
-        serverInput.setSize(300, 45);
-        serverInput.setLocation(100, 450);
-        serverInput.setBackground(new Color(56, 58, 64));
-        serverInput.setForeground(new Color(219, 222, 225));
-        serverInput.setCaretColor(Color.white);
-        serverInput.setFont(new Font("Whitney", Font.BOLD, 28));
-        serverInput.setBorder(null);
-        serverInput.getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
+        JankTextField serverInput = new JankTextField(300, 45, 100, 450);
+
         getContentPane().add(serverInput);
 
+        JLabel statusLabel = new JLabel("");
         statusLabel.setSize(300, 30);
         statusLabel.setLocation(100, 550);
         statusLabel.setForeground(new Color(237, 66, 69));
