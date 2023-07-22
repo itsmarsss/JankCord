@@ -398,7 +398,7 @@ public class Jankcord {
                 chatBoxArea.addMessage(messages.get(i));
             }
 
-            SwingUtilities.invokeLater(() -> chatBoxArea.setMaxChatScroll());
+            chatBoxArea.setMaxChatScroll();
         }
 
 
