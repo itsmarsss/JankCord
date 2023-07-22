@@ -1,7 +1,7 @@
 package jankcord.popups;
 
 import jankcord.tools.ResourceLoader;
-import jankcord.components.ScrollBarUI;
+import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.texthelpers.DeletePrevCharAction;
 
 import javax.swing.*;
@@ -126,7 +126,7 @@ public class RequestGroupChat extends JFrame {
         reasonTextAreaCont.getVerticalScrollBar().setUnitIncrement(15);
         reasonTextAreaCont.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         reasonTextAreaCont.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        reasonTextAreaCont.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(12, 14, 17), false));
+        reasonTextAreaCont.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(12, 14, 17), false));
         getContentPane().add(reasonTextAreaCont);
 
         submitButton = new JButton("Submit");

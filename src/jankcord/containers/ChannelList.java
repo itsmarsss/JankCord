@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 import jankcord.Jankcord;
-import jankcord.components.ScrollBarUI;
+import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.objects.User;
 import jankcord.popups.RequestGroupChat;
 import jankcord.profiles.ChannelProfile;
@@ -75,7 +75,7 @@ public class ChannelList extends JPanel {
         channelScrollPane.getVerticalScrollBar().setUnitIncrement(15);
         channelScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         channelScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), false));
+        channelScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), false));
 
         // Add Channels
 

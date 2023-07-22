@@ -29,7 +29,7 @@ import jankcord.containers.ChannelList;
 import jankcord.containers.ChatBoxArea;
 import jankcord.containers.ServerList;
 import jankcord.components.windowbuttons.WindowButtons;
-import jankcord.components.ScrollBarUI;
+import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.objects.*;
 import jankcord.popups.JankLogin;
 import jankcord.profiles.MessageProfile;
@@ -203,11 +203,11 @@ public class Jankcord {
 
         // Friend list panel
         JScrollPane friendsScrollPane = new JScrollPane();
-        friendsScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), true));
+        friendsScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
         // Channel list panel
         JScrollPane channelScrollPane = new JScrollPane();
-        channelScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(43, 45, 49), new Color(32, 34, 37), true));
+        channelScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
         frame.setVisible(true);
 

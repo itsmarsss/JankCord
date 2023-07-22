@@ -1,4 +1,4 @@
-package jankcord.components;
+package jankcord.components.scrollbar;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,14 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-public class ScrollBarUI extends BasicScrollBarUI {
+public class JankScrollBar extends BasicScrollBarUI {
 	private final Dimension dim = new Dimension();
 
 	private Color trackColor = new Color(43, 45, 49);
 	private Color thumbColor = new Color(32, 34, 37);
 	private Boolean round;
 
-	public ScrollBarUI(Color trackColor, Color thumbColor, boolean round) {
+	public JankScrollBar(Color trackColor, Color thumbColor, boolean round) {
 		this.trackColor = trackColor;
 		this.thumbColor = thumbColor;
 		this.round = round;

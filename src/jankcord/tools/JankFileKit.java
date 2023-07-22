@@ -1,4 +1,4 @@
-package jankcord_admin;
+package jankcord.tools;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

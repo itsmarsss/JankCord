@@ -11,7 +11,7 @@ import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
 import jankcord.tools.ServerCommunicator;
-import jankcord.components.ScrollBarUI;
+import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.texthelpers.UndoRedo;
 import jankcord.objects.Message;
@@ -71,7 +71,7 @@ public class ChatBoxArea extends JPanel {
         chatBoxScrollPane.getVerticalScrollBar().setBackground(getBackground());
         chatBoxScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
         chatBoxScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        chatBoxScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(46, 51, 56), new Color(32, 34, 37), true));
+        chatBoxScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
 
         add(chatBoxScrollPane);
 
@@ -95,7 +95,7 @@ public class ChatBoxArea extends JPanel {
         typeScrollPane.getVerticalScrollBar().setBackground(getBackground());
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         typeScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        typeScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI(new Color(46, 51, 56), new Color(32, 34, 37), true));
+        typeScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
 
         typePanel.add(typeScrollPane);
 
