@@ -82,7 +82,7 @@ public class Jankcord {
     private static ChannelList channelList;
     private static ChatBoxArea chatBoxArea;
 
-    private static String otherID;
+    private static String otherID = "";
     private static FullUser fullUser;
 
     // JankCord Default Constructor
