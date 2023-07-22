@@ -113,10 +113,11 @@ public class Jankcord {
     private void drawUI() {
         // Frame Icon
         List<Image> icons = new ArrayList<>();
-        icons.add(new ImageIcon("src/resources/Icon1.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon2.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon3.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon4.png").getImage());
+        icons.add(ResourceLoader.loader.getIcon1().getImage());
+        icons.add(ResourceLoader.loader.getIcon2().getImage());
+        icons.add(ResourceLoader.loader.getIcon3().getImage());
+        icons.add(ResourceLoader.loader.getIcon4().getImage());
+
         frame.setIconImages(icons);
 
         // Frame Init

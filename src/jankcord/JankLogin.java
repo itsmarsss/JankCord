@@ -3,6 +3,7 @@ package jankcord;
 import jankcord.components.WindowButtonListener;
 import jankcord.components.WindowButtons;
 import jankcord.newclasses.DeletePrevCharAction;
+import jankcord.newclasses.ResourceLoader;
 import jankcord.objects.FullUser;
 import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONObject;
@@ -34,10 +35,11 @@ public class JankLogin extends JFrame {
 
     public JankLogin() {
         List<Image> icons = new ArrayList<>();
-        icons.add(new ImageIcon("src/resources/Icon1.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon2.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon3.png").getImage());
-        icons.add(new ImageIcon("src/resources/Icon4.png").getImage());
+        icons.add(ResourceLoader.loader.getIcon1().getImage());
+        icons.add(ResourceLoader.loader.getIcon2().getImage());
+        icons.add(ResourceLoader.loader.getIcon3().getImage());
+        icons.add(ResourceLoader.loader.getIcon4().getImage());
+
         setIconImages(icons);
 
         // Frame Init
