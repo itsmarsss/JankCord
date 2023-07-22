@@ -6,8 +6,8 @@ import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 
-public class JankTextField extends JTextField {
-    public JankTextField(int width, int height, int x, int y) {
+public class JankPasswordField extends JPasswordField {
+    public JankPasswordField(int width, int height, int x, int y) {
         setSize(width, height);
         setLocation(x, y);
         setBackground(new Color(56, 58, 64));
