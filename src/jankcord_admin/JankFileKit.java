@@ -37,6 +37,8 @@ public class JankFileKit {
             while ((line = br.readLine()) != null) {
                 textJSON += line + "\n";
             }
+
+            br.close();
         } catch (Exception e) { // If error
             // Notify user that there was a reading error
             return null;
