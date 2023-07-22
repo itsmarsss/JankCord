@@ -1,4 +1,4 @@
-package jankcord.components.textfield;
+package jankcord.components.texts;
 
 import jankcord.texthelpers.DeletePrevCharAction;
 
