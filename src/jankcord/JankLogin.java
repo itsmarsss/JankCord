@@ -177,7 +177,7 @@ public class JankLogin extends JFrame {
 
                 String response = ServerCommunicator.sendHttpRequest(server + "/api/v1/login", headers);
 
-                System.out.println(response);
+                // System.out.println(response);
 
                 if (response == null) {
                     statusLabel.setText("Error contacting server.");
