@@ -12,27 +12,27 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 // Swing
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 // Components
 import jankcord.components.ChannelList;
 import jankcord.components.ChatBoxArea;
 import jankcord.components.ServerList;
 import jankcord.components.WindowButtons;
+import jankcord.newclasses.ResourceLoader;
 import jankcord.newclasses.ScrollBarUI;
+import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
 import jankcord.objects.FullUser;
 import jankcord.objects.User;
@@ -218,9 +218,10 @@ public class Jankcord {
     }
 
     private static ArrayList<User> tempFriends = new ArrayList<>();
+    public static HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
 
     private static void queryForNewFriend() {
-        System.out.println("New friend query");
+        // System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -230,7 +231,7 @@ public class Jankcord {
 
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
 
-        System.out.println(friendsJSON);
+        // System.out.println(friendsJSON);
 
         ArrayList<User> friends = new ArrayList<>();
 
@@ -252,10 +253,18 @@ public class Jankcord {
                 String avatarURL = (String) messageObject.get("avatarURL");
 
                 friends.add(new User(id, username, avatarURL));
+
+                try {
+                    if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
+                        cacheAvatar(id, username, avatarURL);
+                    }
+                } catch (Exception e) {
+                    cacheAvatar(id, username, avatarURL);
+                }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
         boolean isSame = true;
         if (friends.size() != tempFriends.size()) {
@@ -272,7 +281,7 @@ public class Jankcord {
         }
 
         if (isSame) {
-            System.out.println("Friend list no updates");
+            // System.out.println("Friend list no updates");
             return;
         }
 
@@ -283,6 +292,7 @@ public class Jankcord {
         for (int i = 0; i < friends.size(); i++) {
             if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
                 channelList.addChannel(friends.get(i), i + 2);
+                System.out.println(friends.get(i).getUsername());
             }
         }
     }
@@ -291,8 +301,8 @@ public class Jankcord {
     private static ArrayList<Message> tempMessages = new ArrayList<>();
     private static ArrayList<User> tempMembers = new ArrayList<>();
 
-    private static void queryForNewMessages() {
-        System.out.println("New messages query");
+    public static void queryForNewMessages() {
+        // System.out.println("New messages query");
         // Query api endpoint
         // Get messages
         HashMap<String, String> headers = new HashMap<>();
@@ -303,7 +313,7 @@ public class Jankcord {
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "messages", headers);
 
-        System.out.println(messagesJSON);
+        // System.out.println(messagesJSON);
 
         ArrayList<Message> messages = new ArrayList<>();
         ArrayList<User> members = new ArrayList<>();
@@ -326,6 +336,14 @@ public class Jankcord {
                 String avatarURL = (String) memberObject.get("avatarURL");
 
                 members.add(new User(id, username, avatarURL));
+
+                try {
+                    if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
+                        cacheAvatar(id, username, avatarURL);
+                    }
+                } catch (Exception e) {
+                    cacheAvatar(id, username, avatarURL);
+                }
             }
 
             // Get the "messages" array from the JSON object
@@ -337,14 +355,24 @@ public class Jankcord {
 
                 // Read values from each message object
                 long id = (Long) messageObject.get("id");
-                String username = (String) messageObject.get("username");
-                String avatarURL = (String) messageObject.get("avatarURL");
                 String content = (String) messageObject.get("content");
                 long timestamp = (Long) messageObject.get("timestamp");
 
-                messages.add(new Message(new User(id, username, avatarURL), content, timestamp));
+                String username = avatarCache.get(id).getUsername();
+                String avatarURL = avatarCache.get(id).getAvatarURL();
+
+                messages.add(new Message(id, content, timestamp));
+
+                try {
+                    if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
+                        cacheAvatar(id, username, avatarURL);
+                    }
+                } catch (Exception e) {
+                    cacheAvatar(id, username, avatarURL);
+                }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -363,7 +391,7 @@ public class Jankcord {
         }
 
         if (isSame) {
-            System.out.println("Message list no updates");
+            //System.out.println("Message list no updates");
         } else {
             tempMessages = messages;
 
@@ -371,8 +399,7 @@ public class Jankcord {
             for (int i = 0; i < messages.size(); i++) {
                 chatBoxArea.addMessage(messages.get(i), i);
             }
-
-            chatBoxArea.setMaxChatScroll();
+            SwingUtilities.invokeLater(() -> chatBoxArea.setMaxChatScroll());
         }
 
 
@@ -391,7 +418,7 @@ public class Jankcord {
         }
 
         if (isSame2) {
-            System.out.println("Member list no updates");
+            //System.out.println("Member list no updates");
             return;
         }
         tempMembers = members;
@@ -400,9 +427,22 @@ public class Jankcord {
         for (int i = 0; i < members.size(); i++) {
             chatBoxArea.addMember(members.get(i), i);
         }
+    }
 
+    public static void cacheAvatar(long id, String username, String avatarURL) {
+        Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
 
-        headers.clear();
+        try {
+            URL url = new URL(avatarURL);
+
+            BufferedImage image = ImageIO.read(url);
+
+            avatar = new ImageIcon(image).getImage();
+        } catch (Exception e) {
+            //System.out.println("Error getting avatar");
+        }
+
+        avatarCache.put(id, new SimpleUserCache(username, avatarURL, avatar));
     }
 
     public static void doFullscreen() {
@@ -446,6 +486,11 @@ public class Jankcord {
         for (MessageProfile mp : chatBoxArea.getMessageProfiles()) {
             mp.setPreferredSize(new Dimension(Jankcord.getViewPanel().getWidth() - 646, 100));
         }
+    }
+
+
+    public static ChatBoxArea getChatBoxArea() {
+        return chatBoxArea;
     }
 
     public static JPanel getViewPanel() {
