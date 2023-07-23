@@ -32,8 +32,8 @@ public class JankList extends JList {
                     System.out.println("ye");
                 }
 
-                if (getSelectedIndices().length <= 10) {
-                    updateLabel.setText(String.format(template, (10 - getSelectedIndices().length)));
+                if (getSelectedIndices().length <= 20) {
+                    updateLabel.setText(String.format(template, (20 - getSelectedIndices().length)));
                     prev = getSelectedIndices();
                 } else {
                     setSelectedIndices(prev);

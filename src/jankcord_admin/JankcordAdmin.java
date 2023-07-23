@@ -384,7 +384,9 @@ public class JankcordAdmin {
         server.createContext("/api/v1/login", new Login());
         server.createContext("/api/v1/messages", new GetMessages());
         server.createContext("/api/v1/friends", new GetFriends());
+        server.createContext("/api/v1/groupchats", new GetGroupChats());
         server.createContext("/api/v1/sendmessage", new NewMessage());
+        server.createContext("/api/v1/creategroupchat", new CreateGroupChat());
         server.setExecutor(null);
         server.start();
 

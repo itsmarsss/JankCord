@@ -84,7 +84,7 @@ public class ServerList extends JankScrollPane {
         serverPanel.add(splitLabel, gbc);
     }
 
-    private void addTrailingProfiles() {
+    public void addTrailingProfiles() {
         // Add Profile
         AddServerProfile addServerProfile = new AddServerProfile();
 
@@ -120,10 +120,13 @@ public class ServerList extends JankScrollPane {
         });
 
         gbc.gridx = 0;
-        gbc.gridy = index + 1;
+        gbc.gridy = index + 3;
         gbc.insets = new Insets(0, 0, 30, 0);
 
         serverPanel.add(addServerProfile, gbc);
+
+        serverPanel.revalidate();
+        serverPanel.repaint();
     }
 
     public int getIndex() {

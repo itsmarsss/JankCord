@@ -96,22 +96,31 @@ public class JankGroupChat extends JFrame {
 
 
         JankButton submitButton = new JankButton("Create Group Chat", 500, 50, 100, 650);
-//        submitButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
-//            @Override
-//            public void run() {
-//                HashMap<String, String> headers = new HashMap<>();
-//
-//                String username = Jankcord.getFullUser().getUsername();
-//                String password = Jankcord.getFullUser().getPassword();
-//                String server = Jankcord.getFullUser().getEndPointHost();
-//
-//                headers.put("username", username);
-//                headers.put("password", password);
-//                headers.put("reason", reasonTextArea.getText());
-//
-//                ServerCommunicator.sendHttpRequest(server + "/requestgroupchat", headers);
-//            }
-//        });
+        submitButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
+            @Override
+            public void run() {
+                System.out.println("yo");
+                HashMap<String, String> headers = new HashMap<>();
+
+                String username = Jankcord.getFullUser().getUsername();
+                String password = Jankcord.getFullUser().getPassword();
+                String server = Jankcord.getFullUser().getEndPointHost();
+
+                List<User> usersResult = userList.getSelectedValuesList();
+
+                String users = "";
+
+                for (User user : usersResult) {
+                    users += user.getId() + ",";
+                }
+
+                headers.put("username", username);
+                headers.put("password", password);
+                headers.put("users", users);
+
+                System.out.println(ServerCommunicator.sendHttpRequest(server + "creategroupchat", headers));
+            }
+        });
 
         getContentPane().add(submitButton);
     }

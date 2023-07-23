@@ -225,6 +225,9 @@ public class Jankcord {
 
         ScheduledExecutorService ses1 = Executors.newSingleThreadScheduledExecutor();
         ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
+
+        ScheduledExecutorService ses2 = Executors.newSingleThreadScheduledExecutor();
+        ses2.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
     }
 
     public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
@@ -325,7 +328,7 @@ public class Jankcord {
 
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
-        // System.out.println(friendsJSON);
+         System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
 
         try {
@@ -367,7 +370,7 @@ public class Jankcord {
         }
 
         if (isSame) {
-            // System.out.println("Friend list no updates");
+            System.out.println("Group list no updates");
             return;
         }
 
@@ -378,6 +381,8 @@ public class Jankcord {
         for (int i = 0; i < groupChats.size(); i++) {
             serverList.addServer(groupChats.get(i), i + 2);
         }
+
+        serverList.addTrailingProfiles();
     }
 
     private static ArrayList<Message> tempMessages = new ArrayList<>();

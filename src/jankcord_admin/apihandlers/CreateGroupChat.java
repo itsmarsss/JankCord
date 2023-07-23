@@ -18,7 +18,7 @@ import java.util.UUID;
 public class CreateGroupChat implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        //System.out.println("Create gc Requested");
+        System.out.println("Create gc Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");

@@ -44,8 +44,8 @@ public class GetGroupChats implements HttpHandler {
         for (Map.Entry<String, GroupChat> entry : AdminDataBase.getGroupChats().entrySet()) {
             GroupChat gc = entry.getValue();
 
-            for (long member : gc.getMembers()) {
-                if (member == currentID) {
+           // for (long member : gc.getMembers()) {
+                //if (member == currentID) {
                     groupChatsList.append("""
                         {
                             "chatID": "%s",
@@ -53,8 +53,8 @@ public class GetGroupChats implements HttpHandler {
                             "chatIconURl": "%s"
                         },
                         """.formatted(gc.getId(), gc.getChatName(), gc.getChatIconURL()));
-                }
-            }
+                //}
+            //}
         }
 
         String groupChats = """
