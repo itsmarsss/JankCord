@@ -494,7 +494,7 @@ public class Jankcord {
         chatBoxArea.getMembersScrollPane().setSize(540, chatBoxArea.getHeight() - 106);
         chatBoxArea.getMembersScrollPane().setLocation(chatBoxArea.getChatBoxScrollPane().getWidth() + 5, 106);
         for (MessageProfile mp : chatBoxArea.getMessageProfiles()) {
-            mp.setPreferredSize(new Dimension(Jankcord.getViewPanel().getWidth() - 646, 100));
+            mp.setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatPanel().getWidth() - 30, (int) mp.getPreferredSize().getHeight()));
         }
     }
 
