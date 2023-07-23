@@ -26,8 +26,6 @@ public class ChannelList extends JPanel {
     private LinkedList<ChannelProfile> channelProfiles;
     private final GridBagConstraints gbc;
 
-    private JankGroupChat jankGroupChat;
-
     public ChannelList() {
         // Init
         setName("ChannelList");
@@ -110,40 +108,12 @@ public class ChannelList extends JPanel {
         channelPanel.add(friendProfile, gbc);
 
         // Splitter
-        JLabel splitLabel = new JLabel("DIRECT MESSAGES                  ➕");
+        JLabel splitLabel = new JLabel("DIRECT MESSAGES");
         splitLabel.setForeground(new Color(142, 146, 151));
         splitLabel.setPreferredSize(new Dimension(420, 40));
         splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
         splitLabel.setVerticalAlignment(SwingConstants.TOP);
-        splitLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                splitLabel.setBackground(new Color(255, 255, 255));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                splitLabel.setForeground(new Color(219, 222, 225));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                splitLabel.setForeground(new Color(142, 146, 151));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (jankGroupChat != null) {
-                    jankGroupChat.dispose();
-                }
-                jankGroupChat = new JankGroupChat();
-                jankGroupChat.setVisible(true);
-            }
-        });
         gbc.gridx = 0;
         gbc.gridy = 1;
 

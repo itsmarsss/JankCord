@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.SwingConstants;
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.GroupChat;
+import jankcord.popups.JankGroupChat;
 import jankcord.tools.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
 import jankcord.profiles.ExploreProfile;
@@ -25,6 +28,8 @@ public class ServerList extends JankScrollPane {
     private LinkedList<ServerProfile> serverProfiles;
     private JPanel serverPanel;
     private GridBagConstraints gbc;
+
+    private JankGroupChat jankGroupChat;
 
     public ServerList() {
         super(106, Jankcord.getFrame().getHeight() - 50, 30, 50, null);
@@ -83,6 +88,38 @@ public class ServerList extends JankScrollPane {
     private void addTrailingProfiles() {
         // Add Profile
         AddServerProfile addServerProfile = new AddServerProfile();
+
+        addServerProfile.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (jankGroupChat != null) {
+                    jankGroupChat.dispose();
+                }
+                jankGroupChat = new JankGroupChat();
+                jankGroupChat.setVisible(true);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
         gbc.gridx = 0;
         gbc.gridy = index + 1;
 
