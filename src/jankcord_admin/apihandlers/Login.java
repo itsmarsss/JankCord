@@ -14,7 +14,7 @@ import java.util.Map;
 public class Login implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("Account Login Requested");
+        // System.out.println("Account Login Requested");
 
         String response = "403";
 

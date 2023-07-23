@@ -303,7 +303,7 @@ public class Jankcord {
         for (int i = 0; i < friends.size(); i++) {
             if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
                 channelList.addChannel(friends.get(i), i + 2);
-                System.out.println(friends.get(i).getUsername());
+                // System.out.println(friends.get(i).getUsername());
             }
         }
     }

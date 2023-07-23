@@ -37,7 +37,7 @@ public class JankCloseButton extends JLabel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println();
+                // System.out.println();
                 e.getComponent().setBackground(new Color(237, 66, 69));
                 e.getComponent().setForeground(new Color(255, 255, 255));
             }

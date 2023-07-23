@@ -15,7 +15,7 @@ import java.util.Map;
 public class NewMessage implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("Messages send Requested");
+        // System.out.println("Messages send Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");

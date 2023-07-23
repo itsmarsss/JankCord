@@ -263,7 +263,7 @@ public class ChatBoxArea extends JPanel {
             } else {
                 chatBoxScrollPane.smoothScrollBottom();
             }
-            System.out.println("scroll");
+            // System.out.println("scroll");
         });
     }
 

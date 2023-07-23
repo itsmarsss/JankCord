@@ -67,7 +67,7 @@ public class ChannelProfile extends JPanel {
                     setBackground(new Color(59, 60, 66));
                     usernameLabel.setForeground(new Color(255, 255, 255));
 
-                    System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
+                    // System.out.println("Viewing: " + friend.getUsername() + " [" + friend.getId() + "]");
                 }
             }
 

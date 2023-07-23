@@ -47,7 +47,7 @@ public class JankScrollPane extends JScrollPane {
             int diffY = destinationY - currentY;
             int step = Math.max(5, Math.abs(diffY) / 10);
 
-            System.out.println(destinationY + " " + Math.abs(diffY) + " " + step);
+            // System.out.println(destinationY + " " + Math.abs(diffY) + " " + step);
             if (Math.abs(diffY) <= step) {
                 getVerticalScrollBar().setValue(destinationY);
                 counter = 0;
@@ -63,7 +63,7 @@ public class JankScrollPane extends JScrollPane {
             int rotation = e.getWheelRotation();
             int currentY = getViewport().getViewPosition().y;
             int maxScrollY = getVerticalScrollBar().getMaximum();
-            System.out.println(maxScrollY);
+            // System.out.println(maxScrollY);
             destinationY = Math.max(0, Math.min(currentY + (rotation * multiplier * 3), maxScrollY));
             timer.start();
         });
@@ -74,7 +74,7 @@ public class JankScrollPane extends JScrollPane {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(currentStep + "-" + totalSteps);
+                // System.out.println(currentStep + "-" + totalSteps);
 
                 JScrollBar verticalScrollBar = getVerticalScrollBar();
                 int maximumValue = verticalScrollBar.getMaximum();
@@ -107,11 +107,11 @@ public class JankScrollPane extends JScrollPane {
         int currentY = getViewport().getViewPosition().y;
         int maxScrollY = getVerticalScrollBar().getMaximum();
 
-        System.out.println(maxScrollY - prevMax);
+        // System.out.println(maxScrollY - prevMax);
         if (prevMax == -1) {
             prevMax = maxScrollY;
         } else if (Math.abs(maxScrollY - prevMax) > 100) {
-            System.out.println(maxScrollY - prevMax);
+            // System.out.println(maxScrollY - prevMax);
             maxScrollY = prevMax;
         }
 
