@@ -64,13 +64,14 @@ public class JankScrollBar extends BasicScrollBarUI {
         Graphics2D g2 = (Graphics2D) g.create();
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2.setPaint(thumbColor);
-        g2.fillRoundRect(r.x, r.y, r.width, r.height, r.width, r.width);
-
-        g2.setPaint(thumbColor);
-        g2.drawRoundRect(r.x, r.y, r.width, r.height, r.width, r.width);
-
+        if (round) {
+            g2.fillRoundRect(r.x, r.y, r.width, r.height, r.width, r.width);
+            g2.drawRoundRect(r.x, r.y, r.width, r.height, r.width, r.width);
+        }else {
+            g2.fillRect(r.x, r.y, r.width, r.height);
+            g2.drawRect(r.x, r.y, r.width, r.height);
+        }
         g2.dispose();
     }
 

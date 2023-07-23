@@ -87,6 +87,7 @@ public class ChatBoxArea extends JPanel {
         typePanel.add(typeScrollPane);
 
         textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
         textArea.setText("Write a Message");
         textArea.setBackground(new Color(56, 58, 64));
         textArea.setForeground(new Color(255, 255, 255));
@@ -273,6 +274,14 @@ public class ChatBoxArea extends JPanel {
         });
     }
 
+    public void resetMessageWidths() {
+        SwingUtilities.invokeLater(() -> {
+            for (MessageProfile mp : messageProfiles) {
+                mp.updateMessageWidth();
+            }
+        });
+    }
+
     public int getMessageIndex() {
         return index;
     }
@@ -286,11 +295,11 @@ public class ChatBoxArea extends JPanel {
     }
 
 
-    public JScrollPane getChatBoxScrollPane() {
+    public JankScrollPane getChatBoxScrollPane() {
         return chatBoxScrollPane;
     }
 
-    public JScrollPane getMembersScrollPane() {
+    public JankScrollPane getMembersScrollPane() {
         return membersScrollPane;
     }
 
@@ -298,7 +307,7 @@ public class ChatBoxArea extends JPanel {
         return typePanel;
     }
 
-    public JScrollPane getTypeScrollPane() {
+    public JankScrollPane getTypeScrollPane() {
         return typeScrollPane;
     }
 

@@ -409,6 +409,7 @@ public class Jankcord {
                 chatBoxArea.addMessage(messages.get(i));
             }
 
+            chatBoxArea.resetMessageWidths();
             chatBoxArea.setMaxChatScroll();
         }
 
@@ -493,9 +494,7 @@ public class Jankcord {
 
         chatBoxArea.getMembersScrollPane().setSize(540, chatBoxArea.getHeight() - 106);
         chatBoxArea.getMembersScrollPane().setLocation(chatBoxArea.getChatBoxScrollPane().getWidth() + 5, 106);
-        for (MessageProfile mp : chatBoxArea.getMessageProfiles()) {
-            mp.updateMessageWidth();
-        }
+        chatBoxArea.resetMessageWidths();
 
         chatBoxArea.revalidate();
         chatBoxArea.repaint();

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
 
 public class JankScrollPane extends JScrollPane {
 
@@ -22,10 +23,12 @@ public class JankScrollPane extends JScrollPane {
         setSize(width, height);
         setBackground(new Color(54, 57, 63));
         getVerticalScrollBar().setUnitIncrement(0);
+        getHorizontalScrollBar().setUnitIncrement(15);
         getVerticalScrollBar().setBackground(getBackground());
         getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
         getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
         getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
+        getHorizontalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), false));
 
         multiplier = 175;
 
@@ -76,7 +79,7 @@ public class JankScrollPane extends JScrollPane {
                 int targetValue = Math.min(startValue + (maximumValue - startValue) * currentStep / totalSteps, maximumValue);
                 verticalScrollBar.setValue(targetValue);
 
-                if (currentStep++ > totalSteps - 40) {
+                if (currentStep++ > totalSteps - 20) {
                     scrollTimer.stop();
                 }
             }
@@ -84,6 +87,14 @@ public class JankScrollPane extends JScrollPane {
 
         scrollTimer.start();
 
+    }
+
+    public void artificialScroll(MouseWheelEvent e) {
+        int rotation = e.getWheelRotation();
+        int currentY = getViewport().getViewPosition().y;
+        int maxScrollY = getVerticalScrollBar().getMaximum();
+        destinationY = Math.max(0, Math.min(currentY + (rotation * multiplier * 3), maxScrollY));
+        timer.start();
     }
 
     public int getDestinationY() {
