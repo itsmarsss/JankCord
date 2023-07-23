@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
 
 import jankcord.Jankcord;
+import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
 import jankcord.tools.ServerCommunicator;
-import jankcord.components.scrollbar.JankScrollBar;
-import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.texthelpers.UndoRedo;
 import jankcord.objects.Message;
 import jankcord.objects.User;
@@ -21,15 +19,14 @@ import jankcord.profiles.MemberProfile;
 import jankcord.profiles.MessageProfile;
 
 public class ChatBoxArea extends JPanel {
-    private JPanel chatBoxTopBarPanel;
     private JPanel chatPanel;
-    private JScrollPane chatBoxScrollPane;
+    private JankScrollPane chatBoxScrollPane;
     private JPanel typePanel;
 
     private JankTextArea textArea;
-    private JScrollPane typeScrollPane;
+    private JankScrollPane typeScrollPane;
     private JPanel membersPanel;
-    private JScrollPane membersScrollPane;
+    private JankScrollPane membersScrollPane;
 
     private LinkedList<MemberProfile> memberProfiles;
     private LinkedList<MessageProfile> messageProfiles;
@@ -48,7 +45,7 @@ public class ChatBoxArea extends JPanel {
         setSize(Jankcord.getViewPanel().getWidth() - 646, Jankcord.getViewPanel().getHeight() - 50);
 
         // Chat TopBar
-        chatBoxTopBarPanel = new JPanel();
+        JPanel chatBoxTopBarPanel = new JPanel();
         // Chat Topbar Init
         chatBoxTopBarPanel.setLayout(null);
         chatBoxTopBarPanel.setSize(getWidth(), 106);
@@ -59,21 +56,11 @@ public class ChatBoxArea extends JPanel {
 
         // Chat Section
         chatPanel = new JPanel();
-        chatBoxScrollPane = new JScrollPane(chatPanel);
         chatPanel.setBackground(new Color(54, 57, 63));
+        chatBoxScrollPane = new JankScrollPane(getWidth() - 540, getHeight() - 206, 0, 106, chatPanel);
+
 
         // Chat Init
-        chatBoxScrollPane.setOpaque(true);
-        chatBoxScrollPane.setBorder(null);
-        chatBoxScrollPane.setLocation(0, 106);
-        chatBoxScrollPane.setSize(getWidth() - 540, getHeight() - 206);
-        chatBoxScrollPane.setBackground(new Color(54, 57, 63));
-        chatBoxScrollPane.getVerticalScrollBar().setUnitIncrement(15);
-        chatBoxScrollPane.getVerticalScrollBar().setBackground(getBackground());
-        chatBoxScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
-        chatBoxScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        chatBoxScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
-
         add(chatBoxScrollPane);
 
         // Type Section
@@ -86,17 +73,10 @@ public class ChatBoxArea extends JPanel {
         typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 75);
 
         textArea = new JankTextArea();
-        typeScrollPane = new JScrollPane(textArea);
-        typeScrollPane.setBorder(null);
-        typeScrollPane.setLocation(10, 8);
-        typeScrollPane.setBackground(new Color(64, 68, 75));
-        typeScrollPane.setSize(typePanel.getWidth() - 20, typePanel.getHeight() - 16);
+        typeScrollPane = new JankScrollPane(typePanel.getWidth() - 20, typePanel.getHeight() - 16, 10, 8, textArea);
 
-        typeScrollPane.getVerticalScrollBar().setUnitIncrement(15);
-        typeScrollPane.getVerticalScrollBar().setBackground(getBackground());
+        typeScrollPane.setBackground(new Color(64, 68, 75));
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-        typeScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        typeScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
 
         typePanel.add(typeScrollPane);
 
@@ -119,7 +99,7 @@ public class ChatBoxArea extends JPanel {
                     headers.put("otherID", Jankcord.getOtherID());
                     headers.put("content", textArea.getText());
 
-                    String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
 
                     textArea.setText("");
                 } else {
@@ -144,16 +124,12 @@ public class ChatBoxArea extends JPanel {
 
         // Members Section
         membersPanel = new JPanel();
-        membersScrollPane = new JScrollPane(membersPanel);
         membersPanel.setBackground(new Color(43, 45, 49));
 
+        membersScrollPane = new JankScrollPane(540, getHeight() - 106, chatBoxScrollPane.getWidth() + 5, 106, membersPanel);
+
         // MemberList Init
-        membersScrollPane.setOpaque(true);
-        membersScrollPane.setBorder(null);
-        membersScrollPane.setSize(540, getHeight() - 106);
         membersScrollPane.setBackground(new Color(43, 45, 49));
-        membersScrollPane.setLocation(chatBoxScrollPane.getWidth() + 5, 106);
-        membersScrollPane.getVerticalScrollBar().setUnitIncrement(15);
         membersScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         membersScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 
@@ -184,16 +160,13 @@ public class ChatBoxArea extends JPanel {
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
             typePanel.setLocation(typePanel.getX(), getHeight() - (typePanel.getHeight() + 25));
-            typePanel.revalidate();
-            typePanel.repaint();
 
             typeScrollPane.setSize(typePanel.getWidth() - 20, typePanel.getHeight() - 16);
-            typeScrollPane.revalidate();
-            typeScrollPane.repaint();
 
             chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
-            chatBoxScrollPane.revalidate();
-            chatBoxScrollPane.repaint();
+
+            revalidate();
+            repaint();
         }
     }
 
@@ -204,10 +177,6 @@ public class ChatBoxArea extends JPanel {
         tempEditorPane.setSize(textArea.getWidth(), Short.MAX_VALUE);
 
         return (int) tempEditorPane.getPreferredSize().getHeight();
-    }
-
-    public JPanel getChatBoxTopBarPanel() {
-        return chatBoxTopBarPanel;
     }
 
     public JScrollPane getChatBoxScrollPane() {
@@ -281,12 +250,12 @@ public class ChatBoxArea extends JPanel {
 
     public void setMaxChatScroll() {
         SwingUtilities.invokeLater(() -> {
-            JViewport viewport = chatBoxScrollPane.getViewport();
-            Point bottom = new Point(0, chatPanel.getHeight());
-            viewport.setViewPosition(bottom);
-//            JScrollBar vertical = membersScrollPane.getVerticalScrollBar();
-//            vertical.setValue(vertical.getMaximum());
-//            System.out.println("scroll");
+//            JViewport viewport = chatBoxScrollPane.getViewport();
+//            Point bottom = new Point(0, chatPanel.getHeight());
+//            viewport.setViewPosition(bottom);
+            JScrollBar vertical = membersScrollPane.getVerticalScrollBar();
+            vertical.setValue(vertical.getMaximum());
+            System.out.println("scroll");
         });
     }
 

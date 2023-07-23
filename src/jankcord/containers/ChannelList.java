@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import jankcord.Jankcord;
 import jankcord.components.scrollbar.JankScrollBar;
+import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.User;
 import jankcord.popups.RequestGroupChat;
 import jankcord.profiles.ChannelProfile;
@@ -21,7 +22,7 @@ import jankcord.profiles.FriendProfile;
 
 public class ChannelList extends JPanel {
     private JPanel channelPanel;
-    private JScrollPane channelScrollPane;
+    private JankScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;
     private GridBagConstraints gbc;
 
@@ -63,21 +64,13 @@ public class ChannelList extends JPanel {
 
         // Channel Section
         channelPanel = new JPanel();
-        channelScrollPane = new JScrollPane(channelPanel);
         channelPanel.setBackground(new Color(43, 45, 49));
+        channelScrollPane = new JankScrollPane(477, getHeight() - 110, 0, 106, channelPanel);
 
         // Channel Init
-        channelScrollPane.setOpaque(true);
-        channelScrollPane.setBorder(null);
-        channelScrollPane.setLocation(0, 106);
-        channelScrollPane.setSize(477, getHeight() - 110);
         channelScrollPane.setBackground(new Color(43, 45, 49));
-        channelScrollPane.getVerticalScrollBar().setUnitIncrement(15);
         channelScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-        channelScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
         channelScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), false));
-
-        // Add Channels
 
         // Set Layout
         channelPanel.setLayout(new GridBagLayout());
@@ -91,7 +84,7 @@ public class ChannelList extends JPanel {
         add(channelScrollPane);
     }
 
-    public JScrollPane getChannelScrollPane() {
+    public JankScrollPane getChannelScrollPane() {
         return channelScrollPane;
     }
 
