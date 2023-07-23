@@ -200,9 +200,6 @@ public class ChatBoxArea extends JPanel {
             typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45));
 
             chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
-
-            revalidate();
-            repaint();
         }
     }
 
