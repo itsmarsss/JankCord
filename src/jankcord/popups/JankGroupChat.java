@@ -99,7 +99,6 @@ public class JankGroupChat extends JFrame {
         submitButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
-                System.out.println("yo");
                 HashMap<String, String> headers = new HashMap<>();
 
                 String username = Jankcord.getFullUser().getUsername();

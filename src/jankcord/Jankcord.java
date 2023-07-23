@@ -325,14 +325,11 @@ public class Jankcord {
         headers.put("username", fullUser.getUsername());
         headers.put("password", fullUser.getPassword());
 
-        System.out.println("yo");
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
-        System.out.println("yoo");
         System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
 
-        System.out.println("yoo0");
         try {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
@@ -356,14 +353,11 @@ public class Jankcord {
             e.printStackTrace();
         }
 
-        System.out.println("yooo");
 
         boolean isSame = true;
         if (groupChats.size() != tempGroupChats.size()) {
             isSame = false;
-            System.out.println("yoooo");
         } else {
-            System.out.println("yoooo2");
             for (int i = 0; i < groupChats.size(); i++) {
                 System.out.println("here1");
                 GroupChat groupChat = groupChats.get(i);
