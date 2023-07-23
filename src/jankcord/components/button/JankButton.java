@@ -8,10 +8,12 @@ import java.awt.*;
 
 public class JankButton extends JButton {
 
-    private final JankMouseListener jml = new JankMouseListener();
+    private final JankMouseListener jml;
 
     public JankButton(String text, int width, int height, int x, int y) {
         super(text);
+
+        jml = new JankMouseListener();
 
         setSize(width, height);
         setLocation(x, y);

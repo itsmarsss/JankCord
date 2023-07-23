@@ -14,9 +14,9 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 public class JankScrollBar extends BasicScrollBarUI {
 	private final Dimension dim = new Dimension();
 
-	private Color trackColor;
-	private Color thumbColor;
-	private Boolean round;
+	private final Color trackColor;
+	private final Color thumbColor;
+	private final boolean round;
 
 	public JankScrollBar(Color trackColor, Color thumbColor, boolean round) {
 		this.trackColor = trackColor;

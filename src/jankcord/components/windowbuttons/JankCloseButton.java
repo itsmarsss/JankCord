@@ -1,7 +1,5 @@
 package jankcord.components.windowbuttons;
 
-import jankcord.components.button.buttonlistener.JankMouseListener;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;

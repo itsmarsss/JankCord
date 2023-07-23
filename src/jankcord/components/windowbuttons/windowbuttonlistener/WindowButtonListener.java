@@ -13,16 +13,16 @@ public class WindowButtonListener implements MouseListener {
 	public static final int FRAME_FULLSCREEN = 1;
 	public static final int FRAME_MINIMIZE = 2;
 	
-	private int perform;
+	private final int perform;
 	
-	private Color hoverBack;
-	private Color hoverFore;
+	private final Color hoverBack;
+	private final Color hoverFore;
 
-	private Color clickBack;
-	private Color clickFore;
+	private final Color clickBack;
+	private final Color clickFore;
 
-	private Color exitBack;
-	private Color exitFore;
+	private final Color exitBack;
+	private final Color exitFore;
 	
 	public WindowButtonListener(
 			int perform,
