@@ -38,6 +38,9 @@ public class JankcordAdmin {
         System.out.println("Reading accounts...");
         System.out.println(readAccounts());
 
+        System.out.println("Reading messages...");
+        loadInAllMessages();
+
         while (true) {
             System.out.print(">> ");
 
@@ -140,49 +143,6 @@ public class JankcordAdmin {
         return "Successfully read accounts.json file.";
     }
 
-    public static String writeMessages(String fileName) {
-        return null;
-    }
-
-    public static String readMessages(String fileName) {
-        String textJSON = JankFileKit.readFile(getParent() + "/messages/" + fileName + ".json");
-
-        if (textJSON == null) {
-            textJSON = "";
-            System.out.println("IO error reading.");
-        }
-
-        ArrayList<Message> messages = new ArrayList<>();
-
-        try {
-            // Parse the JSON string
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
-
-            // Get the "messages" array from the JSON object
-            JSONArray messagesArray = (JSONArray) jsonObject.get("messages");
-
-            // Loop through the "messages" array
-            for (Object message : messagesArray) {
-                JSONObject messageObject = (JSONObject) message;
-
-                // Read values from each message object
-                long id = (Long) messageObject.get("id");
-                String content = (String) messageObject.get("content");
-                long timestamp = (Long) messageObject.get("timestamp");
-
-                messages.add(new Message(id, content, timestamp));
-            }
-        } catch (Exception e) {
-        }
-
-        getConversations().put(fileName, messages);
-
-        System.out.println("File read. [" + fileName + "]");
-
-        return textJSON;
-    }
-
     public static String createAccount() {
         System.out.println("Creating new JankCord account for user...");
         System.out.print("Username (no spaces | 20 characters max): ");
@@ -227,6 +187,8 @@ public class JankcordAdmin {
             long id = getAccounts().get(getAccounts().size() - 1).getId() + 1;
             getAccounts().add(new FullUser(id, username, "N/A", password, "", "active"));
         }
+
+        writeAccounts();
 
         return "Account \"" + username + "\" with password \"" + password + "\" created successfully";
     }
@@ -402,6 +364,19 @@ public class JankcordAdmin {
     public static String stopServer() {
         server.stop(0);
         return "JankCord server stopped.";
+    }
+
+    public static void loadInAllMessages() {
+        File messageDir = new File(getParent() + "/messages");
+
+        if(!messageDir.isDirectory()) {
+            messageDir.mkdir();
+        } else {
+            File[] files = messageDir.listFiles();
+            for(File file : files) {
+                JankFileKit.readMessages(file.getName());
+            }
+        }
     }
 
     private static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
