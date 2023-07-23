@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import javax.swing.*;
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
+import jankcord.tools.Base64Helper;
 import jankcord.tools.ServerCommunicator;
 import jankcord.texthelpers.UndoRedo;
 import jankcord.objects.Message;
@@ -35,6 +37,8 @@ public class ChatBoxArea extends JPanel {
     private final LinkedList<MessageProfile> messageProfiles;
 
     private final GridBagConstraints gbc;
+
+    private boolean shifting = false;
 
     public ChatBoxArea() {
         // Init
@@ -118,9 +122,13 @@ public class ChatBoxArea extends JPanel {
         });
 
         textArea.addKeyListener(new KeyListener() {
-
             @Override
             public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                    shifting = true;
+                } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
+                    e.consume();
+                }
             }
 
             @Override
@@ -129,20 +137,23 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-//                    HashMap<String, String> headers = new HashMap<>();
-//                    headers.put("username", Jankcord.getFullUser().getUsername());
-//                    headers.put("password", Jankcord.getFullUser().getPassword());
-//                    headers.put("otherID", Jankcord.getOtherID());
-//                    headers.put("content", textArea.getText());
-//
-//                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
-//
-//                    textArea.setText("");
-                    reline();
-                } else {
-                    reline();
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                    shifting = false;
+                } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
+                    String content = Base64Helper.sToBase64(textArea.getText());
+
+                    textArea.setText("");
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("username", Jankcord.getFullUser().getUsername());
+                    headers.put("password", Jankcord.getFullUser().getPassword());
+                    headers.put("otherID", Jankcord.getOtherID());
+                    headers.put("content", content);
+
+                    String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    textArea.insert("\n", textArea.getCaretPosition());
                 }
+                reline();
             }
 
         });
@@ -183,7 +194,6 @@ public class ChatBoxArea extends JPanel {
     }
 
     public void reline() {
-        System.out.println(textArea.getLineCount());
         int h = textArea.getLineCount() * 45 + 36;
 
         if (h <= 500) {
