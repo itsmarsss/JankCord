@@ -58,7 +58,7 @@ public class ServerCommunicator {
     public static boolean headerable(String string) {
         String check = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ :;.,\\/\"'?!(){}[]@<>=-+*#$&`|~^%";
         for (char c : string.toCharArray()) {
-            if (check.contains(c + "")) {
+            if (!check.contains(c + "")) {
                 return false;
             }
         }
