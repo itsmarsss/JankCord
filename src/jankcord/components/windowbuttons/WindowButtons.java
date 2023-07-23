@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import jankcord.Jankcord;
+import jankcord.components.windowbuttons.windowbuttonlistener.WindowButtonListener;
 
 public class WindowButtons extends JPanel {
     public WindowButtons() {
@@ -21,26 +22,11 @@ public class WindowButtons extends JPanel {
 
         // Buttons
         Font windowButtonFont = new Font(null, Font.PLAIN, 28);
-        JLabel closeButton = new JLabel("✕", SwingConstants.CENTER);
+        JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
         JLabel fullscreenButton = new JLabel("□", SwingConstants.CENTER);
         JLabel minimizeButton = new JLabel("—", SwingConstants.CENTER);
 
         // Buttons Init
-        closeButton.setOpaque(true);
-        closeButton.setSize(62, 50);
-        closeButton.setFont(windowButtonFont);
-        closeButton.setLocation(getWidth() - closeButton.getWidth(), 0);
-        closeButton.addMouseListener(new WindowButtonListener(
-                WindowButtonListener.FRAME_CLOSE,
-                new Color(237, 66, 69),
-                new Color(255, 255, 255),
-                new Color(237, 66, 69),
-                new Color(255, 255, 255),
-                new Color(32, 34, 37),
-                new Color(185, 187, 190)));
-        closeButton.setBackground(new Color(32, 34, 37));
-        closeButton.setForeground(new Color(159, 161, 165));
-
         add(closeButton);
 
 

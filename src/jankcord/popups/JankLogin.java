@@ -5,6 +5,7 @@ import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
+import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.objects.FullUser;
@@ -53,7 +54,7 @@ public class JankLogin extends JFrame {
             }
         });
         getContentPane().addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
+                public void mouseDragged(MouseEvent e) {
                 if (drag) {
                     setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
                 }
@@ -61,43 +62,7 @@ public class JankLogin extends JFrame {
         });
 
 
-        Font windowButtonFont = new Font(null, Font.PLAIN, 28);
-        JLabel closeButton = new JLabel("✕", SwingConstants.CENTER);
-
-        closeButton.setOpaque(true);
-        closeButton.setSize(62, 50);
-        closeButton.setFont(windowButtonFont);
-        closeButton.setLocation(getWidth() - closeButton.getWidth(), 0);
-        closeButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                e.getComponent().setBackground(new Color(237, 66, 69));
-                e.getComponent().setForeground(new Color(255, 255, 255));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                e.getComponent().setBackground(new Color(237, 66, 69));
-                e.getComponent().setForeground(new Color(255, 255, 255));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                e.getComponent().setBackground(new Color(32, 34, 37));
-                e.getComponent().setForeground(new Color(185, 187, 190));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                System.exit(0);
-            }
-        });
-        closeButton.setBackground(new Color(32, 34, 37));
-        closeButton.setForeground(new Color(159, 161, 165));
+        JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
 
         getContentPane().add(closeButton);
 
