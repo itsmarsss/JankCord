@@ -14,24 +14,20 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import jankcord.Jankcord;
+import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.tools.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
 import jankcord.profiles.ExploreProfile;
 import jankcord.profiles.HomeProfile;
 import jankcord.profiles.ServerProfile;
 
-public class ServerList extends JScrollPane {
+public class ServerList extends JankScrollPane {
 	public ServerList() {
+		super(106, Jankcord.getFrame().getHeight()-50, 30, 50, null);
 		// Init
 		setName("ServerList");
-		
-		setOpaque(true);
-		setBorder(null);
-		setLocation(30, 50);
+
 		setBackground(new Color(32, 34, 37));
-		setSize(106, Jankcord.getFrame().getHeight()-50);
-		
-		getVerticalScrollBar().setUnitIncrement(15);
 		getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 		getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 
@@ -39,8 +35,8 @@ public class ServerList extends JScrollPane {
 		JPanel serverPanel = new JPanel();
 		setViewportView(serverPanel);
 		
-			// Server Init
-		serverPanel.setBackground(new Color(32, 34, 37));
+		// Server Init
+		serverPanel.setBackground(getBackground());
 
 		// Set Layout
 		serverPanel.setLayout(new GridBagLayout());
@@ -48,7 +44,7 @@ public class ServerList extends JScrollPane {
 		
 		// Add Servers
 		
-			// Home Profile
+		// Home Profile
 		HomeProfile dmProfile = new HomeProfile();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -56,7 +52,7 @@ public class ServerList extends JScrollPane {
 		
 		serverPanel.add(dmProfile, gbc);
 
-			// Splitter
+		// Splitter
 		JLabel splitLabel = new JLabel("����", SwingConstants.CENTER);
 		splitLabel.setForeground(new Color(85, 87, 90));
 		splitLabel.setPreferredSize(new Dimension(106, 20));
@@ -66,9 +62,10 @@ public class ServerList extends JScrollPane {
 		gbc.insets = new Insets(0, 0, 20, 0);
 		
 		serverPanel.add(splitLabel, gbc);
-		
-			// Servers
+
+		// Servers
 		LinkedList<ServerProfile>serverProfiles = new LinkedList<>();
+
 		int i = 2;
 		while(i < 12) {
 			ServerProfile sp = new ServerProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), "ID");
@@ -80,14 +77,14 @@ public class ServerList extends JScrollPane {
 		}
 		i++;
 		
-			// Add Profile
+		// Add Profile
 		AddServerProfile addServerProfile = new AddServerProfile();
 		gbc.gridx = 0;
 		gbc.gridy = i+1;
 		
 		serverPanel.add(addServerProfile, gbc);
 		
-			// Explore Profile
+		// Explore Profile
 		ExploreProfile exploreProfile = new ExploreProfile();
 		gbc.gridx = 0;
 		gbc.gridy = i+2;

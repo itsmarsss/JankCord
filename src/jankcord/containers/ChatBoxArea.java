@@ -19,19 +19,20 @@ import jankcord.profiles.MemberProfile;
 import jankcord.profiles.MessageProfile;
 
 public class ChatBoxArea extends JPanel {
-    private JPanel chatPanel;
-    private JankScrollPane chatBoxScrollPane;
-    private JPanel typePanel;
+    private final JPanel chatBoxTopBarPanel;
+    private final JPanel chatPanel;
+    private final JankScrollPane chatBoxScrollPane;
+    private final JPanel typePanel;
 
-    private JankTextArea textArea;
-    private JankScrollPane typeScrollPane;
-    private JPanel membersPanel;
-    private JankScrollPane membersScrollPane;
+    private final JankTextArea textArea;
+    private final JankScrollPane typeScrollPane;
+    private final JPanel membersPanel;
+    private final JankScrollPane membersScrollPane;
 
-    private LinkedList<MemberProfile> memberProfiles;
-    private LinkedList<MessageProfile> messageProfiles;
+    private final LinkedList<MemberProfile> memberProfiles;
+    private final LinkedList<MessageProfile> messageProfiles;
 
-    private GridBagConstraints gbc;
+    private final GridBagConstraints gbc;
 
     public ChatBoxArea() {
         // Init
@@ -45,7 +46,7 @@ public class ChatBoxArea extends JPanel {
         setSize(Jankcord.getViewPanel().getWidth() - 646, Jankcord.getViewPanel().getHeight() - 50);
 
         // Chat TopBar
-        JPanel chatBoxTopBarPanel = new JPanel();
+        chatBoxTopBarPanel = new JPanel();
         // Chat Topbar Init
         chatBoxTopBarPanel.setLayout(null);
         chatBoxTopBarPanel.setSize(getWidth(), 106);
@@ -261,5 +262,9 @@ public class ChatBoxArea extends JPanel {
 
     public int getMessageIndex() {
         return index;
+    }
+
+    public JPanel getChatBoxTopBarPanel() {
+        return chatBoxTopBarPanel;
     }
 }

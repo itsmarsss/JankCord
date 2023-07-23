@@ -21,10 +21,10 @@ import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
 public class ChannelList extends JPanel {
-    private JPanel channelPanel;
-    private JankScrollPane channelScrollPane;
+    private final JPanel channelPanel;
+    private final JankScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;
-    private GridBagConstraints gbc;
+    private final GridBagConstraints gbc;
 
     private RequestGroupChat requestGroupChat;
 
@@ -82,10 +82,6 @@ public class ChannelList extends JPanel {
         gbc.insets = new Insets(0, 25, 3, 1);
 
         add(channelScrollPane);
-    }
-
-    public JankScrollPane getChannelScrollPane() {
-        return channelScrollPane;
     }
 
     public void addChannel(User friend, int index) {
@@ -163,5 +159,9 @@ public class ChannelList extends JPanel {
         for (ChannelProfile profile : channelProfiles) {
             profile.resetDisplay();
         }
+    }
+
+    public JankScrollPane getChannelScrollPane() {
+        return channelScrollPane;
     }
 }
