@@ -1,18 +1,13 @@
 package jankcord.profiles;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.util.Date;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import jankcord.Jankcord;
 import jankcord.objects.SimpleUserCache;
@@ -20,6 +15,10 @@ import jankcord.objects.Message;
 
 public class MessageProfile extends JPanel {
     private final Message message;
+    private final JLabel messageLabel;
+    private final String content;
+
+    public static final String template = "<html><body style='width: %spx;'>%s</body></html>";
 
     public MessageProfile(Message message) {
         SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
@@ -29,7 +28,7 @@ public class MessageProfile extends JPanel {
         // Init
         setLayout(null);
         setBackground(null);
-        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatPanel().getWidth() - 30, 0));
+        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, 0));
 
         // Icon
         JLabel usersIcon = new JLabel();
@@ -64,7 +63,11 @@ public class MessageProfile extends JPanel {
         timeLabel.setSize(w2, 40);
 
         // Message content
-        JLabel messageLabel = new JLabel("<html>" + message.getContent().replaceAll("\\n", "<br/>") + "</html>");
+        content = message.getContent().replaceAll("\\n", "<br/>");
+
+        messageLabel = new JLabel();
+
+        updateMessageWidth();
 
         messageLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
         messageLabel.setSize((int) getPreferredSize().getWidth() - messageLabel.getX(), (int) messageLabel.getPreferredSize().getHeight());
@@ -105,6 +108,37 @@ public class MessageProfile extends JPanel {
         });
 
         this.message = message;
+    }
+
+    public void updateMessageWidth() {
+        // Remove any existing HTML tags and line breaks
+        String cleanedText = content.replaceAll("<br>", "").replaceAll("<html>|</html>", "");
+
+        FontMetrics fontMetrics = messageLabel.getFontMetrics(messageLabel.getFont());
+        int labelWidth = (int) getPreferredSize().getWidth() - messageLabel.getX();
+
+
+        StringBuilder wrappedText = new StringBuilder("<html>");
+        String[] words = cleanedText.split("");
+        int currentLineWidth = 0;
+
+        for (String word : words) {
+            int wordWidth = SwingUtilities.computeStringWidth(fontMetrics, word);
+
+            if (currentLineWidth + wordWidth <= labelWidth) {
+                wrappedText.append(word);
+                currentLineWidth += wordWidth;
+            } else {
+                wrappedText.append("<br>").append(word);
+                currentLineWidth = wordWidth;
+            }
+        }
+
+        wrappedText.append("</html>");
+        messageLabel.setText(wrappedText.toString());
+
+        messageLabel.setSize((int) getPreferredSize().getWidth() - messageLabel.getX(), (int) messageLabel.getPreferredSize().getHeight());
+        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, (int) (messageLabel.getPreferredSize().getHeight() + 60)));
     }
 
     public Message getMessage() {
