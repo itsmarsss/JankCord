@@ -12,7 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class JankScrollBar extends BasicScrollBarUI {
-    private Dimension dim = new Dimension();
+    private final Dimension dim = new Dimension();
 
     private Color trackColor;
     private Color thumbColor;

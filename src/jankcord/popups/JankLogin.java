@@ -127,8 +127,8 @@ public class JankLogin extends JFrame {
                     statusLabel.setText("Incorrect credentials.");
                 }
 
-                long id = 0;
-                String avatarURL = null;
+                long id;
+                String avatarURL;
 
                 try {
                     // Parse the JSON string

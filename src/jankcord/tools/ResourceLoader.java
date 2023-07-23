@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ResourceLoader {
-    public static ResourceLoader loader = new ResourceLoader();
+    public static final ResourceLoader loader = new ResourceLoader();
 
     // ServerList Icons
     private final ImageIcon homeProfileIcon = new ImageIcon(getClass().getClassLoader().getResource("resources/home.png"));

@@ -3,8 +3,6 @@ package jankcord.profiles;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.util.Date;
@@ -13,7 +11,6 @@ import javax.swing.*;
 
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
-import jankcord.components.texts.JankTextArea;
 import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
 
@@ -21,7 +18,6 @@ public class MessageProfile extends JPanel {
     private final Message message;
     private final JankScrollPane messageAreaScroll;
     private final JLabel messageArea;
-    private final String content;
 
     public MessageProfile(Message message) {
         SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
@@ -66,7 +62,7 @@ public class MessageProfile extends JPanel {
         timeLabel.setSize(w2, 40);
 
         // Message content
-        content = message.getContent().replaceAll("\\n", "<br>");
+        String content = message.getContent().replaceAll("\\n", "<br>");
 
         messageArea = new JLabel();
 

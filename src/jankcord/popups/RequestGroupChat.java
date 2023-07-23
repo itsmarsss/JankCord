@@ -5,21 +5,14 @@ import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.texts.JankTextArea;
 import jankcord.components.windowbuttons.JankCloseButton;
-import jankcord.objects.FullUser;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
-import jankcord.texthelpers.DeletePrevCharAction;
 import jankcord.tools.ServerCommunicator;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RequestGroupChat extends JFrame {

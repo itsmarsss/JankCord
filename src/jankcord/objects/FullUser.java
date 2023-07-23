@@ -1,7 +1,5 @@
 package jankcord.objects;
 
-import java.util.Base64;
-
 public class FullUser extends User {
     private String password;
     private String endPointHost;

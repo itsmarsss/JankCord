@@ -68,6 +68,7 @@ public class JankScrollPane extends JScrollPane {
             timer.start();
         });
 
+        double scrollTimeInSeconds = 0.5;
         scrollTimer = new Timer((int) (scrollTimeInSeconds * 1000 / totalSteps), new ActionListener() {
             private int currentStep = 0;
             private int startValue;
@@ -94,8 +95,7 @@ public class JankScrollPane extends JScrollPane {
         });
     }
 
-    private Timer scrollTimer;
-    private final double scrollTimeInSeconds = 0.5;
+    private final Timer scrollTimer;
     private final int totalSteps = 25; // Total steps to reach the bottom in 0.5 seconds
 
     public void smoothScrollBottom() {

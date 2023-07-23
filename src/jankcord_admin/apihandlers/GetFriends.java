@@ -8,7 +8,6 @@ import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class GetFriends implements HttpHandler {
     @Override

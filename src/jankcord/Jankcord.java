@@ -32,7 +32,6 @@ import jankcord.components.windowbuttons.WindowButtons;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.objects.*;
 import jankcord.popups.JankLogin;
-import jankcord.profiles.MessageProfile;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.ComponentResizer;
 import jankcord.tools.ResourceLoader;
@@ -229,7 +228,7 @@ public class Jankcord {
     }
 
     private static ArrayList<User> tempFriends = new ArrayList<>();
-    public static HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
+    public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
 
     private static void queryForNewFriend() {
         // System.out.println("New friend query");
