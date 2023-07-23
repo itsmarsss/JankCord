@@ -33,6 +33,7 @@ import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.objects.*;
 import jankcord.popups.JankLogin;
 import jankcord.profiles.MessageProfile;
+import jankcord.tools.Base64Helper;
 import jankcord.tools.ComponentResizer;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
@@ -362,7 +363,7 @@ public class Jankcord {
                 String username = avatarCache.get(id).getUsername();
                 String avatarURL = avatarCache.get(id).getAvatarURL();
 
-                messages.add(new Message(id, content, timestamp));
+                messages.add(new Message(id, Base64Helper.b64ToString(content), timestamp));
 
                 try {
                     if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
