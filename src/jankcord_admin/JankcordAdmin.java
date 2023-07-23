@@ -19,9 +19,9 @@ import java.util.*;
 public class JankcordAdmin {
 
     private static final Scanner sc = new Scanner(System.in);
-    public static ArrayList<FullUser> accounts = new ArrayList<>();
-    public static HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
-    public static String parent;
+    private static final ArrayList<FullUser> accounts = new ArrayList<>();
+    private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
+    private static String parent;
 
     public static void startAdmin() {
         System.out.println("Welcome to JankCord Admin Dashboard.");
@@ -364,7 +364,7 @@ public class JankcordAdmin {
         } catch (IOException e) {
             return "JankCord server failed to start.";
         }
-        server.createContext("/", new MainPage());
+
         server.createContext("/api/v1/login", new Login());
         server.createContext("/api/v1/messages", new GetMessages());
         server.createContext("/api/v1/friends", new GetFriends());
@@ -426,5 +426,13 @@ public class JankcordAdmin {
         }
 
         return false;
+    }
+
+    public static ArrayList<FullUser> getAccounts() {
+        return accounts;
+    }
+
+    public static HashMap<String, ArrayList<Message>> getConversations() {
+        return conversations;
     }
 }

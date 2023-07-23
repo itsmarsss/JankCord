@@ -24,7 +24,7 @@ public class Login implements HttpHandler {
 
             FullUser user = null;
 
-            for(FullUser account : JankcordAdmin.accounts) {
+            for(FullUser account : JankcordAdmin.getAccounts()) {
                 if(account.getUsername().equals(username)){
                     user = account;
                 }

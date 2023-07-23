@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -17,13 +18,7 @@ public class GetMessages implements HttpHandler {
         //System.out.println("Messages Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
-            exchange.getResponseHeaders().set("Content-Type", "text/json");
-            exchange.sendResponseHeaders(200, 3);
-
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write("403".getBytes());
-            outputStream.close();
-
+            ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
 
@@ -35,7 +30,7 @@ public class GetMessages implements HttpHandler {
         FullUser current = null;
         FullUser other = null;
 
-        for (FullUser account : JankcordAdmin.accounts) {
+        for (FullUser account : JankcordAdmin.getAccounts()) {
             if (account.getUsername().equals(username)) {
                 current = account;
             }
@@ -46,13 +41,7 @@ public class GetMessages implements HttpHandler {
         }
 
         if(current == null || other == null) {
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(200, 3);
-
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write("403".getBytes());
-            outputStream.close();
-
+            ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
 
@@ -71,10 +60,10 @@ public class GetMessages implements HttpHandler {
 
         StringBuilder messages = new StringBuilder();
 
-        if (!JankcordAdmin.conversations.containsKey(fileName)) {
+        if (!JankcordAdmin.getConversations().containsKey(fileName)) {
             messages = new StringBuilder(JankcordAdmin.readMessages(fileName));
         } else {
-            for (Message msg : JankcordAdmin.conversations.get(fileName)) {
+            for (Message msg : JankcordAdmin.getConversations().get(fileName)) {
                 messages.append(message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp()));
             }
         }
@@ -99,11 +88,6 @@ public class GetMessages implements HttpHandler {
                 }
                 """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages.toString());
 
-        exchange.getResponseHeaders().set("Content-Type", "text/json");
-        exchange.sendResponseHeaders(200, textJSON.length());
-
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(textJSON.getBytes());
-        outputStream.close();
+        ServerCommunicator.sendResponse(exchange, textJSON);
     }
 }

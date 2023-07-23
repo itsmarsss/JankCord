@@ -1,7 +1,11 @@
 package jankcord.tools;
 
+import com.sun.net.httpserver.HttpExchange;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,5 +44,14 @@ public class ServerCommunicator {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static void sendResponse(HttpExchange exchange, String response) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "text/html");
+        exchange.sendResponseHeaders(200, response.length());
+
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(response.getBytes());
+        outputStream.close();
     }
 }

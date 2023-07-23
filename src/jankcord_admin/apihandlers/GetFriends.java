@@ -3,6 +3,7 @@ package jankcord_admin.apihandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -14,19 +15,13 @@ public class GetFriends implements HttpHandler {
         //System.out.println("Friends Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
-            exchange.getResponseHeaders().set("Content-Type", "text/json");
-            exchange.sendResponseHeaders(200, 3);
-
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write("403".getBytes());
-            outputStream.close();
-
+            ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
 
         StringBuilder friendsList = new StringBuilder();
 
-        for (FullUser account : JankcordAdmin.accounts) {
+        for (FullUser account : JankcordAdmin.getAccounts()) {
             friendsList.append("""
                     {
                         "id": %s,
@@ -44,11 +39,6 @@ public class GetFriends implements HttpHandler {
                 }
                 """.formatted(friendsList.toString());
 
-        exchange.getResponseHeaders().set("Content-Type", "text/json");
-        exchange.sendResponseHeaders(200, friends.length());
-
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(friends.getBytes());
-        outputStream.close();
+        ServerCommunicator.sendResponse(exchange, friends);
     }
 }

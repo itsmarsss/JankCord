@@ -4,10 +4,10 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +17,7 @@ public class NewMessage implements HttpHandler {
         System.out.println("Messages send Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
-            exchange.getResponseHeaders().set("Content-Type", "text/json");
-            exchange.sendResponseHeaders(200, 3);
-
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write("403".getBytes());
-            outputStream.close();
-
+            ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
 
@@ -36,7 +30,7 @@ public class NewMessage implements HttpHandler {
         FullUser current = null;
         FullUser other = null;
 
-        for (FullUser account : JankcordAdmin.accounts) {
+        for (FullUser account : JankcordAdmin.getAccounts()) {
             if (account.getUsername().equals(username)) {
                 current = account;
             }
@@ -47,13 +41,7 @@ public class NewMessage implements HttpHandler {
         }
 
         if(current == null || other == null) {
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(200, 3);
-
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write("403".getBytes());
-            outputStream.close();
-
+            ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
 
@@ -62,13 +50,8 @@ public class NewMessage implements HttpHandler {
 
         String fileName = Math.min(otherIDNum, currentIDNum) + "-" + Math.max(otherIDNum, currentIDNum);
 
-        JankcordAdmin.conversations.get(fileName).add(new Message(current.getId(), content, System.currentTimeMillis()));
+        JankcordAdmin.getConversations().get(fileName).add(new Message(current.getId(), content, System.currentTimeMillis()));
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html");
-        exchange.sendResponseHeaders(200, 3);
-
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write("200".getBytes());
-        outputStream.close();
+        ServerCommunicator.sendResponse(exchange, "200");
     }
 }
