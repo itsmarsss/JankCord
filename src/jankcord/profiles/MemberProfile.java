@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -40,6 +42,36 @@ public class MemberProfile extends JPanel {
         usernameLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
 
         add(usernameLabel);
+
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setBackground(new Color(59, 60, 66));
+                usernameLabel.setForeground(new Color(255, 255, 255));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                    setBackground(new Color(59, 60, 66));
+                    usernameLabel.setForeground(new Color(219, 222, 225));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                    setBackground(new Color(54, 55, 61));
+                    usernameLabel.setForeground(new Color(219, 222, 225));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                    setBackground(null);
+                    usernameLabel.setForeground(new Color(142, 146, 151));
+            }
+        });
 
         this.member = member;
     }

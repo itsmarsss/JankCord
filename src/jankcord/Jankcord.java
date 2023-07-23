@@ -84,6 +84,7 @@ public class Jankcord {
     private static ChatBoxArea chatBoxArea;
 
     private static String otherID = "";
+    private static boolean newOtherID = true;
     private static FullUser fullUser;
 
     // JankCord Default Constructor
@@ -108,6 +109,14 @@ public class Jankcord {
 
     public static String getOtherID() {
         return otherID;
+    }
+
+    public static boolean isNewOtherID() {
+        return newOtherID;
+    }
+
+    public static void setNewOtherID(boolean newOtherID) {
+        Jankcord.newOtherID = newOtherID;
     }
 
     // render frame and viewPanel

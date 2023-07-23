@@ -260,9 +260,15 @@ public class ChatBoxArea extends JPanel {
 
     public void setMaxChatScroll() {
         SwingUtilities.invokeLater(() -> {
-            JViewport viewport = chatBoxScrollPane.getViewport();
-            Point bottom = new Point(0, chatPanel.getHeight());
-            viewport.setViewPosition(bottom);
+            if (Jankcord.isNewOtherID()) {
+                JViewport viewport = chatBoxScrollPane.getViewport();
+                Point bottom = new Point(0, chatPanel.getHeight());
+                viewport.setViewPosition(bottom);
+
+                Jankcord.setNewOtherID(false);
+            } else {
+                chatBoxScrollPane.smoothScrollBottom();
+            }
             System.out.println("scroll");
         });
     }
