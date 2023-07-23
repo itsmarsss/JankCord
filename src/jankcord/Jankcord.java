@@ -317,7 +317,7 @@ public class Jankcord {
     private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
 
     private static void queryForNewGroupChats() {
-        System.out.println("New group chat query");
+        //System.out.println("New group chat query");
         // Query api endpoint
 
         // Get messages
@@ -359,21 +359,17 @@ public class Jankcord {
             isSame = false;
         } else {
             for (int i = 0; i < groupChats.size(); i++) {
-                System.out.println("here1");
                 GroupChat groupChat = groupChats.get(i);
                 GroupChat tempGroupChat = tempGroupChats.get(i);
-                System.out.println("here2");
 
                 if (!groupChat.isEqual(tempGroupChat)) {
-                    System.out.println("here3");
                     isSame = false;
                 }
-                System.out.println("here4");
             }
         }
 
         if (isSame) {
-            System.out.println("Group list no updates");
+            // System.out.println("Group list no updates");
             return;
         }
 

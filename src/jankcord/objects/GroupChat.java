@@ -23,16 +23,12 @@ public class GroupChat {
     }
 
     public boolean isEqual(GroupChat tempGroupChat) {
-        System.out.println("here11");
         if(!id.equals(tempGroupChat.getId())) {
             return false;
         }
-        System.out.println("here12");
         if(!chatName.equals(tempGroupChat.getChatName())) {
             return false;
         }
-        System.out.println(chatIconURL);
-        System.out.println(tempGroupChat.getChatIconURL());
         return chatIconURL.equals(tempGroupChat.getChatIconURL());
     }
 

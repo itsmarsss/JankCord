@@ -29,7 +29,6 @@ public class JankList extends JList {
             public void mousePressed(MouseEvent e) {
                 if (e.isShiftDown()) {
                     setSelectedIndices(prev);
-                    System.out.println("ye");
                 }
 
                 if (getSelectedIndices().length <= 20) {
