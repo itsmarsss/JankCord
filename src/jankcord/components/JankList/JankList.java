@@ -9,12 +9,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 public class JankList extends JList {
     private int[] prev;
 
-    public JankList(DefaultListModel<?> list, JLabel update) {
+    public JankList(DefaultListModel<?> list, JLabel updateLabel, String template) {
         super(list);
 
         setBackground(new Color(43, 45, 49));
@@ -34,7 +33,7 @@ public class JankList extends JList {
                 }
 
                 if (getSelectedIndices().length <= 10) {
-                    update.setText("You can add " + (10 - getSelectedIndices().length) + " more friends.");
+                    updateLabel.setText(String.format(template, (10 - getSelectedIndices().length)));
                     prev = getSelectedIndices();
                 } else {
                     setSelectedIndices(prev);
