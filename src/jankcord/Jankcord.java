@@ -227,7 +227,7 @@ public class Jankcord {
         ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
 
         ScheduledExecutorService ses2 = Executors.newSingleThreadScheduledExecutor();
-        ses2.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
+        ses2.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 1, TimeUnit.SECONDS);
     }
 
     public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
@@ -247,7 +247,6 @@ public class Jankcord {
         // System.out.println(friendsJSON);
 
         ArrayList<User> friends = new ArrayList<>();
-        ArrayList<GroupChat> groupChats = new ArrayList<>();
 
         try {
             // Parse the JSON string
@@ -318,7 +317,7 @@ public class Jankcord {
     private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
 
     private static void queryForNewGroupChats() {
-        // System.out.println("New group chat query");
+        System.out.println("New group chat query");
         // Query api endpoint
 
         // Get messages
@@ -326,11 +325,14 @@ public class Jankcord {
         headers.put("username", fullUser.getUsername());
         headers.put("password", fullUser.getPassword());
 
+        System.out.println("yo");
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
-         System.out.println(groupsJSON);
+        System.out.println("yoo");
+        System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
 
+        System.out.println("yoo0");
         try {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
@@ -354,18 +356,25 @@ public class Jankcord {
             e.printStackTrace();
         }
 
+        System.out.println("yooo");
 
         boolean isSame = true;
         if (groupChats.size() != tempGroupChats.size()) {
             isSame = false;
+            System.out.println("yoooo");
         } else {
+            System.out.println("yoooo2");
             for (int i = 0; i < groupChats.size(); i++) {
+                System.out.println("here1");
                 GroupChat groupChat = groupChats.get(i);
                 GroupChat tempGroupChat = tempGroupChats.get(i);
+                System.out.println("here2");
 
                 if (!groupChat.isEqual(tempGroupChat)) {
+                    System.out.println("here3");
                     isSame = false;
                 }
+                System.out.println("here4");
             }
         }
 

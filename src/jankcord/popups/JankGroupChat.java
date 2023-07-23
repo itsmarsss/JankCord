@@ -72,7 +72,7 @@ public class JankGroupChat extends JFrame {
         getContentPane().add(createLabel);
 
 
-        JLabel numOfUsersLabel = new JLabel("You can add 10 more friends.");
+        JLabel numOfUsersLabel = new JLabel("You can add 20 more friends.");
 
         numOfUsersLabel.setSize(500, 30);
         numOfUsersLabel.setLocation(100, 610);
@@ -108,7 +108,7 @@ public class JankGroupChat extends JFrame {
 
                 List<User> usersResult = userList.getSelectedValuesList();
 
-                String users = "";
+                String users = Jankcord.getFullUser().getId() + ",";
 
                 for (User user : usersResult) {
                     users += user.getId() + ",";
