@@ -21,6 +21,11 @@ public class User {
         return avatarURL.equals(tempFriend.getAvatarURL());
     }
 
+    @Override
+    public String toString() {
+        return username;
+    }
+
     public long getId() {
         return id;
     }
