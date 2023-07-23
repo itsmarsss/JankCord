@@ -21,6 +21,8 @@ public class JankTextArea extends JTextArea {
         setCaretColor(Color.white);
         setBackground(new Color(56, 58, 64));
         setForeground(new Color(219, 222, 225));
+        setSelectionColor(new Color(9, 103, 215));
+        setSelectedTextColor(new Color(255, 255, 255));
         setFont(new Font("Whitney", Font.BOLD, 28));
         getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
     }
