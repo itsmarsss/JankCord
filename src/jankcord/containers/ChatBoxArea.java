@@ -121,6 +121,14 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 //                    HashMap<String, String> headers = new HashMap<>();
 //                    headers.put("username", Jankcord.getFullUser().getUsername());
@@ -131,20 +139,10 @@ public class ChatBoxArea extends JPanel {
 //                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
 //
 //                    textArea.setText("");
+                    reline();
                 } else {
                     reline();
                 }
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-//                    textArea.setText("");
-//                }
             }
 
         });
@@ -185,7 +183,8 @@ public class ChatBoxArea extends JPanel {
     }
 
     public void reline() {
-        int h = getContentHeight() + 30;
+        System.out.println(textArea.getLineCount());
+        int h = textArea.getLineCount() * 45 + 36;
 
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
@@ -198,15 +197,6 @@ public class ChatBoxArea extends JPanel {
             revalidate();
             repaint();
         }
-    }
-
-    public int getContentHeight() {
-        JEditorPane tempEditorPane = new JEditorPane();
-        tempEditorPane.setFont(textArea.getFont());
-        tempEditorPane.setText(textArea.getText() + "aa");
-        tempEditorPane.setSize(textArea.getWidth(), Short.MAX_VALUE);
-
-        return (int) tempEditorPane.getPreferredSize().getHeight();
     }
 
     private int index = 0;
