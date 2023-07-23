@@ -372,7 +372,7 @@ public class Jankcord {
                 String username = avatarCache.get(id).getUsername();
                 String avatarURL = avatarCache.get(id).getAvatarURL();
 
-                messages.add(new Message(id, Base64Helper.b64ToString(content), timestamp));
+                messages.add(new Message(id, Base64Helper.decode(content), timestamp));
 
                 try {
                     if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {

@@ -140,7 +140,7 @@ public class ChatBoxArea extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
                     shifting = false;
                 } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
-                    String content = Base64Helper.sToBase64(textArea.getText());
+                    String content = Base64Helper.encode(textArea.getText());
 
                     textArea.setText("");
                     HashMap<String, String> headers = new HashMap<>();

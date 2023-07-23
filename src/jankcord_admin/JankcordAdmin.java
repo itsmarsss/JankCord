@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
+import jankcord.tools.Base64Helper;
+import jankcord.tools.IPHelper;
 import jankcord.tools.JankFileKit;
 import jankcord_admin.apihandlers.*;
 import org.json.simple.JSONArray;
@@ -371,7 +373,9 @@ public class JankcordAdmin {
 
         port = server.getAddress().getPort();
 
-        System.out.println(port);
+        String endPoint = "http://" + IPHelper.getPrivateIP() + ":" + port;
+        System.out.println(endPoint);
+        System.out.println(Base64Helper.encode(endPoint));
 
         return "JankCord server started.";
     }

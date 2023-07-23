@@ -6,6 +6,7 @@ import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
+import jankcord.tools.Base64Helper;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.objects.FullUser;
@@ -107,12 +108,12 @@ public class JankLogin extends JFrame {
 
                 String username = usernameInput.getText();
                 String password = new String(passwordInput.getPassword());
-                String server = serverInput.getText();
+                String server = Base64Helper.decode(serverInput.getText()) + "/api/v1/";
 
                 headers.put("username", username);
                 headers.put("password", password);
 
-                String response = ServerCommunicator.sendHttpRequest(server + "/api/v1/login", headers);
+                String response = ServerCommunicator.sendHttpRequest(server + "login", headers);
 
                 // System.out.println(response);
 
@@ -139,7 +140,7 @@ public class JankLogin extends JFrame {
                     id = (Long) jsonObject.get("id");
                     avatarURL = (String) jsonObject.get("avatarURL");
 
-                    Jankcord.setFullUser(new FullUser(id, username, avatarURL, password, server + "/api/v1/"));
+                    Jankcord.setFullUser(new FullUser(id, username, avatarURL, password, server));
 
                     dispose();
 
