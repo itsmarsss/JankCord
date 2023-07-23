@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MemberProfile extends JPanel {
-    private User member;
+    private final User member;
 
     public MemberProfile(User member) {
         Image avatar = Jankcord.avatarCache.getOrDefault(member.getId(), new SimpleUserCache()).getAvatar72();
@@ -46,9 +46,5 @@ public class MemberProfile extends JPanel {
 
     public User getMember() {
         return member;
-    }
-
-    public void setMember(User member) {
-        this.member = member;
     }
 }

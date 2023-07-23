@@ -29,6 +29,16 @@ public class Login implements HttpHandler {
                     user = account;
                 }
             }
+            if(user == null) {
+                exchange.getResponseHeaders().set("Content-Type", "text/html");
+                exchange.sendResponseHeaders(200, 3);
+
+                OutputStream outputStream = exchange.getResponseBody();
+                outputStream.write("403".getBytes());
+                outputStream.close();
+
+                return;
+            }
 
             response = """
                     {

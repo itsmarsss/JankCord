@@ -8,12 +8,8 @@ import java.awt.event.MouseListener;
 import jankcord.Jankcord;
 
 public class WindowButtonListener implements MouseListener {
-
-	public static final int FRAME_CLOSE = 0;
-	public static final int FRAME_FULLSCREEN = 1;
-	public static final int FRAME_MINIMIZE = 2;
 	
-	private final int perform;
+	private final ButtonPerform perform;
 	
 	private final Color hoverBack;
 	private final Color hoverFore;
@@ -25,7 +21,7 @@ public class WindowButtonListener implements MouseListener {
 	private final Color exitFore;
 	
 	public WindowButtonListener(
-			int perform,
+			ButtonPerform perform,
 			Color hoverBack,
 			Color hoverFore,
 			Color clickBack,

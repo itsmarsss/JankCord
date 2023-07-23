@@ -32,13 +32,7 @@ public class RequestGroupChat extends JFrame {
     public RequestGroupChat() {
         super("JankCord Request Group Chat");
 
-        ArrayList<Image> icons = new ArrayList<>();
-        icons.add(ResourceLoader.loader.getIcon1().getImage());
-        icons.add(ResourceLoader.loader.getIcon2().getImage());
-        icons.add(ResourceLoader.loader.getIcon3().getImage());
-        icons.add(ResourceLoader.loader.getIcon4().getImage());
-
-        setIconImages(icons);
+        setIconImages(ResourceLoader.loader.getIcons());
 
         // Frame Init
         setUndecorated(true);

@@ -12,8 +12,10 @@ public class ServerCommunicator {
         try {
             URL url = new URL(apiEndpoint);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
 
             for (Map.Entry<String, String> entry : header.entrySet()) {
                 connection.setRequestProperty(entry.getKey(), entry.getValue());

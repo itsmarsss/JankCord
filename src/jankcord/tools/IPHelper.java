@@ -8,7 +8,8 @@ import java.net.URL;
 public class IPHelper {
     public static String getPrivateIP() {
         // Find private IP address
-        String privateIP = "";
+        String privateIP;
+
         try {
             InetAddress localhost = InetAddress.getLocalHost();
 
@@ -22,7 +23,8 @@ public class IPHelper {
 
     public static String getPublicIP() {
         // Find public IP address
-        String publicIP = "";
+        String publicIP;
+
         try {
             URL url_name = new URL("http://bot.whatismyipaddress.com");
 

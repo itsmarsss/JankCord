@@ -9,8 +9,8 @@ public class SimpleUserCache {
     private String avatarURL;
     private Image avatar72;
     private Image avatar80;
-    private static Image temp72 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(72, 72, Image.SCALE_FAST);
-    private static Image temp80 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(80, 80, Image.SCALE_FAST);
+    public static final Image temp72 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(72, 72, Image.SCALE_FAST);
+    public static final Image temp80 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(80, 80, Image.SCALE_FAST);
 
     public SimpleUserCache(String username, String avatarURL, Image avatar) {
         this.username = username;

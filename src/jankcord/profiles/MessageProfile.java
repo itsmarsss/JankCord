@@ -17,7 +17,7 @@ import jankcord.objects.SimpleUserCache;
 import jankcord.objects.Message;
 
 public class MessageProfile extends JPanel {
-    private Message message;
+    private final Message message;
 
     public MessageProfile(Message message) {
         SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
@@ -78,9 +78,5 @@ public class MessageProfile extends JPanel {
 
     public Message getMessage() {
         return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
     }
 }

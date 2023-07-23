@@ -1,6 +1,9 @@
 package jankcord.tools;
 
 import javax.swing.ImageIcon;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ResourceLoader {
     public static ResourceLoader loader = new ResourceLoader();
@@ -19,6 +22,12 @@ public class ResourceLoader {
     private final ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("resources/icons/icon2.png"));
     private final ImageIcon icon3 = new ImageIcon(getClass().getClassLoader().getResource("resources/icons/icon3.png"));
     private final ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("resources/icons/icon4.png"));
+
+    private final ArrayList<Image> icons = new ArrayList<>(Arrays.asList(
+            icon1.getImage(),
+            icon2.getImage(),
+            icon3.getImage(),
+            icon4.getImage()));
 
     // Getters
     public ImageIcon getTempProfileIcon() {
@@ -55,5 +64,9 @@ public class ResourceLoader {
 
     public ImageIcon getIcon4() {
         return icon4;
+    }
+
+    public ArrayList<Image> getIcons() {
+        return icons;
     }
 }

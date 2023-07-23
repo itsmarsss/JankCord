@@ -54,8 +54,8 @@ public class ChannelList extends JPanel {
 
         // Search Init
         searchLabel.setOpaque(true);
-        searchLabel.setSize(440, 56);
         searchLabel.setLocation(20, 25);
+        searchLabel.setSize(440, 56);
         searchLabel.setBackground(new Color(32, 34, 37));
         searchLabel.setForeground(new Color(163, 166, 170));
         searchLabel.setFont(new Font("Whitney", Font.PLAIN, 25));
@@ -89,9 +89,7 @@ public class ChannelList extends JPanel {
         channelProfiles.add(cp);
         gbc.gridx = 0;
         gbc.gridy = index;
-//        if (index == 31) {
-//            gbc.insets = new Insets(0, 25, 10, 1);
-//        }
+
         channelPanel.add(cp, gbc);
 
         channelPanel.revalidate();

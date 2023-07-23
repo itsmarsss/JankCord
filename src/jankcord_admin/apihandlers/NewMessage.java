@@ -46,7 +46,7 @@ public class NewMessage implements HttpHandler {
             }
         }
 
-        if(other == null) {
+        if(current == null || other == null) {
             exchange.getResponseHeaders().set("Content-Type", "text/html");
             exchange.sendResponseHeaders(200, 3);
 

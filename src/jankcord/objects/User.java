@@ -11,6 +11,16 @@ public class User {
         this.avatarURL = avatarURL;
     }
 
+    public boolean isEqual(User tempFriend) {
+        if (id != tempFriend.id) {
+            return false;
+        }
+        if (!username.equals(tempFriend.getUsername())) {
+            return false;
+        }
+        return avatarURL.equals(tempFriend.getAvatarURL());
+    }
+
     public long getId() {
         return id;
     }
@@ -33,15 +43,5 @@ public class User {
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
-    }
-
-    public boolean isEqual(User tempFriend) {
-        if (id != tempFriend.id) {
-            return false;
-        }
-        if (!username.equals(tempFriend.getUsername())) {
-            return false;
-        }
-        return avatarURL.equals(tempFriend.getAvatarURL());
     }
 }

@@ -16,7 +16,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,13 +28,7 @@ public class JankLogin extends JFrame {
     public JankLogin() {
         super("JankCord Login");
 
-        ArrayList<Image> icons = new ArrayList<>();
-        icons.add(ResourceLoader.loader.getIcon1().getImage());
-        icons.add(ResourceLoader.loader.getIcon2().getImage());
-        icons.add(ResourceLoader.loader.getIcon3().getImage());
-        icons.add(ResourceLoader.loader.getIcon4().getImage());
-
-        setIconImages(icons);
+        setIconImages(ResourceLoader.loader.getIcons());
 
         // Frame Init
         setUndecorated(true);

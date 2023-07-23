@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import jankcord.Jankcord;
+import jankcord.components.windowbuttons.windowbuttonlistener.ButtonPerform;
 import jankcord.components.windowbuttons.windowbuttonlistener.WindowButtonListener;
 
 public class WindowButtons extends JPanel {
@@ -35,7 +36,7 @@ public class WindowButtons extends JPanel {
         fullscreenButton.setFont(windowButtonFont);
         fullscreenButton.setLocation(closeButton.getX() - fullscreenButton.getWidth(), 0);
         fullscreenButton.addMouseListener(new WindowButtonListener(
-                WindowButtonListener.FRAME_FULLSCREEN,
+                ButtonPerform.FRAME_FULLSCREEN,
                 new Color(40, 43, 46),
                 new Color(190, 191, 193),
                 new Color(43, 46, 50),
@@ -53,7 +54,7 @@ public class WindowButtons extends JPanel {
         minimizeButton.setFont(windowButtonFont);
         minimizeButton.setLocation(fullscreenButton.getX() - minimizeButton.getWidth(), 0);
         minimizeButton.addMouseListener(new WindowButtonListener(
-                WindowButtonListener.FRAME_MINIMIZE,
+                ButtonPerform.FRAME_MINIMIZE,
                 new Color(40, 43, 46),
                 new Color(190, 191, 193),
                 new Color(43, 46, 50),

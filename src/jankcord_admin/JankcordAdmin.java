@@ -18,7 +18,7 @@ import java.util.*;
 
 public class JankcordAdmin {
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     public static ArrayList<FullUser> accounts = new ArrayList<>();
     public static HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
     public static String parent;
@@ -53,6 +53,8 @@ public class JankcordAdmin {
                 System.out.println("Command \"" + cmdReq + "\" is not recognized. Use 'help' for more commands.");
             }
         }
+
+        sc.close();
     }
 
     public static String help() {

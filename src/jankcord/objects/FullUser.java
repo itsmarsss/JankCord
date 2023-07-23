@@ -11,7 +11,6 @@ public class FullUser extends User {
         super(id, username, avatarURL);
 
         this.password = password;
-        //this.endPointHost = decode(endPointHost) + "/api/v1/";
         this.endPointHost = endPointHost;
     }
 
@@ -20,13 +19,6 @@ public class FullUser extends User {
 
         this.password = password;
         this.status = status;
-    }
-
-    private String decode(String endPointHost) {
-        byte[] decodedBytes = Base64.getDecoder().decode(endPointHost);
-        String decodedString = new String(decodedBytes);
-
-        return decodedString;
     }
 
     public String getPassword() {
