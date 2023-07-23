@@ -1,6 +1,7 @@
 package jankcord_admin;
 
 import jankcord.objects.FullUser;
+import jankcord.objects.GroupChat;
 import jankcord.objects.Message;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 public class AdminDataBase {
     private static final ArrayList<FullUser> accounts = new ArrayList<>();
     private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
+    private static final ArrayList<GroupChat> groupChats = new ArrayList<>();
     private static String parent;
 
 
@@ -18,6 +20,10 @@ public class AdminDataBase {
 
     public static HashMap<String, ArrayList<Message>> getConversations() {
         return conversations;
+    }
+
+    public static ArrayList<GroupChat> getGroupChats() {
+        return groupChats;
     }
 
     public static String getParent() {

@@ -7,6 +7,7 @@ import jankcord.objects.Message;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.IPHelper;
 import jankcord.tools.JankFileKit;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.apihandlers.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -187,6 +188,10 @@ public class JankcordAdmin {
         System.out.print("Username (no spaces | 20 characters max): ");
         sc.nextLine();
         String username = sc.nextLine();
+        if (!ServerCommunicator.headerable(username)) {
+            return "Username must only contain ASCII characters; command sequence exited";
+        }
+
         if (username.contains(" ")) {
             return "Username cannot contain spaces; command sequence exited";
         }
@@ -198,6 +203,10 @@ public class JankcordAdmin {
 
         System.out.print("Password (no spaces | 20 characters max): ");
         String password = sc.nextLine();
+        if (!ServerCommunicator.headerable(password)) {
+            return "Password must only contain ASCII characters; command sequence exited";
+        }
+
         if (password.contains(" ")) {
             return "Password cannot contain spaces; command sequence exited";
         }
@@ -281,6 +290,10 @@ public class JankcordAdmin {
         System.out.print("Username [" + user.getUsername() + "]: ");
         sc.nextLine();
         String username = sc.nextLine();
+        if (!ServerCommunicator.headerable(username)) {
+            return "Username must only contain ASCII characters; command sequence exited";
+        }
+
         if (username.contains(" ")) {
             return "Username cannot contain spaces; command sequence exited";
         }
@@ -292,6 +305,10 @@ public class JankcordAdmin {
 
         System.out.print("Password [" + user.getPassword() + "]: ");
         String password = sc.nextLine();
+        if (!ServerCommunicator.headerable(password)) {
+            return "Password must only contain ASCII characters; command sequence exited";
+        }
+
         if (password.contains(" ")) {
             return "Password cannot contain spaces; command sequence exited";
         }
@@ -303,8 +320,8 @@ public class JankcordAdmin {
 
         System.out.print("AvatarURL [" + user.getAvatarURL() + "]: ");
         String avatarURL = sc.nextLine();
-        if (avatarURL.contains(" ")) {
-            return "AvatarURL cannot contain spaces; command sequence exited";
+        if (!ServerCommunicator.headerable(avatarURL)) {
+            return "Invalid URL; command sequence exited";
         }
 
         if (!user.getUsername().equals(username)) {
