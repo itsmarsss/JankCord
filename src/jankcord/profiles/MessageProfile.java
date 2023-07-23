@@ -18,7 +18,7 @@ public class MessageProfile extends JPanel {
     private final JLabel messageLabel;
     private final String content;
 
-    public static final String template = "<html><body style='width: %spx;'>%s</body></html>";
+    public static final String template = "<html>%s</html>";
 
     public MessageProfile(Message message) {
         SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
@@ -65,20 +65,17 @@ public class MessageProfile extends JPanel {
         // Message content
         content = message.getContent().replaceAll("\\n", "<br/>");
 
-        messageLabel = new JLabel();
+        messageLabel = new JLabel(String.format(template, content));
 
-        updateMessageWidth();
-
-        messageLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
-        messageLabel.setSize((int) getPreferredSize().getWidth() - messageLabel.getX(), (int) messageLabel.getPreferredSize().getHeight());
         messageLabel.setForeground(new Color(242, 243, 245));
+        messageLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
         messageLabel.setLocation(usernameLabel.getX(), usernameLabel.getY() + 45);
 
         add(usernameLabel);
         add(timeLabel);
         add(messageLabel);
 
-        setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), (int) (messageLabel.getPreferredSize().getHeight() + 60)));
+        updateMessageWidth();
 
         addMouseListener(new MouseListener() {
             @Override
@@ -112,30 +109,45 @@ public class MessageProfile extends JPanel {
 
     public void updateMessageWidth() {
         // Remove any existing HTML tags and line breaks
+        System.out.println("asdasdasdsddadsdasdsddad");
         String cleanedText = content.replaceAll("<br>", "").replaceAll("<html>|</html>", "");
 
         FontMetrics fontMetrics = messageLabel.getFontMetrics(messageLabel.getFont());
-        int labelWidth = (int) getPreferredSize().getWidth() - messageLabel.getX();
+        int labelWidth = (int) getPreferredSize().getWidth() - messageLabel.getX() - 30;
 
 
         StringBuilder wrappedText = new StringBuilder("<html>");
-        String[] words = cleanedText.split("");
-        int currentLineWidth = 0;
+        String[] words = cleanedText.split("\\s+");
 
         for (String word : words) {
             int wordWidth = SwingUtilities.computeStringWidth(fontMetrics, word);
 
-            if (currentLineWidth + wordWidth <= labelWidth) {
-                wrappedText.append(word);
-                currentLineWidth += wordWidth;
+            if (labelWidth < wordWidth) {
+                System.out.println("too long: " + word);
+                String[] letters = word.split("");
+                int currentLineWidth = 0;
+
+                for (String letter : letters) {
+                    int letterWidth = SwingUtilities.computeStringWidth(fontMetrics, letter);
+
+                    if (currentLineWidth + letterWidth <= labelWidth) {
+                        wrappedText.append(letter);
+                        currentLineWidth += letterWidth;
+                    } else {
+                        wrappedText.append("<br>").append(letter);
+                        currentLineWidth = letterWidth;
+                    }
+                }
             } else {
-                wrappedText.append("<br>").append(word);
-                currentLineWidth = wordWidth;
+                wrappedText.append(word).append(" ");
             }
         }
 
         wrappedText.append("</html>");
         messageLabel.setText(wrappedText.toString());
+
+        //System.out.println(labelWidth);
+        System.out.println(messageLabel.getText());
 
         messageLabel.setSize((int) getPreferredSize().getWidth() - messageLabel.getX(), (int) messageLabel.getPreferredSize().getHeight());
         setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, (int) (messageLabel.getPreferredSize().getHeight() + 60)));
