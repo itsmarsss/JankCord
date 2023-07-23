@@ -39,34 +39,34 @@ public class MessageProfile extends JPanel {
 
         // Username
         JLabel usernameLabel = new JLabel(cachedUser.getUsername());
-        Font font = new Font("Whitney", Font.PLAIN, 28);
-        usernameLabel.setFont(font);
+        usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         usernameLabel.setLocation(110, 10);
-        usernameLabel.setForeground(new Color(255, 255, 255));
+        usernameLabel.setForeground(new Color(242, 243, 245));
 
         FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
-        int w = (int) (font.getStringBounds(cachedUser.getUsername(), frc).getWidth());
+        int w = (int) (usernameLabel.getFont().getStringBounds(cachedUser.getUsername(), frc).getWidth());
 
         usernameLabel.setSize(w + 5, 40);
 
         // Time stamp
         String timeStamp = new Date(message.getTimestamp()).toString();
         JLabel timeLabel = new JLabel(timeStamp);
-        Font font2 = new Font("Whitney", Font.PLAIN, 24);
-        timeLabel.setFont(font2);
+
+        timeLabel.setFont(new Font("Whitney", Font.PLAIN, 24));
         timeLabel.setForeground(new Color(162, 165, 169));
         timeLabel.setLocation(usernameLabel.getX() + usernameLabel.getWidth() + 10, 12);
 
         FontRenderContext frc2 = new FontRenderContext(new AffineTransform(), true, true);
-        int w2 = (int) (font.getStringBounds(timeStamp, frc2).getWidth());
+        int w2 = (int) (timeLabel.getFont().getStringBounds(timeStamp, frc2).getWidth());
 
         timeLabel.setSize(w2, 40);
 
         // Message content
         JLabel messageLabel = new JLabel(message.getContent());
-        messageLabel.setFont(font);
+
+        messageLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
         messageLabel.setSize((int) getPreferredSize().getWidth() - messageLabel.getX(), (int) getPreferredSize().getHeight());
-        messageLabel.setForeground(new Color(255, 255, 255));
+        messageLabel.setForeground(new Color(242, 243, 245));
         messageLabel.setLocation(usernameLabel.getX(), usernameLabel.getY() + 10);
 
         add(usernameLabel);
