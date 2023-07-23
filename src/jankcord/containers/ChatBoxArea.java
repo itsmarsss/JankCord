@@ -281,6 +281,11 @@ public class ChatBoxArea extends JPanel {
         return chatBoxTopBarPanel;
     }
 
+    public JPanel getChatPanel() {
+        return chatPanel;
+    }
+
+
     public JScrollPane getChatBoxScrollPane() {
         return chatBoxScrollPane;
     }
