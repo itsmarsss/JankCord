@@ -327,7 +327,7 @@ public class Jankcord {
 
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
-        System.out.println(groupsJSON);
+        //System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
 
         try {
