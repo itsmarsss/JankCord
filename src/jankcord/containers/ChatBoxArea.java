@@ -188,10 +188,6 @@ public class ChatBoxArea extends JPanel {
         // Messages
         gbc.insets = new Insets(0, 0, 12, 5);
         messageProfiles = new LinkedList<>();
-
-        JScrollBar vertical = chatBoxScrollPane.getVerticalScrollBar();
-        vertical.setValue(vertical.getMaximum());
-        vertical.setValue(vertical.getMaximum());
     }
 
     public void reline() {
@@ -220,8 +216,8 @@ public class ChatBoxArea extends JPanel {
         gbc.gridy = index;
         chatPanel.add(mp, gbc);
 
-        membersScrollPane.revalidate();
-        membersScrollPane.repaint();
+        chatPanel.revalidate();
+        chatPanel.repaint();
 
         reline();
 

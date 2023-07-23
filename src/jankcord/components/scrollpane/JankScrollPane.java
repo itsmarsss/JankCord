@@ -13,6 +13,8 @@ public class JankScrollPane extends JScrollPane {
     private int destinationY;
     private Timer timer;
     private int multiplier;
+    private int counter;
+    private int prevMax;
 
     public JankScrollPane(int width, int height, int x, int y, JComponent child) {
         super(child);
@@ -31,14 +33,24 @@ public class JankScrollPane extends JScrollPane {
         getHorizontalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), false));
 
         multiplier = 175;
+        prevMax = -1;
 
         timer = new Timer(10, e -> {
+            if (counter >= 40) {
+                counter = 0;
+                timer.stop();
+            }
+
+            counter++;
+
             int currentY = getViewport().getViewPosition().y;
             int diffY = destinationY - currentY;
-            int step = Math.max(1, Math.abs(diffY) / 10);
+            int step = Math.max(5, Math.abs(diffY) / 10);
 
+            System.out.println(destinationY + " " + Math.abs(diffY) + " " + step);
             if (Math.abs(diffY) <= step) {
                 getVerticalScrollBar().setValue(destinationY);
+                counter = 0;
                 timer.stop();
             } else {
                 int newY = currentY + (diffY > 0 ? step : -step);
@@ -51,23 +63,18 @@ public class JankScrollPane extends JScrollPane {
             int rotation = e.getWheelRotation();
             int currentY = getViewport().getViewPosition().y;
             int maxScrollY = getVerticalScrollBar().getMaximum();
+            System.out.println(maxScrollY);
             destinationY = Math.max(0, Math.min(currentY + (rotation * multiplier * 3), maxScrollY));
             timer.start();
         });
-    }
 
-    private Timer scrollTimer;
-    private final double scrollTimeInSeconds = 0.5;
-    private final int totalSteps = 50; // Total steps to reach the bottom in 0.5 seconds
-
-    public void smoothScrollBottom() {
         scrollTimer = new Timer((int) (scrollTimeInSeconds * 1000 / totalSteps), new ActionListener() {
             private int currentStep = 0;
             private int startValue;
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("down");
+                System.out.println(currentStep + "-" + totalSteps);
 
                 JScrollBar verticalScrollBar = getVerticalScrollBar();
                 int maximumValue = verticalScrollBar.getMaximum();
@@ -79,20 +86,35 @@ public class JankScrollPane extends JScrollPane {
                 int targetValue = Math.min(startValue + (maximumValue - startValue) * currentStep / totalSteps, maximumValue);
                 verticalScrollBar.setValue(targetValue);
 
-                if (currentStep++ > totalSteps - 20) {
+                if (currentStep++ > totalSteps) {
+                    currentStep = 0;
                     scrollTimer.stop();
                 }
             }
         });
+    }
 
+    private Timer scrollTimer;
+    private final double scrollTimeInSeconds = 0.5;
+    private final int totalSteps = 25; // Total steps to reach the bottom in 0.5 seconds
+
+    public void smoothScrollBottom() {
         scrollTimer.start();
-
     }
 
     public void artificialScroll(MouseWheelEvent e) {
         int rotation = e.getWheelRotation();
         int currentY = getViewport().getViewPosition().y;
         int maxScrollY = getVerticalScrollBar().getMaximum();
+
+        System.out.println(maxScrollY - prevMax);
+        if (prevMax == -1) {
+            prevMax = maxScrollY;
+        } else if (Math.abs(maxScrollY - prevMax) > 100) {
+            System.out.println(maxScrollY - prevMax);
+            maxScrollY = prevMax;
+        }
+
         destinationY = Math.max(0, Math.min(currentY + (rotation * multiplier * 3), maxScrollY));
         timer.start();
     }
