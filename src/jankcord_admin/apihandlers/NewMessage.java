@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
 import jankcord.tools.ServerCommunicator;
+import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class NewMessage implements HttpHandler {
         FullUser current = null;
         FullUser other = null;
 
-        for (FullUser account : JankcordAdmin.getAccounts()) {
+        for (FullUser account : AdminDataBase.getAccounts()) {
             if (account.getUsername().equals(username)) {
                 current = account;
             }
@@ -50,7 +51,7 @@ public class NewMessage implements HttpHandler {
 
         String fileName = Math.min(otherIDNum, currentIDNum) + "-" + Math.max(otherIDNum, currentIDNum);
 
-        JankcordAdmin.getConversations().get(fileName).add(new Message(current.getId(), content, System.currentTimeMillis()));
+        AdminDataBase.getConversations().get(fileName).add(new Message(current.getId(), content, System.currentTimeMillis()));
 
         ServerCommunicator.sendResponse(exchange, "200");
     }

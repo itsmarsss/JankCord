@@ -3,6 +3,7 @@ package jankcord_admin.apihandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
+import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class Login implements HttpHandler {
 
             FullUser user = null;
 
-            for(FullUser account : JankcordAdmin.getAccounts()) {
+            for(FullUser account : AdminDataBase.getAccounts()) {
                 if(account.getUsername().equals(username)){
                     user = account;
                 }

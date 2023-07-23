@@ -19,21 +19,18 @@ import java.util.*;
 public class JankcordAdmin {
 
     private static final Scanner sc = new Scanner(System.in);
-    private static final ArrayList<FullUser> accounts = new ArrayList<>();
-    private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
-    private static String parent;
 
     public static void startAdmin() {
         System.out.println("Welcome to JankCord Admin Dashboard.");
 
         try {
-            parent = new File(JankcordAdmin.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+            setParent(new File(JankcordAdmin.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
         } catch (Exception e) {
             System.out.println("Unable to obtain parent path.");
             System.exit(1);
         }
 
-        System.out.println("Parent path: " + parent);
+        System.out.println("Parent path: " + getParent());
 
         System.out.println("Reading accounts...");
         System.out.println(readAccounts());
@@ -76,7 +73,7 @@ public class JankcordAdmin {
     public static String writeAccounts() {
         StringBuilder accountList = new StringBuilder();
 
-        for (FullUser account : accounts) {
+        for (FullUser account : getAccounts()) {
             accountList.append("""
                       {
                           "id": %s,
@@ -96,7 +93,7 @@ public class JankcordAdmin {
                 }
                 """.formatted(accountList.toString());
 
-        if (JankFileKit.writeFile(parent + "/accounts/accounts.json", accounts)) {
+        if (JankFileKit.writeFile(getParent() + "/accounts/accounts.json", accounts)) {
             return "Successfully written accounts.json file.";
         } else {
             return "IO error writing.";
@@ -104,13 +101,13 @@ public class JankcordAdmin {
     }
 
     public static String readAccounts() {
-        String textJSON = JankFileKit.readFile(parent + "/accounts/accounts.json");
+        String textJSON = JankFileKit.readFile(getParent() + "/accounts/accounts.json");
 
         if (textJSON == null) {
             return "IO error reading.";
         }
 
-        accounts.clear();
+        getAccounts().clear();
 
         try {
             // Parse the JSON string
@@ -131,7 +128,7 @@ public class JankcordAdmin {
                 String avatarURL = (String) messageObject.get("avatarURL");
                 String status = (String) messageObject.get("status");
 
-                accounts.add(new FullUser(id, username, avatarURL, password, "", status));
+                getAccounts().add(new FullUser(id, username, avatarURL, password, "", status));
             }
         } catch (Exception e) {
             return "JSON error parsing.";
@@ -145,7 +142,7 @@ public class JankcordAdmin {
     }
 
     public static String readMessages(String fileName) {
-        String textJSON = JankFileKit.readFile(parent + "/messages/" + fileName + ".json");
+        String textJSON = JankFileKit.readFile(getParent() + "/messages/" + fileName + ".json");
 
         if (textJSON == null) {
             textJSON = "";
@@ -176,7 +173,7 @@ public class JankcordAdmin {
         } catch (Exception e) {
         }
 
-        conversations.put(fileName, messages);
+        getConversations().put(fileName, messages);
 
         System.out.println("File read. [" + fileName + "]");
 
@@ -207,30 +204,30 @@ public class JankcordAdmin {
             return "Password cannot be longer than 20 character; command sequence exited";
         }
 
-        for (FullUser account : accounts) {
+        for (FullUser account : getAccounts()) {
             if (account.getUsername().equalsIgnoreCase(username)) {
                 return "Username already in use; command sequence exited";
             }
         }
 
-        if (accounts.isEmpty()) {
-            accounts.add(new FullUser(0, username, "N/A", password, "", "active"));
+        if (getAccounts().isEmpty()) {
+            getAccounts().add(new FullUser(0, username, "N/A", password, "", "active"));
         } else {
-            long id = accounts.get(accounts.size() - 1).getId() + 1;
-            accounts.add(new FullUser(id, username, "N/A", password, "", "active"));
+            long id = getAccounts().get(getAccounts().size() - 1).getId() + 1;
+            getAccounts().add(new FullUser(id, username, "N/A", password, "", "active"));
         }
 
         return "Account \"" + username + "\" with password \"" + password + "\" created successfully";
     }
 
     public static String viewAccounts() {
-        if (accounts.isEmpty()) {
+        if (getAccounts().isEmpty()) {
             return "Empty list.";
         }
 
         System.out.printf("%-10.10s | %-25.25s | %-25.25s | %-25.25s%n", "ID #", "USERNAME", "PASSWORD", "STATUS");
         System.out.println("---------------------------------------------------------------------------------");
-        for (FullUser account : accounts) {
+        for (FullUser account : getAccounts()) {
             System.out.printf("%-10.10s | %-25.25s | %-25.25s | %-25.25s%n", account.getId(), account.getUsername(), account.getPassword(), account.getStatus());
         }
 
@@ -248,13 +245,13 @@ public class JankcordAdmin {
             return "Invalid ID #; command sequence exited";
         }
 
-        int index = searchForAccount(idNum, 0, accounts.size() - 1);
+        int index = searchForAccount(idNum, 0, getAccounts().size() - 1);
 
         if (index == -1) {
             return "ID # not found.";
         }
 
-        accounts.remove(index);
+        getAccounts().remove(index);
 
         return "Account ID [" + idNum + "] has been deleted.";
     }
@@ -270,13 +267,13 @@ public class JankcordAdmin {
             return "Invalid ID #; command sequence exited";
         }
 
-        int index = searchForAccount(idNum, 0, accounts.size() - 1);
+        int index = searchForAccount(idNum, 0, getAccounts().size() - 1);
 
         if (index == -1) {
             return "ID # not found.";
         }
 
-        FullUser user = accounts.get(index);
+        FullUser user = getAccounts().get(index);
 
 
         System.out.print("Username [" + user.getUsername() + "]: ");
@@ -309,7 +306,7 @@ public class JankcordAdmin {
         }
 
         if (!user.getUsername().equals(username)) {
-            for (FullUser account : accounts) {
+            for (FullUser account : getAccounts()) {
                 if (account.getUsername().equalsIgnoreCase(username)) {
                     return "Username already in use; command sequence exited";
                 }
@@ -317,9 +314,9 @@ public class JankcordAdmin {
         }
 
 
-        accounts.get(index).setUsername(username);
-        accounts.get(index).setPassword(password);
-        accounts.get(index).setAvatarURL(avatarURL);
+        getAccounts().get(index).setUsername(username);
+        getAccounts().get(index).setPassword(password);
+        getAccounts().get(index).setAvatarURL(avatarURL);
 
         return "Account ID [" + idNum + "] now has username \"" + username + "\", password \"" + password + "\", and avatarURL \"" + avatarURL + "\".";
     }
@@ -335,7 +332,7 @@ public class JankcordAdmin {
             return "Invalid ID #; command sequence exited";
         }
 
-        int index = searchForAccount(idNum, 0, accounts.size() - 1);
+        int index = searchForAccount(idNum, 0, getAccounts().size() - 1);
 
         if (index == -1) {
             return "ID # not found.";
@@ -348,7 +345,7 @@ public class JankcordAdmin {
             return "Status cannot be longer than 10 character; command sequence exited";
         }
 
-        accounts.get(index).setStatus(status);
+        getAccounts().get(index).setStatus(status);
 
         return "Account ID [" + idNum + "] new has status \"" + status + "\".";
     }
@@ -395,7 +392,7 @@ public class JankcordAdmin {
         int middle = (leftPoint + rightPoint) / 2;
 
         // Get the middle's value
-        long current = accounts.get(middle).getId();
+        long current = getAccounts().get(middle).getId();
 
         // Check if it is what we're looking for
         if (current == idNum) { // if equal
@@ -419,7 +416,7 @@ public class JankcordAdmin {
         String username = requestHeaders.get("username").get(0);
         String password = requestHeaders.get("password").get(0);
 
-        for (FullUser account : JankcordAdmin.accounts) {
+        for (FullUser account : JankcordAdmin.getAccounts()) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 return true;
             }
@@ -428,11 +425,19 @@ public class JankcordAdmin {
         return false;
     }
 
-    public static ArrayList<FullUser> getAccounts() {
-        return accounts;
+    private static ArrayList<FullUser> getAccounts() {
+        return AdminDataBase.getAccounts();
     }
 
-    public static HashMap<String, ArrayList<Message>> getConversations() {
-        return conversations;
+    private static HashMap<String, ArrayList<Message>> getConversations() {
+        return AdminDataBase.getConversations();
+    }
+
+    private static String getParent() {
+        return AdminDataBase.getParent();
+    }
+
+    private static void setParent(String parent) {
+        AdminDataBase.setParent(parent);
     }
 }

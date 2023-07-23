@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
 import jankcord.tools.ServerCommunicator;
+import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class GetMessages implements HttpHandler {
         FullUser current = null;
         FullUser other = null;
 
-        for (FullUser account : JankcordAdmin.getAccounts()) {
+        for (FullUser account : AdminDataBase.getAccounts()) {
             if (account.getUsername().equals(username)) {
                 current = account;
             }
@@ -60,10 +61,10 @@ public class GetMessages implements HttpHandler {
 
         StringBuilder messages = new StringBuilder();
 
-        if (!JankcordAdmin.getConversations().containsKey(fileName)) {
+        if (!AdminDataBase.getConversations().containsKey(fileName)) {
             messages = new StringBuilder(JankcordAdmin.readMessages(fileName));
         } else {
-            for (Message msg : JankcordAdmin.getConversations().get(fileName)) {
+            for (Message msg : AdminDataBase.getConversations().get(fileName)) {
                 messages.append(message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp()));
             }
         }

@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.tools.ServerCommunicator;
+import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class GetFriends implements HttpHandler {
 
         StringBuilder friendsList = new StringBuilder();
 
-        for (FullUser account : JankcordAdmin.getAccounts()) {
+        for (FullUser account : AdminDataBase.getAccounts()) {
             friendsList.append("""
                     {
                         "id": %s,
