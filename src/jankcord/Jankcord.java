@@ -225,7 +225,7 @@ public class Jankcord {
         ses.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
 
         ScheduledExecutorService ses1 = Executors.newSingleThreadScheduledExecutor();
-        ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 1, TimeUnit.SECONDS);
+        ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     private static ArrayList<User> tempFriends = new ArrayList<>();

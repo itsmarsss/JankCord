@@ -17,7 +17,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JankLogin extends JFrame {
@@ -82,8 +81,8 @@ public class JankLogin extends JFrame {
 
         getContentPane().add(passwordInput);
 
-        JLabel serverLabel = new JLabel("Server:");
-        serverLabel.setSize(150, 30);
+        JLabel serverLabel = new JLabel("Server Key:");
+        serverLabel.setSize(200, 30);
         serverLabel.setLocation(100, 400);
         serverLabel.setForeground(new Color(114, 118, 125));
         serverLabel.setFont(new Font("Whitney", Font.BOLD, 28));
