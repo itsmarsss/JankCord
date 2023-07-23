@@ -20,7 +20,6 @@ import jankcord.objects.GroupChat;
 import jankcord.popups.JankGroupChat;
 import jankcord.tools.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
-import jankcord.profiles.ExploreProfile;
 import jankcord.profiles.HomeProfile;
 import jankcord.profiles.ServerProfile;
 
@@ -122,16 +121,9 @@ public class ServerList extends JankScrollPane {
 
         gbc.gridx = 0;
         gbc.gridy = index + 1;
-
-        serverPanel.add(addServerProfile, gbc);
-
-        // Explore Profile
-        ExploreProfile exploreProfile = new ExploreProfile();
-        gbc.gridx = 0;
-        gbc.gridy = index + 2;
         gbc.insets = new Insets(0, 0, 30, 0);
 
-        serverPanel.add(exploreProfile, gbc);
+        serverPanel.add(addServerProfile, gbc);
     }
 
     public int getIndex() {
