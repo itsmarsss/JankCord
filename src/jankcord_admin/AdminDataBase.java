@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class AdminDataBase {
     private static final ArrayList<FullUser> accounts = new ArrayList<>();
     private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
-    private static final ArrayList<GroupChat> groupChats = new ArrayList<>();
+    private static final HashMap<String, GroupChat> groupChats = new HashMap<>();
     private static String parent;
 
 
@@ -22,7 +22,7 @@ public class AdminDataBase {
         return conversations;
     }
 
-    public static ArrayList<GroupChat> getGroupChats() {
+    public static HashMap<String, GroupChat> getGroupChats() {
         return groupChats;
     }
 
