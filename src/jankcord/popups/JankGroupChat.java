@@ -15,14 +15,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-public class RequestGroupChat extends JFrame {
+public class JankGroupChat extends JFrame {
 
     // Frame dragging
     private int posX = 0, posY = 0;
     private boolean drag = false;
 
 
-    public RequestGroupChat() {
+    public JankGroupChat() {
         super("JankCord Request Group Chat");
 
         setIconImages(ResourceLoader.loader.getIcons());

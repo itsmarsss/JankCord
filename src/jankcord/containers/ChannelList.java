@@ -16,7 +16,7 @@ import jankcord.Jankcord;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.User;
-import jankcord.popups.RequestGroupChat;
+import jankcord.popups.JankGroupChat;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
@@ -26,7 +26,7 @@ public class ChannelList extends JPanel {
     private LinkedList<ChannelProfile> channelProfiles;
     private final GridBagConstraints gbc;
 
-    private RequestGroupChat requestGroupChat;
+    private JankGroupChat jankGroupChat;
 
     public ChannelList() {
         // Init
@@ -137,11 +137,11 @@ public class ChannelList extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (requestGroupChat != null) {
-                    requestGroupChat.dispose();
+                if (jankGroupChat != null) {
+                    jankGroupChat.dispose();
                 }
-                requestGroupChat = new RequestGroupChat();
-                requestGroupChat.setVisible(true);
+                jankGroupChat = new JankGroupChat();
+                jankGroupChat.setVisible(true);
             }
         });
         gbc.gridx = 0;
