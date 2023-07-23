@@ -3,7 +3,9 @@ package jankcord.containers;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -42,7 +44,7 @@ public class ChatBoxArea extends JPanel {
         setBorder(null);
         setLayout(null);
         setLocation(646, 50);
-        setBackground(new Color(54, 57, 63));
+        setBackground(new Color(49, 51, 56));
         setSize(Jankcord.getViewPanel().getWidth() - 646, Jankcord.getViewPanel().getHeight() - 50);
 
         // Chat TopBar
@@ -57,10 +59,8 @@ public class ChatBoxArea extends JPanel {
 
         // Chat Section
         chatPanel = new JPanel();
-        chatPanel.setBackground(new Color(54, 57, 63));
-        chatBoxScrollPane = new JankScrollPane(getWidth() - 540, getHeight() - 206, 0, 106, chatPanel);
-
-
+        chatPanel.setBackground(new Color(49, 51, 56));
+        chatBoxScrollPane = new JankScrollPane(getWidth() - 540, 1168, 0, 106, chatPanel);
         // Chat Init
         add(chatBoxScrollPane);
 
@@ -69,40 +69,67 @@ public class ChatBoxArea extends JPanel {
         typePanel.setOpaque(true);
         typePanel.setBorder(null);
         typePanel.setLayout(null);
-        typePanel.setLocation(30, getHeight() - 100);
-        typePanel.setBackground(new Color(64, 68, 75));
-        typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 75);
+        typePanel.setBackground(new Color(56, 58, 64));
+        typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 81);
+        typePanel.setLocation(30, getHeight() - 120);
 
         textArea = new JankTextArea();
-        typeScrollPane = new JankScrollPane(typePanel.getWidth() - 20, typePanel.getHeight() - 16, 10, 8, textArea);
+        typeScrollPane = new JankScrollPane(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45), 20, 24, textArea);
 
-        typeScrollPane.setBackground(new Color(64, 68, 75));
+        typeScrollPane.setBackground(new Color(56, 58, 64));
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 
         typePanel.add(typeScrollPane);
 
         textArea.setLineWrap(true);
         textArea.setText("Write a Message");
-        textArea.setBackground(new Color(64, 68, 75));
+        textArea.setBackground(new Color(56, 58, 64));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setFont(new Font("Whitney", Font.PLAIN, 30));
+        textArea.setFont(new Font("Whitney", Font.PLAIN, 35));
 
         UndoRedo.makeUndoable(textArea);
+
+        textArea.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         textArea.addKeyListener(new KeyListener() {
 
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("username", Jankcord.getFullUser().getUsername());
-                    headers.put("password", Jankcord.getFullUser().getPassword());
-                    headers.put("otherID", Jankcord.getOtherID());
-                    headers.put("content", textArea.getText());
-
-                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
-
-                    textArea.setText("");
+//                    HashMap<String, String> headers = new HashMap<>();
+//                    headers.put("username", Jankcord.getFullUser().getUsername());
+//                    headers.put("password", Jankcord.getFullUser().getPassword());
+//                    headers.put("otherID", Jankcord.getOtherID());
+//                    headers.put("content", textArea.getText());
+//
+//                    ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+//
+//                    textArea.setText("");
                 } else {
                     reline();
                 }
@@ -114,9 +141,9 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    textArea.setText("");
-                }
+//                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    textArea.setText("");
+//                }
             }
 
         });
@@ -158,11 +185,12 @@ public class ChatBoxArea extends JPanel {
 
     public void reline() {
         int h = getContentHeight() + 30;
+
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
-            typePanel.setLocation(typePanel.getX(), getHeight() - (typePanel.getHeight() + 25));
+            typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 45) * 45) + 75)));
 
-            typeScrollPane.setSize(typePanel.getWidth() - 20, typePanel.getHeight() - 16);
+            typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45));
 
             chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
 
@@ -180,27 +208,7 @@ public class ChatBoxArea extends JPanel {
         return (int) tempEditorPane.getPreferredSize().getHeight();
     }
 
-    public JScrollPane getChatBoxScrollPane() {
-        return chatBoxScrollPane;
-    }
-
-    public JScrollPane getMembersScrollPane() {
-        return membersScrollPane;
-    }
-
-    public JPanel getTypePanel() {
-        return typePanel;
-    }
-
-    public JScrollPane getTypeScrollPane() {
-        return typeScrollPane;
-    }
-
-    public LinkedList<MessageProfile> getMessageProfiles() {
-        return messageProfiles;
-    }
-
-    public int index = 0;
+    private int index = 0;
 
     public void addMessage(Message message) {
         MessageProfile mp = new MessageProfile(message);
@@ -264,5 +272,25 @@ public class ChatBoxArea extends JPanel {
 
     public JPanel getChatBoxTopBarPanel() {
         return chatBoxTopBarPanel;
+    }
+
+    public JScrollPane getChatBoxScrollPane() {
+        return chatBoxScrollPane;
+    }
+
+    public JScrollPane getMembersScrollPane() {
+        return membersScrollPane;
+    }
+
+    public JPanel getTypePanel() {
+        return typePanel;
+    }
+
+    public JScrollPane getTypeScrollPane() {
+        return typeScrollPane;
+    }
+
+    public LinkedList<MessageProfile> getMessageProfiles() {
+        return messageProfiles;
     }
 }
