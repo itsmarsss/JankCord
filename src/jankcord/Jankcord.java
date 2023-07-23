@@ -307,6 +307,9 @@ public class Jankcord {
         }
     }
 
+    public static ArrayList<User> getTempFriends() {
+        return tempFriends;
+    }
 
     private static ArrayList<Message> tempMessages = new ArrayList<>();
     private static ArrayList<User> tempMembers = new ArrayList<>();
