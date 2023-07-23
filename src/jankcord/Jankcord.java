@@ -227,8 +227,8 @@ public class Jankcord {
         ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
     }
 
-    private static ArrayList<User> tempFriends = new ArrayList<>();
     public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
+    private static ArrayList<User> tempFriends = new ArrayList<>();
 
     private static void queryForNewFriend() {
         // System.out.println("New friend query");
@@ -244,6 +244,7 @@ public class Jankcord {
         // System.out.println(friendsJSON);
 
         ArrayList<User> friends = new ArrayList<>();
+        ArrayList<GroupChat> groupChats = new ArrayList<>();
 
         try {
             // Parse the JSON string
@@ -309,6 +310,74 @@ public class Jankcord {
 
     public static ArrayList<User> getTempFriends() {
         return tempFriends;
+    }
+
+    private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
+
+    private static void queryForNewGroupChats() {
+        // System.out.println("New group chat query");
+        // Query api endpoint
+
+        // Get messages
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("username", fullUser.getUsername());
+        headers.put("password", fullUser.getPassword());
+
+        String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
+
+        // System.out.println(friendsJSON);
+        ArrayList<GroupChat> groupChats = new ArrayList<>();
+
+        try {
+            // Parse the JSON string
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(groupsJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray groupChatsArray = (JSONArray) jsonObject.get("groupChats");
+
+            // Loop through the "messages" array
+            for (Object groupChat : groupChatsArray) {
+                JSONObject groupChatObject = (JSONObject) groupChat;
+
+                // Read values from each message object
+                String chatID = (String) groupChatObject.get("chatID");
+                String chatName = (String) groupChatObject.get("chatName");
+                String chatIconURL = (String) groupChatObject.get("chatIconURL");
+
+                groupChats.add(new GroupChat(chatID, chatName, chatIconURL));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        boolean isSame = true;
+        if (groupChats.size() != tempGroupChats.size()) {
+            isSame = false;
+        } else {
+            for (int i = 0; i < groupChats.size(); i++) {
+                GroupChat groupChat = groupChats.get(i);
+                GroupChat tempGroupChat = tempGroupChats.get(i);
+
+                if (!groupChat.isEqual(tempGroupChat)) {
+                    isSame = false;
+                }
+            }
+        }
+
+        if (isSame) {
+            // System.out.println("Friend list no updates");
+            return;
+        }
+
+        tempGroupChats = groupChats;
+
+        serverList.initChannelPanel();
+
+        for (int i = 0; i < groupChats.size(); i++) {
+            serverList.addServer(groupChats.get(i), i + 2);
+        }
     }
 
     private static ArrayList<Message> tempMessages = new ArrayList<>();
@@ -433,6 +502,7 @@ public class Jankcord {
             //System.out.println("Member list no updates");
             return;
         }
+
         tempMembers = members;
 
         chatBoxArea.resetMembers();

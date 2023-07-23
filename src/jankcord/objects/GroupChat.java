@@ -5,13 +5,31 @@ import java.util.ArrayList;
 
 public class GroupChat {
     private String id;
-    private ArrayList<User> members;
+    private String chatName;
+    private String chatIconURL;
+    private ArrayList<Long> members;
     private ArrayList<Message> messages;
 
-    public GroupChat(String id, ArrayList<User> members, ArrayList<Message> messages) {
+    public GroupChat(String id, ArrayList<Long> members, ArrayList<Message> messages) {
         this.id = id;
         this.members = members;
         this.messages = messages;
+    }
+
+    public GroupChat(String id, String chatName, String chatIconURL) {
+        this.id = id;
+        this.chatName = chatName;
+        this.chatIconURL = chatIconURL;
+    }
+
+    public boolean isEqual(GroupChat tempGroupChat) {
+        if(!id.equals(tempGroupChat.getId())) {
+            return false;
+        }
+        if(!chatName.equals(tempGroupChat.getChatName())) {
+            return false;
+        }
+        return chatIconURL.equals(tempGroupChat.getChatIconURL());
     }
 
     public String getId() {
@@ -22,11 +40,27 @@ public class GroupChat {
         this.id = id;
     }
 
-    public ArrayList<User> getMembers() {
+    public String getChatName() {
+        return chatName;
+    }
+
+    public void setChatName(String chatName) {
+        this.chatName = chatName;
+    }
+
+    public String getChatIconURL() {
+        return chatIconURL;
+    }
+
+    public void setChatIconURL(String chatIconURL) {
+        this.chatIconURL = chatIconURL;
+    }
+
+    public ArrayList<Long> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<User> members) {
+    public void setMembers(ArrayList<Long> members) {
         this.members = members;
     }
 

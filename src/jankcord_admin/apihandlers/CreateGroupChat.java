@@ -3,14 +3,17 @@ package jankcord_admin.apihandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
+import jankcord.objects.GroupChat;
 import jankcord.objects.User;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CreateGroupChat implements HttpHandler {
     @Override
@@ -28,26 +31,16 @@ public class CreateGroupChat implements HttpHandler {
 
         String[] memberList = users.split(",");
 
-        StringBuilder friendsList = new StringBuilder();
+        ArrayList<Long> memberListLong = new ArrayList<>();
 
-        for (FullUser account : AdminDataBase.getAccounts()) {
-            friendsList.append("""
-                    {
-                        "id": %s,
-                        "username": "%s",
-                        "avatarURL": "%s"
-                    },
-                    """.formatted(account.getId(), account.getUsername(), account.getAvatarURL()));
+        for(String member : memberList) {
+            memberListLong.add(Long.parseLong(member));
         }
 
-        String friends = """
-                {
-                    "friends": [
-                        %s
-                    ]
-                }
-                """.formatted(friendsList.toString());
+        String chatID = UUID.randomUUID().toString();
 
-        ServerCommunicator.sendResponse(exchange, friends);
+        AdminDataBase.getGroupChats().put(chatID, new GroupChat(chatID, memberListLong, new ArrayList<>()));
+
+        ServerCommunicator.sendResponse(exchange, "200");
     }
 }

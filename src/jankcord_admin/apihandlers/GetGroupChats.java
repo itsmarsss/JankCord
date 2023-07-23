@@ -14,26 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GetFriends implements HttpHandler {
+public class GetGroupChats implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        //System.out.println("Friends Requested");
+        //System.out.println("Group Chats Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");
             return;
-        }
-
-        StringBuilder friendsList = new StringBuilder();
-
-        for (FullUser account : AdminDataBase.getAccounts()) {
-            friendsList.append("""
-                    {
-                        "id": %s,
-                        "username": "%s",
-                        "avatarURL": "%s"
-                    },
-                    """.formatted(account.getId(), account.getUsername(), account.getAvatarURL()));
         }
 
         Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
@@ -52,14 +40,31 @@ public class GetFriends implements HttpHandler {
             return;
         }
 
-        String friends = """
+        StringBuilder groupChatsList = new StringBuilder();
+        for (Map.Entry<String, GroupChat> entry : AdminDataBase.getGroupChats().entrySet()) {
+            GroupChat gc = entry.getValue();
+
+            for (long member : gc.getMembers()) {
+                if (member == currentID) {
+                    groupChatsList.append("""
+                        {
+                            "chatID": "%s",
+                            "chatName": "%s",
+                            "chatIconURl": "%s"
+                        },
+                        """.formatted(gc.getId(), gc.getChatName(), gc.getChatIconURL()));
+                }
+            }
+        }
+
+        String groupChats = """
                 {
-                    "friends": [
+                    "groupChats": [
                         %s
                     ]
                 }
-                """.formatted(friendsList.toString());
+                """.formatted(groupChatsList.toString());
 
-        ServerCommunicator.sendResponse(exchange, friends);
+        ServerCommunicator.sendResponse(exchange, groupChats);
     }
 }
