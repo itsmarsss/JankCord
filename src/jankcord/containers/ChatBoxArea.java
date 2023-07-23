@@ -76,6 +76,7 @@ public class ChatBoxArea extends JPanel {
         textArea = new JankTextArea();
         typeScrollPane = new JankScrollPane(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45), 20, 24, textArea);
 
+        typeScrollPane.setMultiplier(25);
         typeScrollPane.setBackground(new Color(56, 58, 64));
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 
