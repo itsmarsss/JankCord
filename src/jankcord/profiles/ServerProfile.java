@@ -41,7 +41,7 @@ public class ServerProfile extends JLabel {
 					Jankcord.queryForNewMessages();
 					Jankcord.getChannelList().clear();
 
-					Jankcord.getChatBoxArea().getChannelName().setText(groupChat.getChatName());
+					Jankcord.getChatBoxArea().setChannelName(groupChat.getChatName());
 				}
 			}
 

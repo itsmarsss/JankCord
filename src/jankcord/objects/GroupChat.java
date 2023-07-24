@@ -19,7 +19,6 @@ public class GroupChat {
 
     public GroupChat(String id, String chatName, String chatIconURL) {
         this.id = id;
-        this.chatName = "Unnamed Group Chat";
         this.chatName = chatName;
         this.chatIconURL = chatIconURL;
     }

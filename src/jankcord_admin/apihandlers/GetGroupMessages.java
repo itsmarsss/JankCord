@@ -62,9 +62,12 @@ public class GetGroupMessages implements HttpHandler {
                     "users": [%s],
                     "messages": [
                         %s
-                    ]
+                    ],
+                    "chatID": "%s",
+                    "chatName": "%s",
+                    "chatIconURL": "%s"
                 }
-                """.formatted(users.toString(), messages.toString());
+                """.formatted(users.toString(), messages.toString(), chatID, AdminDataBase.getGroupChats().get(chatID).getChatName(), AdminDataBase.getGroupChats().get(chatID).getChatIconURL());
 
         JankFileKit.writeFile(AdminDataBase.getParent() + "/groupmessages/" + chatID + ".json", textJSON);
 

@@ -62,13 +62,13 @@ public class ChatBoxArea extends JPanel {
 
         add(chatBoxTopBarPanel);
 
-        channelName = new JLabel("Select a channel.");
+        channelName = new JLabel();
         channelName.setLocation(50, 20);
         channelName.setBackground(new Color(56, 58, 64));
         channelName.setForeground(new Color(255, 255, 255));
         channelName.setFont(new Font("Whitney", Font.BOLD, 45));
 
-        channelName.setSize(channelName.getPreferredSize());
+        setChannelName("Select a channel.");
 
         chatBoxTopBarPanel.add(channelName);
 
@@ -273,8 +273,10 @@ public class ChatBoxArea extends JPanel {
     public JPanel getChatBoxTopBarPanel() {
         return chatBoxTopBarPanel;
     }
-    public JLabel getChannelName() {
-        return channelName;
+
+    public void setChannelName(String chatName) {
+        channelName.setText(chatName);
+        channelName.setSize(channelName.getPreferredSize());
     }
 
     public JPanel getChatPanel() {
