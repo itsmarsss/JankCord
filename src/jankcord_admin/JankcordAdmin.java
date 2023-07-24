@@ -7,6 +7,7 @@ import jankcord.objects.Message;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.IPHelper;
 import jankcord.tools.JankFileKit;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.apihandlers.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +37,9 @@ public class JankcordAdmin {
 
         System.out.println("Reading accounts...");
         System.out.println(readAccounts());
+
+        System.out.println("Reading messages...");
+        loadInAllMessages();
 
         while (true) {
             System.out.print(">> ");
@@ -139,54 +143,15 @@ public class JankcordAdmin {
         return "Successfully read accounts.json file.";
     }
 
-    public static String writeMessages(String fileName) {
-        return null;
-    }
-
-    public static String readMessages(String fileName) {
-        String textJSON = JankFileKit.readFile(getParent() + "/messages/" + fileName + ".json");
-
-        if (textJSON == null) {
-            textJSON = "";
-            System.out.println("IO error reading.");
-        }
-
-        ArrayList<Message> messages = new ArrayList<>();
-
-        try {
-            // Parse the JSON string
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
-
-            // Get the "messages" array from the JSON object
-            JSONArray messagesArray = (JSONArray) jsonObject.get("messages");
-
-            // Loop through the "messages" array
-            for (Object message : messagesArray) {
-                JSONObject messageObject = (JSONObject) message;
-
-                // Read values from each message object
-                long id = (Long) messageObject.get("id");
-                String content = (String) messageObject.get("content");
-                long timestamp = (Long) messageObject.get("timestamp");
-
-                messages.add(new Message(id, content, timestamp));
-            }
-        } catch (Exception e) {
-        }
-
-        getConversations().put(fileName, messages);
-
-        System.out.println("File read. [" + fileName + "]");
-
-        return textJSON;
-    }
-
     public static String createAccount() {
         System.out.println("Creating new JankCord account for user...");
         System.out.print("Username (no spaces | 20 characters max): ");
         sc.nextLine();
         String username = sc.nextLine();
+        if (!ServerCommunicator.headerable(username)) {
+            return "Username must only contain ASCII characters; command sequence exited";
+        }
+
         if (username.contains(" ")) {
             return "Username cannot contain spaces; command sequence exited";
         }
@@ -198,6 +163,10 @@ public class JankcordAdmin {
 
         System.out.print("Password (no spaces | 20 characters max): ");
         String password = sc.nextLine();
+        if (!ServerCommunicator.headerable(password)) {
+            return "Password must only contain ASCII characters; command sequence exited";
+        }
+
         if (password.contains(" ")) {
             return "Password cannot contain spaces; command sequence exited";
         }
@@ -218,6 +187,8 @@ public class JankcordAdmin {
             long id = getAccounts().get(getAccounts().size() - 1).getId() + 1;
             getAccounts().add(new FullUser(id, username, "N/A", password, "", "active"));
         }
+
+        writeAccounts();
 
         return "Account \"" + username + "\" with password \"" + password + "\" created successfully";
     }
@@ -281,6 +252,10 @@ public class JankcordAdmin {
         System.out.print("Username [" + user.getUsername() + "]: ");
         sc.nextLine();
         String username = sc.nextLine();
+        if (!ServerCommunicator.headerable(username)) {
+            return "Username must only contain ASCII characters; command sequence exited";
+        }
+
         if (username.contains(" ")) {
             return "Username cannot contain spaces; command sequence exited";
         }
@@ -292,6 +267,10 @@ public class JankcordAdmin {
 
         System.out.print("Password [" + user.getPassword() + "]: ");
         String password = sc.nextLine();
+        if (!ServerCommunicator.headerable(password)) {
+            return "Password must only contain ASCII characters; command sequence exited";
+        }
+
         if (password.contains(" ")) {
             return "Password cannot contain spaces; command sequence exited";
         }
@@ -303,8 +282,8 @@ public class JankcordAdmin {
 
         System.out.print("AvatarURL [" + user.getAvatarURL() + "]: ");
         String avatarURL = sc.nextLine();
-        if (avatarURL.contains(" ")) {
-            return "AvatarURL cannot contain spaces; command sequence exited";
+        if (!ServerCommunicator.headerable(avatarURL)) {
+            return "Invalid URL; command sequence exited";
         }
 
         if (!user.getUsername().equals(username)) {
@@ -366,8 +345,12 @@ public class JankcordAdmin {
 
         server.createContext("/api/v1/login", new Login());
         server.createContext("/api/v1/messages", new GetMessages());
+        server.createContext("/api/v1/groupmessages", new GetGroupMessages());
         server.createContext("/api/v1/friends", new GetFriends());
+        server.createContext("/api/v1/groupchats", new GetGroupChats());
         server.createContext("/api/v1/sendmessage", new NewMessage());
+        server.createContext("/api/v1/sendgroupmessage", new NewGroupMessage());
+        server.createContext("/api/v1/creategroupchat", new CreateGroupChat());
         server.setExecutor(null);
         server.start();
 
@@ -385,7 +368,32 @@ public class JankcordAdmin {
         return "JankCord server stopped.";
     }
 
-    private static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
+    public static void loadInAllMessages() {
+        File messageDir = new File(getParent() + "/messages");
+
+        if(!messageDir.isDirectory()) {
+            messageDir.mkdir();
+        } else {
+            File[] files = messageDir.listFiles();
+            for(File file : files) {
+                JankFileKit.readMessages(file.getName());
+            }
+        }
+
+
+        File groupMessageDir = new File(getParent() + "/groupmessages");
+
+        if(!groupMessageDir.isDirectory()) {
+            groupMessageDir.mkdir();
+        } else {
+            File[] files = groupMessageDir.listFiles();
+            for(File file : files) {
+                JankFileKit.readGroupMessages(file.getName());
+            }
+        }
+    }
+
+    public static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
         // Check if left and right point have converged
         if (leftPoint > rightPoint) { // If converged
             // Return null, no matching found

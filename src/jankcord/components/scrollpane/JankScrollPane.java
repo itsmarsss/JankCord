@@ -60,12 +60,7 @@ public class JankScrollPane extends JScrollPane {
 
         // Smooth scroll on mouse wheel events
         addMouseWheelListener(e -> {
-            int rotation = e.getWheelRotation();
-            int currentY = getViewport().getViewPosition().y;
-            int maxScrollY = getVerticalScrollBar().getMaximum();
-            // System.out.println(maxScrollY);
-            destinationY = Math.max(0, Math.min(currentY + (rotation * multiplier * 3), maxScrollY));
-            timer.start();
+            smoothScroll(e);
         });
 
         double scrollTimeInSeconds = 0.5;
@@ -102,7 +97,7 @@ public class JankScrollPane extends JScrollPane {
         scrollTimer.start();
     }
 
-    public void artificialScroll(MouseWheelEvent e) {
+    public void smoothScroll(MouseWheelEvent e) {
         int rotation = e.getWheelRotation();
         int currentY = getViewport().getViewPosition().y;
         int maxScrollY = getVerticalScrollBar().getMaximum();

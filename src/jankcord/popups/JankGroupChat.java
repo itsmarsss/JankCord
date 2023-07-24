@@ -1,39 +1,46 @@
 package jankcord.popups;
 
 import jankcord.Jankcord;
+import jankcord.components.JankList.JankList;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
 import jankcord.components.windowbuttons.JankCloseButton;
+import jankcord.objects.User;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.tools.ServerCommunicator;
 
+import javax.naming.SizeLimitExceededException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 
-public class RequestGroupChat extends JFrame {
+public class JankGroupChat extends JFrame {
 
     // Frame dragging
     private int posX = 0, posY = 0;
     private boolean drag = false;
 
-
-    public RequestGroupChat() {
-        super("JankCord Request Group Chat");
+    public JankGroupChat() {
+        super("JankCord New Group Chat");
 
         setIconImages(ResourceLoader.loader.getIcons());
 
         // Frame Init
+        setResizable(false);
         setUndecorated(true);
         getContentPane().setLayout(null);
-        setResizable(true);
         getContentPane().setBackground(new Color(32, 34, 37));
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(550, 750);
+        setSize(700, 800);
         setLocation((int) screenDim.getWidth() / 2 - getWidth() / 2, (int) screenDim.getHeight() / 2 - getHeight() / 2);
 
         getContentPane().addMouseListener(new MouseAdapter() {
@@ -57,30 +64,38 @@ public class RequestGroupChat extends JFrame {
         getContentPane().add(closeButton);
 
 
-        JLabel reasonLabel = new JLabel("Reason:");
-        reasonLabel.setSize(200, 30);
-        reasonLabel.setLocation(100, 100);
-        reasonLabel.setForeground(new Color(114, 118, 125));
-        reasonLabel.setFont(new Font("Whitney", Font.BOLD, 28));
-        getContentPane().add(reasonLabel);
+        JLabel createLabel = new JLabel("Create New Group Chat:");
+        createLabel.setSize(500, 30);
+        createLabel.setLocation(100, 100);
+        createLabel.setForeground(new Color(114, 118, 125));
+        createLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+        getContentPane().add(createLabel);
 
 
-        JankTextArea reasonTextArea = new JankTextArea(300, 450, 100, 150);
+        JLabel numOfUsersLabel = new JLabel("You can add 20 more friends.");
 
-        JScrollPane reasonTextAreaCont = new JScrollPane(reasonTextArea);
+        numOfUsersLabel.setSize(500, 30);
+        numOfUsersLabel.setLocation(100, 610);
+        numOfUsersLabel.setForeground(new Color(219, 222, 225));
+        numOfUsersLabel.setFont(new Font("Whitney", Font.BOLD, 25));
+        getContentPane().add(numOfUsersLabel);
 
-        reasonTextAreaCont.setOpaque(true);
-        reasonTextAreaCont.setBorder(null);
-        reasonTextAreaCont.setLocation(100, 150);
-        reasonTextAreaCont.setSize(350, 450);
-        reasonTextAreaCont.setBackground(new Color(43, 45, 49));
-        reasonTextAreaCont.getVerticalScrollBar().setUnitIncrement(15);
-        reasonTextAreaCont.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-        reasonTextAreaCont.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        reasonTextAreaCont.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(12, 14, 17), false));
-        getContentPane().add(reasonTextAreaCont);
 
-        JankButton submitButton = new JankButton("Submit", 350, 50, 100, 600);
+        DefaultListModel<User> users = new DefaultListModel<>();
+
+        for (User friend : Jankcord.getTempFriends()) {
+            users.addElement(friend);
+        }
+
+        JankList userList = new JankList(users, numOfUsersLabel, "You can add %s more friends.");
+
+        JankScrollPane userListScroll = new JankScrollPane(480, 450, 100, 150, userList);
+        userListScroll.setMultiplier(25);
+
+        getContentPane().add(userListScroll);
+
+
+        JankButton submitButton = new JankButton("Create Group Chat", 500, 50, 100, 650);
         submitButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
@@ -90,11 +105,21 @@ public class RequestGroupChat extends JFrame {
                 String password = Jankcord.getFullUser().getPassword();
                 String server = Jankcord.getFullUser().getEndPointHost();
 
+                List<User> usersResult = userList.getSelectedValuesList();
+
+                String users = Jankcord.getFullUser().getId() + ",";
+
+                for (User user : usersResult) {
+                    users += user.getId() + ",";
+                }
+
                 headers.put("username", username);
                 headers.put("password", password);
-                headers.put("reason", reasonTextArea.getText());
+                headers.put("users", users);
 
-                ServerCommunicator.sendHttpRequest(server + "/requestgroupchat", headers);
+                System.out.println(ServerCommunicator.sendHttpRequest(server + "creategroupchat", headers));
+
+                dispose();
             }
         });
 

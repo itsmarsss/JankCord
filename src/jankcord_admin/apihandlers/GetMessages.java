@@ -4,10 +4,12 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
 import jankcord.objects.Message;
+import jankcord.tools.JankFileKit;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +37,12 @@ public class GetMessages implements HttpHandler {
                 current = account;
             }
 
-            if(String.valueOf(account.getId()).equals(otherID)) {
+            if (String.valueOf(account.getId()).equals(otherID)) {
                 other = account;
             }
         }
 
-        if(current == null || other == null) {
+        if (current == null || other == null) {
             ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
@@ -61,7 +63,12 @@ public class GetMessages implements HttpHandler {
         StringBuilder messages = new StringBuilder();
 
         if (!AdminDataBase.getConversations().containsKey(fileName)) {
-            messages = new StringBuilder(JankcordAdmin.readMessages(fileName));
+            File file = new File(AdminDataBase.getParent() + "/messages/" + fileName + ".json");
+            if (file.exists()) {
+                JankFileKit.readMessages(fileName + ".json");
+            } else {
+                JankFileKit.create(file);
+            }
         } else {
             for (Message msg : AdminDataBase.getConversations().get(fileName)) {
                 messages.append(message.formatted(msg.getSenderID(), msg.getContent(), msg.getTimestamp()));
@@ -70,23 +77,18 @@ public class GetMessages implements HttpHandler {
 
         String textJSON = """
                 {
-                    "users": [
-                        {
-                            "id": %s,
-                            "username": "%s",
-                            "avatarURL": "%s"
-                        },
-                        {
-                            "id": %s,
-                            "username": "%s",
-                            "avatarURL": "%s"
-                        }
-                    ],
+                    "users": [%s, %s],
                     "messages": [
                         %s
                     ]
                 }
-                """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages.toString());
+                """.formatted(currentIDNum, otherIDNum, messages.toString());
+
+        JankFileKit.writeFile(AdminDataBase.getParent() + "/messages/" + fileName + ".json", textJSON);
+
+        if (!AdminDataBase.getConversations().containsKey(fileName)) {
+            JankFileKit.readMessages(fileName + ".json");
+        }
 
         ServerCommunicator.sendResponse(exchange, textJSON);
     }

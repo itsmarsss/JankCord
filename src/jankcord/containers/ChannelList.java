@@ -16,7 +16,7 @@ import jankcord.Jankcord;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.User;
-import jankcord.popups.RequestGroupChat;
+import jankcord.popups.JankGroupChat;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
@@ -25,8 +25,6 @@ public class ChannelList extends JPanel {
     private final JankScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;
     private final GridBagConstraints gbc;
-
-    private RequestGroupChat requestGroupChat;
 
     public ChannelList() {
         // Init
@@ -110,40 +108,12 @@ public class ChannelList extends JPanel {
         channelPanel.add(friendProfile, gbc);
 
         // Splitter
-        JLabel splitLabel = new JLabel("DIRECT MESSAGES                  ➕");
+        JLabel splitLabel = new JLabel("DIRECT MESSAGES");
         splitLabel.setForeground(new Color(142, 146, 151));
         splitLabel.setPreferredSize(new Dimension(420, 40));
         splitLabel.setFont(new Font("Whitney", Font.BOLD, 25));
         splitLabel.setVerticalAlignment(SwingConstants.TOP);
-        splitLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                splitLabel.setBackground(new Color(255, 255, 255));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                splitLabel.setForeground(new Color(219, 222, 225));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                splitLabel.setForeground(new Color(142, 146, 151));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (requestGroupChat != null) {
-                    requestGroupChat.dispose();
-                }
-                requestGroupChat = new RequestGroupChat();
-                requestGroupChat.setVisible(true);
-            }
-        });
         gbc.gridx = 0;
         gbc.gridy = 1;
 
@@ -157,6 +127,13 @@ public class ChannelList extends JPanel {
         for (ChannelProfile profile : channelProfiles) {
             profile.resetDisplay();
         }
+    }
+
+    public void clear() {
+        channelPanel.removeAll();
+
+        channelPanel.revalidate();
+        channelPanel.repaint();
     }
 
     public JankScrollPane getChannelScrollPane() {

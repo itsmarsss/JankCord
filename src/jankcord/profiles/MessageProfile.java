@@ -118,7 +118,7 @@ public class MessageProfile extends JPanel {
 
         messageAreaScroll.addMouseWheelListener(e -> {
             if(messageAreaScroll.getHorizontalScrollBar().getMaximum() == messageAreaScroll.getWidth()) {
-                Jankcord.getChatBoxArea().getChatBoxScrollPane().artificialScroll(e);
+                Jankcord.getChatBoxArea().getChatBoxScrollPane().smoothScroll(e);
             }
         });
 

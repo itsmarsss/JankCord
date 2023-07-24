@@ -54,4 +54,15 @@ public class ServerCommunicator {
         outputStream.write(response.getBytes());
         outputStream.close();
     }
+
+    public static boolean headerable(String string) {
+        String check = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ :;.,\\/\"'?!(){}[]@<>=-+*#$&`|~^%";
+        for (char c : string.toCharArray()) {
+            if (!check.contains(c + "")) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

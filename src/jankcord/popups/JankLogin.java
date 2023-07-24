@@ -31,9 +31,9 @@ public class JankLogin extends JFrame {
         setIconImages(ResourceLoader.loader.getIcons());
 
         // Frame Init
+        setResizable(false);
         setUndecorated(true);
         getContentPane().setLayout(null);
-        setResizable(true);
         getContentPane().setBackground(new Color(32, 34, 37));
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(500, 750);
