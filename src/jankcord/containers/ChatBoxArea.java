@@ -123,7 +123,14 @@ public class ChatBoxArea extends JPanel {
                     headers.put("otherID", Jankcord.getOtherID());
                     headers.put("content", content);
 
-                    String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "sendmessage", headers);
+                    String dest = "sendmessage";
+                    if(Jankcord.isInServer()) {
+                        dest = "sendgroupmessage";
+                    }
+
+                    String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + dest, headers);
+
+                    System.out.println(response);
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     textArea.insert("\n", textArea.getCaretPosition());
                 }

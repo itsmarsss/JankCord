@@ -77,23 +77,12 @@ public class GetMessages implements HttpHandler {
 
         String textJSON = """
                 {
-                    "users": [
-                        {
-                            "id": %s,
-                            "username": "%s",
-                            "avatarURL": "%s"
-                        },
-                        {
-                            "id": %s,
-                            "username": "%s",
-                            "avatarURL": "%s"
-                        }
-                    ],
+                    "users": [%s, %s],
                     "messages": [
                         %s
                     ]
                 }
-                """.formatted(currentIDNum, current.getUsername(), current.getAvatarURL(), otherIDNum, other.getUsername(), other.getAvatarURL(), messages.toString());
+                """.formatted(currentIDNum, otherIDNum, messages.toString());
 
         JankFileKit.writeFile(AdminDataBase.getParent() + "/messages/" + fileName + ".json", textJSON);
 

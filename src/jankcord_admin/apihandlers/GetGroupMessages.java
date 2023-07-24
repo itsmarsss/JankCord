@@ -18,7 +18,7 @@ import java.util.Map;
 public class GetGroupMessages implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        //System.out.println("Messages Requested");
+        System.out.println("Group Messages Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");
@@ -27,8 +27,7 @@ public class GetGroupMessages implements HttpHandler {
 
         Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
 
-        String username = requestHeaders.get("username").get(0);
-        String chatID = requestHeaders.get("oherID").get(0);
+        String chatID = requestHeaders.get("otherID").get(0);
 
         String user = """
                 {
@@ -50,9 +49,9 @@ public class GetGroupMessages implements HttpHandler {
         StringBuilder messages = new StringBuilder();
 
         if (!AdminDataBase.getGroupChats().containsKey(chatID)) {
-            File file = new File(AdminDataBase.getParent() + "/messages/" + chatID + ".json");
+            File file = new File(AdminDataBase.getParent() + "/groupmessages/" + chatID + ".json");
             if (file.exists()) {
-                JankFileKit.readMessages(chatID + ".json");
+                JankFileKit.readGroupMessages(chatID + ".json");
             } else {
                 JankFileKit.create(file);
             }
@@ -84,10 +83,10 @@ public class GetGroupMessages implements HttpHandler {
                 }
                 """.formatted(users.toString(), messages.toString());
 
-        JankFileKit.writeFile(AdminDataBase.getParent() + "/messages/" + chatID + ".json", textJSON);
+        JankFileKit.writeFile(AdminDataBase.getParent() + "/groupmessages/" + chatID + ".json", textJSON);
 
         if (!AdminDataBase.getGroupChats().containsKey(chatID)) {
-            JankFileKit.readMessages(chatID + ".json");
+            JankFileKit.readGroupMessages(chatID + ".json");
         }
 
         ServerCommunicator.sendResponse(exchange, textJSON);

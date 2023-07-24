@@ -100,4 +100,43 @@ public class JankFileKit {
 
         return textJSON;
     }
+
+    public static String readGroupMessages(String fileName) {
+        String textJSON = JankFileKit.readFile(AdminDataBase.getParent() + "/groupmessages/" + fileName);
+
+        if (textJSON == null) {
+            textJSON = "";
+            System.out.println("IO error reading.");
+        }
+
+        ArrayList<Message> messages = new ArrayList<>();
+
+        try {
+            // Parse the JSON string
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray messagesArray = (JSONArray) jsonObject.get("messages");
+
+            // Loop through the "messages" array
+            for (Object message : messagesArray) {
+                JSONObject messageObject = (JSONObject) message;
+
+                // Read values from each message object
+                long id = (Long) messageObject.get("id");
+                String content = (String) messageObject.get("content");
+                long timestamp = (Long) messageObject.get("timestamp");
+
+                messages.add(new Message(id, content, timestamp));
+            }
+        } catch (Exception e) {
+        }
+
+        AdminDataBase.getConversations().put(fileName.replaceFirst("[.][^.]+$", ""), messages);
+
+        System.out.println("File read. [" + fileName + "]");
+
+        return textJSON;
+    }
 }

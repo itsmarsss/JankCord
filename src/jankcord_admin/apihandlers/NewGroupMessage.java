@@ -15,7 +15,7 @@ import java.util.Map;
 public class NewGroupMessage implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // System.out.println("Messages send Requested");
+        System.out.println(" Group Messages send Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");
@@ -40,8 +40,6 @@ public class NewGroupMessage implements HttpHandler {
             ServerCommunicator.sendResponse(exchange, "403");
             return;
         }
-
-        long currentIDNum = current.getId();
 
         AdminDataBase.getConversations().get(chatID).add(new Message(current.getId(), content, System.currentTimeMillis()));
 

@@ -418,7 +418,7 @@ public class Jankcord {
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
 
-        // System.out.println(messagesJSON);
+        //System.out.println(messagesJSON);
 
         ArrayList<Message> messages = new ArrayList<>();
         ArrayList<User> members = new ArrayList<>();
@@ -433,21 +433,13 @@ public class Jankcord {
 
             // Loop through the "messages" array
             for (Object member : membersArray) {
-                JSONObject memberObject = (JSONObject) member;
+                long id = (Long) member;
 
-                // Read values from each message object
-                long id = (Long) memberObject.get("id");
-                String username = (String) memberObject.get("username");
-                String avatarURL = (String) memberObject.get("avatarURL");
-
-                members.add(new User(id, username, avatarURL));
-
-                try {
-                    if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
-                        cacheAvatar(id, username, avatarURL);
+                for(User friend : tempFriends) {
+                    if(friend.getId() == id) {
+                        members.add(friend);
+                        break;
                     }
-                } catch (Exception e) {
-                    cacheAvatar(id, username, avatarURL);
                 }
             }
 
