@@ -61,6 +61,7 @@ public class ChannelProfile extends JPanel {
                     Jankcord.setOtherID(friend.getId() + "");
                     Jankcord.setNewOtherID(true);
                     Jankcord.setInServer(false);
+                    Jankcord.setInServerCheck(true);
                     Jankcord.getChatBoxArea().resetMessages();
                     Jankcord.queryForNewMessages();
                     Jankcord.getChannelList().resetDisplays();

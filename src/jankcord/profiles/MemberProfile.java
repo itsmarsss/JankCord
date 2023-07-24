@@ -56,20 +56,32 @@ public class MemberProfile extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                    setBackground(new Color(59, 60, 66));
-                    usernameLabel.setForeground(new Color(219, 222, 225));
+                Jankcord.setOtherID(member.getId() + "");
+                Jankcord.setNewOtherID(true);
+                Jankcord.setInServer(false);
+                Jankcord.setInServerCheck(true);
+                Jankcord.getChatBoxArea().resetMessages();
+                Jankcord.queryForNewMessages();
+                Jankcord.getChannelList().initChannelPanel();
+                Jankcord.getChannelList().resetDisplays();
+
+                Jankcord.queryForNewFriend();
+                Jankcord.getChatBoxArea().setChannelName(member.getUsername());
+
+                setBackground(new Color(59, 60, 66));
+                usernameLabel.setForeground(new Color(219, 222, 225));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                    setBackground(new Color(54, 55, 61));
-                    usernameLabel.setForeground(new Color(219, 222, 225));
+                setBackground(new Color(54, 55, 61));
+                usernameLabel.setForeground(new Color(219, 222, 225));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                    setBackground(null);
-                    usernameLabel.setForeground(new Color(142, 146, 151));
+                setBackground(null);
+                usernameLabel.setForeground(new Color(142, 146, 151));
             }
         });
 
