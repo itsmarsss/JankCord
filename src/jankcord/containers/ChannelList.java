@@ -129,6 +129,13 @@ public class ChannelList extends JPanel {
         }
     }
 
+    public void clear() {
+        channelPanel.removeAll();
+
+        channelPanel.revalidate();
+        channelPanel.repaint();
+    }
+
     public JankScrollPane getChannelScrollPane() {
         return channelScrollPane;
     }

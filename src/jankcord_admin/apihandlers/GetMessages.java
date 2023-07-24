@@ -60,7 +60,7 @@ public class GetMessages implements HttpHandler {
                 },
                 """;
 
-        StringBuilder messages = new StringBuilder("");
+        StringBuilder messages = new StringBuilder();
 
         if (!AdminDataBase.getConversations().containsKey(fileName)) {
             File file = new File(AdminDataBase.getParent() + "/messages/" + fileName + ".json");

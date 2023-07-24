@@ -84,6 +84,7 @@ public class Jankcord {
 
     private static String otherID = "";
     private static boolean newOtherID = true;
+    private static boolean inServer = false;
     private static FullUser fullUser;
 
     // JankCord Default Constructor
@@ -94,16 +95,16 @@ public class Jankcord {
         drawUI();
     }
 
-    public static void setFullUser(FullUser otherFullUser) {
-        fullUser = otherFullUser;
+    public static void setFullUser(FullUser fullUser) {
+        Jankcord.fullUser = fullUser;
     }
 
     public static FullUser getFullUser() {
         return fullUser;
     }
 
-    public static void setOtherID(long id) {
-        otherID = String.valueOf(id);
+    public static void setOtherID(String otherID) {
+        Jankcord.otherID = otherID;
     }
 
     public static String getOtherID() {
@@ -116,6 +117,14 @@ public class Jankcord {
 
     public static void setNewOtherID(boolean newOtherID) {
         Jankcord.newOtherID = newOtherID;
+    }
+
+    public static boolean isInServer() {
+        return inServer;
+    }
+
+    public static void setInServer(boolean inServer) {
+        Jankcord.inServer = inServer;
     }
 
     // render frame and viewPanel
@@ -234,6 +243,10 @@ public class Jankcord {
     private static ArrayList<User> tempFriends = new ArrayList<>();
 
     private static void queryForNewFriend() {
+        if(inServer) {
+            return;
+        }
+
         // System.out.println("New friend query");
         // Query api endpoint
 
@@ -397,7 +410,13 @@ public class Jankcord {
         headers.put("password", fullUser.getPassword());
         headers.put("otherID", otherID);
 
-        String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "messages", headers);
+        String dest = "messages";
+
+        if(inServer) {
+            dest = "groupmessages";
+        }
+
+        String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
 
         // System.out.println(messagesJSON);
 
