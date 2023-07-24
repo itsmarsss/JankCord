@@ -82,7 +82,7 @@ public class ChatBoxArea extends JPanel {
         typePanel.setBorder(null);
         typePanel.setLayout(null);
         typePanel.setBackground(new Color(56, 58, 64));
-        typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 81);
+        typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 73);
         typePanel.setLocation(30, getHeight() - 120);
 
         textArea = new JankTextArea();
@@ -91,7 +91,6 @@ public class ChatBoxArea extends JPanel {
         typeScrollPane.setMultiplier(25);
         typeScrollPane.setBackground(new Color(56, 58, 64));
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-        typeScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
         typePanel.add(typeScrollPane);
 
@@ -186,17 +185,16 @@ public class ChatBoxArea extends JPanel {
     }
 
     public void reline() {
-        int h = getNumberOfLines(textArea) * 37 + 37;
+        int h = getNumberOfLines(textArea) * 37 + 36;
 
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
-            typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 37) * 37) + 75)));
+            typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 37) * 37) + 83)));
 
             typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 37) * 37));
-
             typeScrollPane.getVerticalScrollBar().setValue(0);
 
-            chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
+            chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 114 + typePanel.getHeight()));
         }
     }
 
