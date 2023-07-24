@@ -55,7 +55,7 @@ public class Jankcord implements JankDraggable {
         if (isServer) {
             JankcordAdmin.startAdmin();
         } else {
-            System.setProperty("sun.java2d.uiScale", "0.5");
+            System.setProperty("sun.java2d.uiScale", "1");
 
             new JankLogin().setVisible(true);
         }
@@ -199,6 +199,8 @@ public class Jankcord implements JankDraggable {
         channelScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
         frame.setVisible(true);
+
+        chatBoxArea.setChannelName("Select a channel.");
 
         ScheduledExecutorService sesFriend = Executors.newSingleThreadScheduledExecutor();
         sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);

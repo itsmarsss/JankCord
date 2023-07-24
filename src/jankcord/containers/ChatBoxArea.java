@@ -65,8 +65,6 @@ public class ChatBoxArea extends JPanel {
         channelName.setForeground(new Color(255, 255, 255));
         channelName.setFont(new Font("Whitney", Font.BOLD, 45));
 
-        setChannelName("Select a channel.");
-
         chatBoxTopBarPanel.add(channelName);
 
         // Chat Section
