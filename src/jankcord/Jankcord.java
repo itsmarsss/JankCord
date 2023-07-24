@@ -61,16 +61,10 @@ public class Jankcord implements JankDraggable {
         }
     }
 
-    // Non-fullscreen dimensions and toggle
-    private static int oldW;
-    private static int oldH;
-    private static int oldX;
-    private static int oldY;
-    private static boolean full = false;
-
     // Main frame and components
     private static JFrame frame;                    // Window holding everything
     private static JPanel viewPanel;
+    private static JankLabel logoLabel;
     private static WindowButtons windowButtons;        // Other components...
     private static ServerList serverList;
     private static ChannelList channelList;
@@ -176,8 +170,9 @@ public class Jankcord implements JankDraggable {
         frame.getContentPane().add(viewPanel);
 
         // Logo
-        JankLabel logoLabel = new JankLabel("JankCord");
+        logoLabel = new JankLabel("JankCord");
         logoLabel.setName("JankCordLogo");
+        logoLabel.setSize(300, logoLabel.getHeight());
 
         viewPanel.add(logoLabel);
 
@@ -205,14 +200,15 @@ public class Jankcord implements JankDraggable {
 
         frame.setVisible(true);
 
-        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
+        ScheduledExecutorService sesFriend = Executors.newSingleThreadScheduledExecutor();
+        sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
 
-        ScheduledExecutorService ses1 = Executors.newSingleThreadScheduledExecutor();
-        ses1.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
+        ScheduledExecutorService sesGroup = Executors.newSingleThreadScheduledExecutor();
+        sesGroup.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
 
-        ScheduledExecutorService ses2 = Executors.newSingleThreadScheduledExecutor();
-        ses2.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 1, TimeUnit.SECONDS);
+        ScheduledExecutorService sesMessage = Executors.newSingleThreadScheduledExecutor();
+        sesMessage.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
+
     }
 
     public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
@@ -230,6 +226,14 @@ public class Jankcord implements JankDraggable {
         headers.put("password", fullUser.getPassword());
 
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
+
+        if (friendsJSON == null) {
+            logoLabel.setText("JankCord - OFFLINE");
+            logoLabel.setForeground(new Color(198, 36, 36));
+            return;
+        }
+        logoLabel.setText("JankCord");
+        logoLabel.setForeground(new Color(114, 118, 125));
 
         // System.out.println(friendsJSON);
 
@@ -262,7 +266,8 @@ public class Jankcord implements JankDraggable {
                     cacheAvatar(id, username, avatarURL);
                 }
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         if (inServer) {
             return;
@@ -327,6 +332,14 @@ public class Jankcord implements JankDraggable {
 
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
+        if (groupsJSON == null) {
+            logoLabel.setText("JankCord - OFFLINE");
+            logoLabel.setForeground(new Color(198, 36, 36));
+            return;
+        }
+        logoLabel.setText("JankCord");
+        logoLabel.setForeground(new Color(114, 118, 125));
+
         //System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
 
@@ -349,7 +362,8 @@ public class Jankcord implements JankDraggable {
 
                 groupChats.add(new GroupChat(chatID, chatName, chatIconURL));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
 
         boolean isSame = true;
@@ -403,6 +417,14 @@ public class Jankcord implements JankDraggable {
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
 
+        if (messagesJSON == null) {
+            logoLabel.setText("JankCord - OFFLINE");
+            logoLabel.setForeground(new Color(198, 36, 36));
+            return;
+        }
+        logoLabel.setText("JankCord");
+        logoLabel.setForeground(new Color(114, 118, 125));
+
         //System.out.println(messagesJSON);
 
         ArrayList<Message> messages = new ArrayList<>();
@@ -453,7 +475,8 @@ public class Jankcord implements JankDraggable {
                     cacheAvatar(id, username, avatarURL);
                 }
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
 
         boolean isSame = true;
@@ -526,22 +549,6 @@ public class Jankcord implements JankDraggable {
         avatarCache.put(id, new SimpleUserCache(username, avatarURL, avatar));
     }
 
-    public static void doFullscreen() {
-        if (full) {
-            frame.setSize(oldW, oldH);
-            frame.setLocation(oldX, oldY);
-            full = false;
-        } else {
-            oldW = frame.getWidth();
-            oldH = frame.getHeight();
-            oldX = frame.getX();
-            oldY = frame.getY();
-            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-            full = true;
-        }
-        resize();
-    }
-
     public static void resize() {
         viewPanel.setLocation(5, 5);
         viewPanel.setSize(frame.getWidth() - 10, frame.getHeight() - 10);
@@ -589,6 +596,12 @@ public class Jankcord implements JankDraggable {
         return frame;
     }
 
+    // Non-fullscreen dimensions and toggle
+    private static int oldW;
+    private static int oldH;
+    private static int oldX;
+    private static int oldY;
+    private static boolean full = false;
 
     // Frame dragging
     private int posX = 0, posY = 0;
@@ -616,5 +629,22 @@ public class Jankcord implements JankDraggable {
             }
             frame.setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
         }
+    }
+
+
+    public static void doFullscreen() {
+        if (full) {
+            frame.setSize(oldW, oldH);
+            frame.setLocation(oldX, oldY);
+            full = false;
+        } else {
+            oldW = frame.getWidth();
+            oldH = frame.getHeight();
+            oldX = frame.getX();
+            oldY = frame.getY();
+            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+            full = true;
+        }
+        resize();
     }
 }
