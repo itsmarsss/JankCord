@@ -22,6 +22,7 @@ import jankcord.profiles.MessageProfile;
 public class ChatBoxArea extends JPanel {
     private final JPanel chatBoxTopBarPanel;
     private final JLabel channelName;
+    private final JLabel settingsLabel;
     private final JPanel chatPanel;
     private final JankScrollPane chatBoxScrollPane;
     private final JPanel typePanel;
@@ -35,6 +36,8 @@ public class ChatBoxArea extends JPanel {
     private final LinkedList<MessageProfile> messageProfiles;
 
     private final GridBagConstraints gbc;
+
+    private final JFrame
 
     private boolean shifting = false;
 
@@ -66,6 +69,44 @@ public class ChatBoxArea extends JPanel {
         channelName.setFont(new Font("Whitney", Font.BOLD, 45));
 
         chatBoxTopBarPanel.add(channelName);
+
+        settingsLabel = new JLabel(" Account ⚙ ", SwingConstants.CENTER);
+
+        settingsLabel.setOpaque(true);
+        settingsLabel.setBackground(null);
+        settingsLabel.setForeground(new Color(255, 255, 255));
+        settingsLabel.setFont(new Font("Whitney", Font.BOLD, 45));
+        settingsLabel.setLocation(chatBoxTopBarPanel.getWidth() - 280, 20);
+
+        settingsLabel.setSize(settingsLabel.getPreferredSize());
+
+        settingsLabel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                settingsLabel.setBackground(new Color(0, 0, 0));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                settingsLabel.setBackground(new Color(50, 50, 50));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                settingsLabel.setBackground(new Color(50, 50, 50));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                settingsLabel.setBackground(null);
+            }
+        });
+
+        chatBoxTopBarPanel.add(settingsLabel);
 
         // Chat Section
         chatPanel = new JPanel();
@@ -121,7 +162,7 @@ public class ChatBoxArea extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
                     shifting = false;
                 } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
-                    if(textArea.getText().isBlank()) {
+                    if (textArea.getText().isBlank()) {
                         return;
                     }
 
@@ -283,6 +324,10 @@ public class ChatBoxArea extends JPanel {
     public void setChannelName(String chatName) {
         channelName.setText("# " + chatName);
         channelName.setSize(channelName.getPreferredSize());
+    }
+
+    public JLabel getSettingsLabel() {
+        return settingsLabel;
     }
 
     public JPanel getChatPanel() {
