@@ -3,8 +3,8 @@ package jankcord.profiles;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.*;
@@ -43,23 +43,18 @@ public class MessageProfile extends JPanel {
         usernameLabel.setForeground(new Color(242, 243, 245));
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
 
-        FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
-        int w = (int) (usernameLabel.getFont().getStringBounds(cachedUser.getUsername(), frc).getWidth());
-
-        usernameLabel.setSize(w + 5, 40);
+        usernameLabel.setSize((int) usernameLabel.getPreferredSize().getWidth(), 40);
 
         // Time stamp
-        String timeStamp = new Date(message.getTimestamp()).toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+        String timeStamp = sdf.format(new Date(message.getTimestamp()));
         JLabel timeLabel = new JLabel(timeStamp);
 
         timeLabel.setForeground(new Color(162, 165, 169));
         timeLabel.setFont(new Font("Whitney", Font.PLAIN, 24));
         timeLabel.setLocation(usernameLabel.getX() + usernameLabel.getWidth() + 10, 12);
 
-        FontRenderContext frc2 = new FontRenderContext(new AffineTransform(), true, true);
-        int w2 = (int) (timeLabel.getFont().getStringBounds(timeStamp, frc2).getWidth());
-
-        timeLabel.setSize(w2, 40);
+        timeLabel.setSize((int) timeLabel.getPreferredSize().getWidth(), 40);
 
         // Message content
         String content = message.getContent().replaceAll("\\n", "<br>");
@@ -72,11 +67,10 @@ public class MessageProfile extends JPanel {
         messageArea.setForeground(new Color(242, 243, 245));
         messageArea.setFont(new Font("Whitney", Font.PLAIN, 28));
 
-        FontRenderContext frc3 = new FontRenderContext(new AffineTransform(), true, true);
-        int w3 = (int) (messageArea.getFont().getStringBounds(content, frc3).getWidth());
-        int h3 = (int) (messageArea.getFont().getStringBounds(content, frc3).getHeight());
-
-        messageAreaScroll = new JankScrollPane(w3, h3, usernameLabel.getX(), usernameLabel.getY() + 45, messageArea);
+        messageAreaScroll = new JankScrollPane(
+                (int) messageArea.getPreferredSize().getWidth(), (int) messageArea.getPreferredSize().getHeight(),
+                usernameLabel.getX(), usernameLabel.getY() + 45, messageArea
+        );
 
         messageAreaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
         messageAreaScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 15));
@@ -117,12 +111,12 @@ public class MessageProfile extends JPanel {
         });
 
         messageAreaScroll.addMouseWheelListener(e -> {
-            if(messageAreaScroll.getHorizontalScrollBar().getMaximum() == messageAreaScroll.getWidth()) {
+            if (messageAreaScroll.getHorizontalScrollBar().getMaximum() == messageAreaScroll.getWidth()) {
                 Jankcord.getChatBoxArea().getChatBoxScrollPane().smoothScroll(e);
             }
         });
 
-        for(Component jc : getComponents()) {
+        for (Component jc : getComponents()) {
             addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
