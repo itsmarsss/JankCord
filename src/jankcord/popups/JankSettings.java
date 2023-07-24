@@ -16,10 +16,13 @@ import jankcord.tools.ServerCommunicator;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.HashMap;
 
 public class JankSettings extends JFrame implements JankDraggable {
@@ -50,54 +53,65 @@ public class JankSettings extends JFrame implements JankDraggable {
 
 
         JankLabel logoLabel = new JankLabel("JankCord Settings");
-
         getContentPane().add(logoLabel);
 
         JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
-
         getContentPane().add(closeButton);
 
         JLabel iconLabel = new JLabel();
-        Image avatar = Jankcord.avatarCache.getOrDefault(Jankcord.getFullUser().getId(), new SimpleUserCache()).getAvatarOrginal();
-        avatar = avatar.getScaledInstance(160, 160, Image.SCALE_FAST);
-
-        iconLabel.setIcon(new ImageIcon(avatar));
+        iconLabel.setLocation(160, 100);
         iconLabel.setSize(160, 160);
-        iconLabel.setLocation(100, 100);
-
         getContentPane().add(iconLabel);
 
         JLabel serverLabel = new JLabel("Avatar URL:");
-        serverLabel.setSize(200, 30);
         serverLabel.setLocation(100, 300);
+        serverLabel.setSize(200, 30);
         serverLabel.setForeground(new Color(114, 118, 125));
         serverLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(serverLabel);
 
         JankTextField avatarInput = new JankTextField(300, 45, 100, 350);
+        avatarInput.setText(Jankcord.getFullUser().getAvatarURL());
         getContentPane().add(avatarInput);
+
+        JLabel statusLabel = new JLabel();
 
         JankButton uploadButton = new JankButton("Upload", 300, 45, 100, 450);
         uploadButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
+                Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
+
+                try {
+                    URL url = new URL(avatarInput.getText());
+
+                    BufferedImage image = ImageIO.read(url);
+
+                    avatar = new ImageIcon(image).getImage();
+                } catch (Exception e) {
+                    statusLabel.setText("Error getting avatar.");
+                }
+
+                avatar = avatar.getScaledInstance(160, 160, Image.SCALE_FAST);
+                iconLabel.setIcon(new ImageIcon(avatar));
             }
         });
         getContentPane().add(uploadButton);
 
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setSize(150, 30);
         usernameLabel.setLocation(450, 100);
+        usernameLabel.setSize(150, 30);
         usernameLabel.setForeground(new Color(114, 118, 125));
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(usernameLabel);
 
         JankTextField usernameInput = new JankTextField(300, 45, 450, 150);
+        usernameInput.setText(Jankcord.getFullUser().getUsername());
         getContentPane().add(usernameInput);
 
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setSize(150, 30);
         passwordLabel.setLocation(450, 250);
+        passwordLabel.setSize(150, 30);
         passwordLabel.setForeground(new Color(114, 118, 125));
         passwordLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(passwordLabel);
@@ -106,8 +120,8 @@ public class JankSettings extends JFrame implements JankDraggable {
         getContentPane().add(passwordInput);
 
         JLabel passwordAgainLabel = new JLabel("Password Again:");
-        passwordAgainLabel.setSize(250, 30);
         passwordAgainLabel.setLocation(450, 400);
+        passwordAgainLabel.setSize(250, 30);
         passwordAgainLabel.setForeground(new Color(114, 118, 125));
         passwordAgainLabel.setFont(new Font("Whitney", Font.BOLD, 28));
         getContentPane().add(passwordAgainLabel);
@@ -115,10 +129,8 @@ public class JankSettings extends JFrame implements JankDraggable {
         JankPasswordField passwordAgainInput = new JankPasswordField(300, 45, 450, 450);
         getContentPane().add(passwordAgainInput);
 
-
-        JLabel statusLabel = new JLabel("");
+        statusLabel.setLocation(100, 515);
         statusLabel.setSize(300, 30);
-        statusLabel.setLocation(100, 550);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
         getContentPane().add(statusLabel);
@@ -172,8 +184,9 @@ public class JankSettings extends JFrame implements JankDraggable {
                 }
             }
         });
-
         getContentPane().add(loginButton);
+
+        uploadButton.getMouseListener().getMouseReleased().run();
     }
 
 
