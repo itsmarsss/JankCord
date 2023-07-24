@@ -89,8 +89,6 @@ public class JankcordAdmin {
                           "status": "%s"
                       },
                     """.formatted(account.getId(), account.getUsername(), account.getPassword(), account.getAvatarURL(), account.getStatus()));
-
-            System.out.println(account.getPassword());
         }
 
         String accounts = """
@@ -100,9 +98,6 @@ public class JankcordAdmin {
                     ]
                 }
                 """.formatted(accountList.toString());
-
-
-        System.out.println(accountList.toString());
 
         if (JankFileKit.writeFile(getParent() + "/accounts/accounts.json", accounts)) {
             return "Successfully written accounts.json file.";

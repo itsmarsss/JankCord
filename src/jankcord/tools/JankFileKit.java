@@ -53,7 +53,7 @@ public class JankFileKit {
     }
 
     public static void create(File file) {
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -92,7 +92,8 @@ public class JankFileKit {
 
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         AdminDataBase.getConversations().put(fileName.replaceFirst("[.][^.]+$", ""), messages);
 
@@ -109,6 +110,8 @@ public class JankFileKit {
             System.out.println("IO error reading.");
         }
 
+        String chatName = "";
+        String chatIconURL = "";
         ArrayList<Long> members = new ArrayList<>();
         ArrayList<Message> messages = new ArrayList<>();
 
@@ -116,6 +119,9 @@ public class JankFileKit {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
+
+            chatName = (String) jsonObject.get("chatName");
+            chatIconURL = (String) jsonObject.get("chatIconURL");
 
             // Get the "messages" array from the JSON object
             JSONArray membersArray = (JSONArray) jsonObject.get("users");
@@ -139,11 +145,12 @@ public class JankFileKit {
 
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         String rawFileName = fileName.replaceFirst("[.][^.]+$", "");
 
-        AdminDataBase.getGroupChats().put(rawFileName, new GroupChat(rawFileName, members ,messages));
+        AdminDataBase.getGroupChats().put(rawFileName, new GroupChat(rawFileName, chatName, chatIconURL, members, messages));
 
         System.out.println("File read. [" + fileName + "]");
 

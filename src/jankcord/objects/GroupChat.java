@@ -10,6 +10,14 @@ public class GroupChat {
     private ArrayList<Long> members;
     private ArrayList<Message> messages;
 
+    public GroupChat(String id, String chatName, String chatIconURL, ArrayList<Long> members, ArrayList<Message> messages) {
+        this.id = id;
+        this.chatName = chatName;
+        this.chatIconURL = chatIconURL;
+        this.members = members;
+        this.messages = messages;
+    }
+
     public GroupChat(String id, ArrayList<Long> members, ArrayList<Message> messages) {
         this.id = id;
         this.chatName = "Unnamed Group Chat";
