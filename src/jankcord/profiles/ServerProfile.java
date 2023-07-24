@@ -1,6 +1,7 @@
 package jankcord.profiles;
 
 import jankcord.Jankcord;
+import jankcord.objects.GroupChat;
 
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -10,13 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class ServerProfile extends JLabel {
-	private final String serverID;
-	public ServerProfile(Image serverIcon, String serverID) {
-		Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_DEFAULT);
+	private GroupChat groupChat;
+	public ServerProfile(Image serverIcon, GroupChat groupChat) {
+		Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_FAST);
 		setSize(96, 96);
 		setIcon(new ImageIcon(scaledIcon));
 		
-		this.serverID = serverID;
+		this.groupChat = groupChat;
 
 		addMouseListener(new MouseListener() {
 			@Override
@@ -31,14 +32,16 @@ public class ServerProfile extends JLabel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (!Jankcord.getOtherID().equals(serverID)) {
-					Jankcord.setOtherID(serverID);
+				if (!Jankcord.getOtherID().equals(groupChat.getId())) {
+					Jankcord.setOtherID(groupChat.getId());
 					Jankcord.setNewOtherID(true);
 					Jankcord.setInServer(true);
 
 					Jankcord.getChatBoxArea().resetMessages();
 					Jankcord.queryForNewMessages();
 					Jankcord.getChannelList().clear();
+
+					Jankcord.getChatBoxArea().getChannelName().setText(groupChat.getChatName());
 				}
 			}
 
@@ -53,7 +56,12 @@ public class ServerProfile extends JLabel {
 			}
 		});
 	}
-	public String getServerID() {
-		return serverID;
+
+	public GroupChat getGroupChat() {
+		return groupChat;
+	}
+
+	public void setGroupChat(GroupChat groupChat) {
+		this.groupChat = groupChat;
 	}
 }

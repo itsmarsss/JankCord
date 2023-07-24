@@ -174,7 +174,7 @@ public class ServerList extends JankScrollPane {
     }
 
     public void addServer(GroupChat groupChat, int i) {
-        ServerProfile sp = new ServerProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), groupChat.getId());
+        ServerProfile sp = new ServerProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), groupChat);
         serverProfiles.add(sp);
         gbc.gridx = 0;
         gbc.gridy = i;

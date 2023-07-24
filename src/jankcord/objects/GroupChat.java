@@ -12,12 +12,14 @@ public class GroupChat {
 
     public GroupChat(String id, ArrayList<Long> members, ArrayList<Message> messages) {
         this.id = id;
+        this.chatName = "Unnamed Group Chat";
         this.members = members;
         this.messages = messages;
     }
 
     public GroupChat(String id, String chatName, String chatIconURL) {
         this.id = id;
+        this.chatName = "Unnamed Group Chat";
         this.chatName = chatName;
         this.chatIconURL = chatIconURL;
     }

@@ -24,6 +24,7 @@ import jankcord.profiles.MessageProfile;
 
 public class ChatBoxArea extends JPanel {
     private final JPanel chatBoxTopBarPanel;
+    private final JLabel channelName;
     private final JPanel chatPanel;
     private final JankScrollPane chatBoxScrollPane;
     private final JPanel typePanel;
@@ -60,6 +61,16 @@ public class ChatBoxArea extends JPanel {
         chatBoxTopBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, new Color(39, 40, 45)));
 
         add(chatBoxTopBarPanel);
+
+        channelName = new JLabel("Select a channel.");
+        channelName.setLocation(50, 20);
+        channelName.setBackground(new Color(56, 58, 64));
+        channelName.setForeground(new Color(255, 255, 255));
+        channelName.setFont(new Font("Whitney", Font.BOLD, 45));
+
+        channelName.setSize(channelName.getPreferredSize());
+
+        chatBoxTopBarPanel.add(channelName);
 
         // Chat Section
         chatPanel = new JPanel();
@@ -124,7 +135,7 @@ public class ChatBoxArea extends JPanel {
                     headers.put("content", content);
 
                     String dest = "sendmessage";
-                    if(Jankcord.isInServer()) {
+                    if (Jankcord.isInServer()) {
                         dest = "sendgroupmessage";
                     }
 
@@ -261,6 +272,9 @@ public class ChatBoxArea extends JPanel {
 
     public JPanel getChatBoxTopBarPanel() {
         return chatBoxTopBarPanel;
+    }
+    public JLabel getChannelName() {
+        return channelName;
     }
 
     public JPanel getChatPanel() {
