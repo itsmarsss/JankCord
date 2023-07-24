@@ -123,6 +123,10 @@ public class ChatBoxArea extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
                     shifting = false;
                 } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
+                    if(textArea.getText().isBlank()) {
+                        return;
+                    }
+
                     String content = Base64Helper.encode(textArea.getText().trim());
 
                     textArea.setText("");
