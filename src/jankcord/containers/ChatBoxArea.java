@@ -89,7 +89,7 @@ public class ChatBoxArea extends JPanel {
         typePanel.setLocation(30, getHeight() - 120);
 
         textArea = new JankTextArea();
-        typeScrollPane = new JankScrollPane(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45), 20, 24, textArea);
+        typeScrollPane = new JankScrollPane(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 37) * 37), 20, 24, textArea);
 
         typeScrollPane.setMultiplier(25);
         typeScrollPane.setBackground(new Color(56, 58, 64));
@@ -102,7 +102,7 @@ public class ChatBoxArea extends JPanel {
         textArea.setText("Write a Message");
         textArea.setBackground(new Color(56, 58, 64));
         textArea.setForeground(new Color(255, 255, 255));
-        textArea.setFont(new Font("Whitney", Font.PLAIN, 35));
+        textArea.setFont(new Font("Whitney", Font.PLAIN, 28));
 
         UndoRedo.makeUndoable(textArea);
 
@@ -182,13 +182,13 @@ public class ChatBoxArea extends JPanel {
     }
 
     public void reline() {
-        int h = textArea.getLineCount() * 45 + 36;
+        int h = textArea.getLineCount() * 37 + 36;
 
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
-            typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 45) * 45) + 75)));
+            typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 37) * 37) + 75)));
 
-            typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 45) * 45));
+            typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 37) * 37));
 
             chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
         }
