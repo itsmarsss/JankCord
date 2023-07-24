@@ -117,7 +117,9 @@ public class JankGroupChat extends JFrame {
                 headers.put("password", password);
                 headers.put("users", users);
 
-                System.out.println(ServerCommunicator.sendHttpRequest(server + "creategroupchat", headers));
+                String response = ServerCommunicator.sendHttpRequest(server + "creategroupchat", headers);
+
+                //System.out.println(response);
 
                 dispose();
             }

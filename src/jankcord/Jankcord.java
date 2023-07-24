@@ -245,7 +245,7 @@ public class Jankcord {
     private static boolean inServerCheck = false;
 
     public static void queryForNewFriend() {
-        System.out.println("New friend query");
+        //System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -309,13 +309,13 @@ public class Jankcord {
         }
 
         if (inServerCheck) {
-            System.out.println("Artificial");
+            //System.out.println("Artificial");
             inServerCheck = false;
             isSame = false;
         }
 
         if (isSame) {
-            System.out.println("Friend list no updates");
+            //System.out.println("Friend list no updates");
             return;
         }
 

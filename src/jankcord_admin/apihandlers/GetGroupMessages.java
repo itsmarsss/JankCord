@@ -18,7 +18,7 @@ import java.util.Map;
 public class GetGroupMessages implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("Group Messages Requested");
+        //System.out.println("Group Messages Requested");
 
         if (!JankcordAdmin.authorized(exchange)) {
             ServerCommunicator.sendResponse(exchange, "403");

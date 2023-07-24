@@ -130,7 +130,7 @@ public class ChatBoxArea extends JPanel {
 
                     String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + dest, headers);
 
-                    System.out.println(response);
+                    //System.out.println(response);
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     textArea.insert("\n", textArea.getCaretPosition());
                 }
