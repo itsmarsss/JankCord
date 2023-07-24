@@ -200,7 +200,7 @@ public class Jankcord implements JankDraggable {
 
         frame.setVisible(true);
 
-        chatBoxArea.setChannelName("Select a channel.");
+        chatBoxArea.setChannelName("~ Select a channel.");
 
         ScheduledExecutorService sesFriend = Executors.newSingleThreadScheduledExecutor();
         sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
