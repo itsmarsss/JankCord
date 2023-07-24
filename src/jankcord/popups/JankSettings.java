@@ -7,11 +7,11 @@ import jankcord.components.label.JankLabel;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
+import jankcord.objects.FullUser;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
-import jankcord.objects.FullUser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -21,8 +21,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-public class JankLogin extends JFrame implements JankDraggable {
-    public JankLogin() {
+public class JankSettings extends JFrame implements JankDraggable {
+    public JankSettings() {
         super("JankCord Login");
 
         setIconImages(ResourceLoader.loader.getIcons());
@@ -149,10 +149,10 @@ public class JankLogin extends JFrame implements JankDraggable {
         getContentPane().add(loginButton);
     }
 
+
     // Frame dragging
     private int posX = 0, posY = 0;
     private boolean drag = false;
-
     @Override
     public void mousePress(MouseEvent e) {
         drag = true;

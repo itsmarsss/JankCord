@@ -6,30 +6,21 @@ import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.label.JankLabel;
 import jankcord.components.scrollpane.JankScrollPane;
-import jankcord.components.texts.JankTextArea;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.objects.User;
+import jankcord.tools.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.tools.ServerCommunicator;
 
-import javax.naming.SizeLimitExceededException;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.List;
 
-public class JankGroupChat extends JFrame {
-
-    // Frame dragging
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
-
+public class JankGroupChat extends JFrame implements JankDraggable {
     public JankGroupChat() {
         super("JankCord New Group Chat");
 
@@ -46,16 +37,12 @@ public class JankGroupChat extends JFrame {
 
         getContentPane().addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                drag = true;
-                posX = e.getX();
-                posY = e.getY();
+                mousePress(e);
             }
         });
         getContentPane().addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent e) {
-                if (drag) {
-                    setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
-                }
+                mouseDrag(e);
             }
         });
 
@@ -134,5 +121,23 @@ public class JankGroupChat extends JFrame {
         });
 
         getContentPane().add(submitButton);
+    }
+
+
+    // Frame dragging
+    private int posX = 0, posY = 0;
+    private boolean drag = false;
+    @Override
+    public void mousePress(MouseEvent e) {
+        drag = true;
+        posX = e.getX();
+        posY = e.getY();
+    }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
+        if (drag) {
+            setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+        }
     }
 }

@@ -33,17 +33,14 @@ import jankcord.components.windowbuttons.WindowButtons;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.objects.*;
 import jankcord.popups.JankLogin;
-import jankcord.tools.Base64Helper;
-import jankcord.tools.ComponentResizer;
-import jankcord.tools.ResourceLoader;
-import jankcord.tools.ServerCommunicator;
+import jankcord.tools.*;
 import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 // JankCord Class
-public class Jankcord {
+public class Jankcord implements JankDraggable {
     // Main Function
     public static void main(String[] args) {
         boolean isServer = false;
@@ -63,10 +60,6 @@ public class Jankcord {
             new JankLogin().setVisible(true);
         }
     }
-
-    // Frame dragging
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
 
     // Non-fullscreen dimensions and toggle
     private static int oldW;
@@ -165,13 +158,7 @@ public class Jankcord {
         // Drag 'n' Drop
         viewPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                if (e.getY() < 50 && e.getY() > 10) {
-                    drag = true;
-                    posX = e.getX();
-                    posY = e.getY();
-                } else {
-                    drag = false;
-                }
+                mousePress(e);
             }
 
             public void mouseClicked(MouseEvent e) {
@@ -182,15 +169,7 @@ public class Jankcord {
         });
         viewPanel.addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent e) {
-                if (drag) {
-                    if (full) {
-                        frame.setSize(oldW, oldH);
-                        frame.setLocation(oldX, oldY);
-                        full = false;
-                        resize();
-                    }
-                    frame.setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
-                }
+                mouseDrag(e);
             }
         });
 
@@ -613,5 +592,34 @@ public class Jankcord {
 
     public static JFrame getFrame() {
         return frame;
+    }
+
+
+    // Frame dragging
+    private int posX = 0, posY = 0;
+    private boolean drag = false;
+
+    @Override
+    public void mousePress(MouseEvent e) {
+        if (e.getY() < 50 && e.getY() > 10) {
+            drag = true;
+            posX = e.getX();
+            posY = e.getY();
+        } else {
+            drag = false;
+        }
+    }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
+        if (drag) {
+            if (full) {
+                frame.setSize(oldW, oldH);
+                frame.setLocation(oldX, oldY);
+                full = false;
+                resize();
+            }
+            frame.setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+        }
     }
 }
