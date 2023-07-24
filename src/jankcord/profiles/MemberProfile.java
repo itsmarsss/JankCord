@@ -56,7 +56,8 @@ public class MemberProfile extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (!Jankcord.getOtherID().equals(member.getId() + "")) {
+                if (!Jankcord.getOtherID().equals(member.getId() + "") &&
+                        Jankcord.getFullUser().getId() != member.getId()) {
                     Jankcord.setOtherID(member.getId() + "");
                     Jankcord.setNewOtherID(true);
                     Jankcord.setInServer(false);
@@ -68,10 +69,10 @@ public class MemberProfile extends JPanel {
 
                     Jankcord.queryForNewFriend();
                     Jankcord.getChatBoxArea().setChannelName(member.getUsername());
-
-                    setBackground(new Color(59, 60, 66));
-                    usernameLabel.setForeground(new Color(219, 222, 225));
                 }
+
+                setBackground(new Color(59, 60, 66));
+                usernameLabel.setForeground(new Color(219, 222, 225));
             }
 
             @Override
