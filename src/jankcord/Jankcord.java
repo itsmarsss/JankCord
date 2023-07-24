@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // Components
+import jankcord.components.label.JankLabel;
 import jankcord.containers.ChannelList;
 import jankcord.containers.ChatBoxArea;
 import jankcord.containers.ServerList;
@@ -196,12 +197,8 @@ public class Jankcord {
         frame.getContentPane().add(viewPanel);
 
         // Logo
-        JLabel logoLabel = new JLabel("JankCord");
+        JankLabel logoLabel = new JankLabel("JankCord");
         logoLabel.setName("JankCordLogo");
-        logoLabel.setSize(130, 30);
-        logoLabel.setLocation(18, 10);
-        logoLabel.setForeground(new Color(114, 118, 125));
-        logoLabel.setFont(new Font("Whitney", Font.BOLD, 28));
 
         viewPanel.add(logoLabel);
 

@@ -3,6 +3,7 @@ package jankcord.popups;
 import jankcord.Jankcord;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.components.label.JankLabel;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
@@ -54,6 +55,10 @@ public class JankLogin extends JFrame {
             }
         });
 
+
+        JankLabel logoLabel = new JankLabel("JankCord Login");
+
+        getContentPane().add(logoLabel);
 
         JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
 

@@ -4,6 +4,7 @@ import jankcord.Jankcord;
 import jankcord.components.JankList.JankList;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
+import jankcord.components.label.JankLabel;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
 import jankcord.components.windowbuttons.JankCloseButton;
@@ -59,6 +60,10 @@ public class JankGroupChat extends JFrame {
         });
 
 
+        JankLabel logoLabel = new JankLabel("New Group Chat");
+
+        getContentPane().add(logoLabel);
+
         JankCloseButton closeButton = new JankCloseButton(getWidth(), this);
 
         getContentPane().add(closeButton);
@@ -84,13 +89,16 @@ public class JankGroupChat extends JFrame {
         DefaultListModel<User> users = new DefaultListModel<>();
 
         for (User friend : Jankcord.getTempFriends()) {
-            users.addElement(friend);
+            if (friend.getId() != Jankcord.getFullUser().getId()) {
+                users.addElement(friend);
+            }
         }
 
         JankList userList = new JankList(users, numOfUsersLabel, "You can add %s more friends.");
 
         JankScrollPane userListScroll = new JankScrollPane(480, 450, 100, 150, userList);
         userListScroll.setMultiplier(25);
+        userListScroll.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(0, 0, 0), true));
 
         getContentPane().add(userListScroll);
 
