@@ -572,11 +572,6 @@ public class Jankcord implements JankDraggable {
         chatBoxArea.getMembersScrollPane().setSize(540, chatBoxArea.getHeight() - 106);
         chatBoxArea.getMembersScrollPane().setLocation(chatBoxArea.getChatBoxScrollPane().getWidth() + 5, 106);
         chatBoxArea.resetMessageWidths();
-
-        chatBoxArea.resetMessageWidths();
-
-        chatBoxArea.revalidate();
-        chatBoxArea.repaint();
     }
 
 
