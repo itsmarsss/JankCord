@@ -9,12 +9,14 @@ public class SimpleUserCache {
     private String avatarURL;
     private Image avatar72;
     private Image avatar80;
+    public static Image avatarOriginal = ResourceLoader.loader.getTempProfileIcon().getImage();
     public static final Image temp72 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(72, 72, Image.SCALE_FAST);
     public static final Image temp80 = ResourceLoader.loader.getTempProfileIcon().getImage().getScaledInstance(80, 80, Image.SCALE_FAST);
 
     public SimpleUserCache(String username, String avatarURL, Image avatar) {
         this.username = username;
         this.avatarURL = avatarURL;
+        this.avatarOriginal = avatar;
         this.avatar72 = avatar.getScaledInstance(72, 72, Image.SCALE_FAST);
         this.avatar80 = avatar.getScaledInstance(80, 80, Image.SCALE_FAST);
     }
@@ -38,6 +40,14 @@ public class SimpleUserCache {
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
+    }
+
+    public Image getAvatarOrginal() {
+        return avatarOriginal;
+    }
+
+    public void setAvatarOrginal(Image avatarOriginal) {
+        this.avatarOriginal = avatarOriginal;
     }
 
     public Image getAvatar72() {

@@ -11,6 +11,8 @@ import javax.swing.*;
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
+import jankcord.popups.JankGroupChat;
+import jankcord.popups.JankSettings;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.ServerCommunicator;
 import jankcord.texthelpers.UndoRedo;
@@ -37,7 +39,7 @@ public class ChatBoxArea extends JPanel {
 
     private final GridBagConstraints gbc;
 
-    private final JFrame
+    private JankSettings jankSettings;
 
     private boolean shifting = false;
 
@@ -92,6 +94,12 @@ public class ChatBoxArea extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (jankSettings != null) {
+                    jankSettings.dispose();
+                }
+                jankSettings = new JankSettings();
+                jankSettings.setVisible(true);
+
                 settingsLabel.setBackground(new Color(50, 50, 50));
             }
 
