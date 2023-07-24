@@ -27,9 +27,7 @@ public class UndoRedo {
 							undoMgr.undo();
 						}
 					}
-				} catch (CannotUndoException e) {
-					e.printStackTrace();
-				}
+				} catch (CannotUndoException e) {}
 			}
 		});
 		pTextComponent.getActionMap().put(REDO_ACTION, new AbstractAction(REDO_ACTION) {
@@ -40,8 +38,7 @@ public class UndoRedo {
 							undoMgr.redo();
 						}
 					}
-				} catch (CannotRedoException e) {
-					e.printStackTrace();}
+				} catch (CannotRedoException e) {}
 			}
 		});
 

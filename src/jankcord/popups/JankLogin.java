@@ -141,8 +141,7 @@ public class JankLogin extends JFrame implements JankDraggable {
                     dispose();
 
                     new Jankcord();
-                } catch (Exception ex) {
-                }
+                } catch (Exception ex) {}
             }
         });
 

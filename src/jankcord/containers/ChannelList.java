@@ -17,6 +17,7 @@ import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.User;
 import jankcord.popups.JankGroupChat;
+import jankcord.popups.JankLogin;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
@@ -89,6 +90,11 @@ public class ChannelList extends JPanel {
         gbc.gridy = index;
 
         channelPanel.add(cp, gbc);
+
+        if(Jankcord.getOtherID().equals(friend.getId()+"")) {
+            cp.setBackground(new Color(59, 60, 66));
+            cp.getUsernameLabel().setForeground(new Color(255, 255, 255));
+        }
 
         channelPanel.revalidate();
         channelPanel.repaint();

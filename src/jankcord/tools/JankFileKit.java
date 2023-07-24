@@ -92,8 +92,7 @@ public class JankFileKit {
 
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
         AdminDataBase.getConversations().put(fileName.replaceFirst("[.][^.]+$", ""), messages);
 
@@ -140,8 +139,7 @@ public class JankFileKit {
 
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
         String rawFileName = fileName.replaceFirst("[.][^.]+$", "");
 

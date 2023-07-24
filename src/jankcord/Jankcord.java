@@ -262,9 +262,7 @@ public class Jankcord implements JankDraggable {
                     cacheAvatar(id, username, avatarURL);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
 
         if (inServer) {
             return;
@@ -351,9 +349,7 @@ public class Jankcord implements JankDraggable {
 
                 groupChats.add(new GroupChat(chatID, chatName, chatIconURL));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
 
 
         boolean isSame = true;
@@ -457,8 +453,7 @@ public class Jankcord implements JankDraggable {
                     cacheAvatar(id, username, avatarURL);
                 }
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
 
         boolean isSame = true;

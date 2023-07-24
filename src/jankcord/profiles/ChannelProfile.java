@@ -16,8 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ChannelProfile extends JPanel {
-    private final User friend;
-    private final JLabel usernameLabel;
+    private User friend;
+    private JLabel usernameLabel;
 
     public ChannelProfile(User friend) {
         Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache()).getAvatar72();
@@ -101,5 +101,17 @@ public class ChannelProfile extends JPanel {
 
     public User getFriend() {
         return friend;
+    }
+
+    public void setFriend(User friend) {
+        this.friend = friend;
+    }
+
+    public JLabel getUsernameLabel() {
+        return usernameLabel;
+    }
+
+    public void setUsernameLabel(JLabel usernameLabel) {
+        this.usernameLabel = usernameLabel;
     }
 }
