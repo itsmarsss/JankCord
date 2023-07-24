@@ -29,14 +29,6 @@ public class GetGroupMessages implements HttpHandler {
 
         String chatID = requestHeaders.get("otherID").get(0);
 
-        String user = """
-                {
-                    "id": %s,
-                    "username": "%s",
-                    "avatarURL": "%s"
-                },
-                """;
-
         String message = """
                 {
                     "id": %s,
@@ -56,15 +48,8 @@ public class GetGroupMessages implements HttpHandler {
                 JankFileKit.create(file);
             }
         } else {
-            for (long msg : AdminDataBase.getGroupChats().get(chatID).getMembers()) {
-                int index = JankcordAdmin.searchForAccount(msg, 0, AdminDataBase.getAccounts().size() - 1);
-                if(index == -1) {
-                    continue;
-                }
-
-                User usr = AdminDataBase.getAccounts().get(index);
-
-                users.append(user.formatted(usr.getId(), usr.getUsername(), usr.getAvatarURL()));
+            for (long member : AdminDataBase.getGroupChats().get(chatID).getMembers()) {
+                users.append(member).append(",");
             }
 
             for (Message msg : AdminDataBase.getGroupChats().get(chatID).getMessages()) {
@@ -74,9 +59,7 @@ public class GetGroupMessages implements HttpHandler {
 
         String textJSON = """
                 {
-                    "users": [
-                        %s
-                    ],
+                    "users": [%s],
                     "messages": [
                         %s
                     ]

@@ -1,5 +1,6 @@
 package jankcord.tools;
 
+import jankcord.objects.GroupChat;
 import jankcord.objects.Message;
 import jankcord_admin.AdminDataBase;
 import org.json.simple.JSONArray;
@@ -109,12 +110,21 @@ public class JankFileKit {
             System.out.println("IO error reading.");
         }
 
+        ArrayList<Long> members = new ArrayList<>();
         ArrayList<Message> messages = new ArrayList<>();
 
         try {
             // Parse the JSON string
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(textJSON);
+
+            // Get the "messages" array from the JSON object
+            JSONArray membersArray = (JSONArray) jsonObject.get("users");
+            for (Object member : membersArray) {
+                long id = (Long) member;
+
+                members.add(id);
+            }
 
             // Get the "messages" array from the JSON object
             JSONArray messagesArray = (JSONArray) jsonObject.get("messages");
@@ -133,7 +143,9 @@ public class JankFileKit {
         } catch (Exception e) {
         }
 
-        AdminDataBase.getConversations().put(fileName.replaceFirst("[.][^.]+$", ""), messages);
+        String rawFileName = fileName.replaceFirst("[.][^.]+$", "");
+
+        AdminDataBase.getGroupChats().put(rawFileName, new GroupChat(rawFileName, members ,messages));
 
         System.out.println("File read. [" + fileName + "]");
 

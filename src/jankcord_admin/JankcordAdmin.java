@@ -379,6 +379,18 @@ public class JankcordAdmin {
                 JankFileKit.readMessages(file.getName());
             }
         }
+
+
+        File groupMessageDir = new File(getParent() + "/groupmessages");
+
+        if(!groupMessageDir.isDirectory()) {
+            groupMessageDir.mkdir();
+        } else {
+            File[] files = groupMessageDir.listFiles();
+            for(File file : files) {
+                JankFileKit.readGroupMessages(file.getName());
+            }
+        }
     }
 
     public static int searchForAccount(long idNum, int leftPoint, int rightPoint) {
