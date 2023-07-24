@@ -14,7 +14,7 @@ public class FriendProfile extends JPanel {
         // Init
         setLayout(null);
         setBackground(new Color(43, 45, 49));
-        setPreferredSize(new Dimension(448, 92));
+        setPreferredSize(new Dimension(420, 92));
 
         // Icon
         JLabel channelIcon = new JLabel();

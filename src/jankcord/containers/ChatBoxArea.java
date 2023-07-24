@@ -1,10 +1,7 @@
 package jankcord.containers;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -94,6 +91,7 @@ public class ChatBoxArea extends JPanel {
         typeScrollPane.setMultiplier(25);
         typeScrollPane.setBackground(new Color(56, 58, 64));
         typeScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+        typeScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
         typePanel.add(typeScrollPane);
 
@@ -114,6 +112,7 @@ public class ChatBoxArea extends JPanel {
                 } else if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (!shifting)) {
                     e.consume();
                 }
+                reline();
             }
 
             @Override
@@ -181,14 +180,21 @@ public class ChatBoxArea extends JPanel {
         messageProfiles = new LinkedList<>();
     }
 
+    public int getNumberOfLines(JTextArea textArea) {
+        int visibleLines = (int) (textArea.getPreferredSize().getHeight() / textArea.getFontMetrics(textArea.getFont()).getHeight());
+        return visibleLines;
+    }
+
     public void reline() {
-        int h = textArea.getLineCount() * 37 + 36;
+        int h = getNumberOfLines(textArea) * 37 + 37;
 
         if (h <= 500) {
             typePanel.setSize(chatBoxScrollPane.getWidth() - 60, h);
             typePanel.setLocation(typePanel.getX(), (int) (getHeight() - ((Math.floor(typePanel.getHeight() / 37) * 37) + 75)));
 
             typeScrollPane.setSize(typePanel.getWidth() - 40, (int) (Math.floor(typePanel.getHeight() / 37) * 37));
+
+            typeScrollPane.getVerticalScrollBar().setValue(0);
 
             chatBoxScrollPane.setSize(chatBoxScrollPane.getWidth(), getHeight() - (25 + 106 + typePanel.getHeight()));
         }

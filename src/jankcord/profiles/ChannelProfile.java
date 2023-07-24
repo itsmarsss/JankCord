@@ -25,7 +25,7 @@ public class ChannelProfile extends JPanel {
         // Init
         setLayout(null);
         setBackground(null);
-        setPreferredSize(new Dimension(448, 92));
+        setPreferredSize(new Dimension(420, 92));
 
         // Icon
         JLabel channelIcon = new JLabel();
