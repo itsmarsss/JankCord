@@ -55,7 +55,7 @@ public class Jankcord implements JankDraggable {
         if (isServer) {
             JankcordAdmin.startAdmin();
         } else {
-            System.setProperty("sun.java2d.uiScale", "1");
+            System.setProperty("sun.java2d.uiScale", "0.5");
 
             new JankLogin().setVisible(true);
         }
