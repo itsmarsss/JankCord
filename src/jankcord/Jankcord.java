@@ -242,12 +242,10 @@ public class Jankcord {
     public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
     private static ArrayList<User> tempFriends = new ArrayList<>();
 
-    private static void queryForNewFriend() {
-        if(inServer) {
-            return;
-        }
+    private static boolean inServerCheck = false;
 
-        // System.out.println("New friend query");
+    public static void queryForNewFriend() {
+        System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -292,6 +290,10 @@ public class Jankcord {
             e.printStackTrace();
         }
 
+        if (inServer) {
+            return;
+        }
+
         boolean isSame = true;
         if (friends.size() != tempFriends.size()) {
             isSame = false;
@@ -306,12 +308,19 @@ public class Jankcord {
             }
         }
 
+        if (inServerCheck) {
+            System.out.println("Artificial");
+            inServerCheck = false;
+            isSame = false;
+        }
+
         if (isSame) {
-            // System.out.println("Friend list no updates");
+            System.out.println("Friend list no updates");
             return;
         }
 
         tempFriends = friends;
+
 
         channelList.initChannelPanel();
 
@@ -321,6 +330,10 @@ public class Jankcord {
                 // System.out.println(friends.get(i).getUsername());
             }
         }
+    }
+
+    public static void setInServerCheck(boolean inServerCheck) {
+        Jankcord.inServerCheck = inServerCheck;
     }
 
     public static ArrayList<User> getTempFriends() {
@@ -412,7 +425,7 @@ public class Jankcord {
 
         String dest = "messages";
 
-        if(inServer) {
+        if (inServer) {
             dest = "groupmessages";
         }
 
@@ -435,8 +448,8 @@ public class Jankcord {
             for (Object member : membersArray) {
                 long id = (Long) member;
 
-                for(User friend : tempFriends) {
-                    if(friend.getId() == id) {
+                for (User friend : tempFriends) {
+                    if (friend.getId() == id) {
                         members.add(friend);
                         break;
                     }

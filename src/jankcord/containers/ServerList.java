@@ -82,6 +82,42 @@ public class ServerList extends JankScrollPane {
         gbc.insets = new Insets(0, 0, 20, 0);
 
         serverPanel.add(splitLabel, gbc);
+
+        dmProfile.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Jankcord.setOtherID("");
+                Jankcord.setNewOtherID(true);
+                Jankcord.setInServer(false);
+                Jankcord.setInServerCheck(true);
+                Jankcord.getChatBoxArea().resetMessages();
+                Jankcord.queryForNewMessages();
+                Jankcord.getChannelList().initChannelPanel();
+                Jankcord.getChannelList().resetDisplays();
+
+                Jankcord.queryForNewFriend();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 
     public void addTrailingProfiles() {
