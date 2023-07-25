@@ -66,7 +66,7 @@ public class ChatBoxArea extends JPanel {
         // Chat Topbar Init
         chatBoxTopBarPanel.setLayout(null);
         chatBoxTopBarPanel.setSize(getWidth(), 106);
-        chatBoxTopBarPanel.setBackground(new Color(54, 57, 63));
+        chatBoxTopBarPanel.setBackground(new Color(49, 51, 56));
         chatBoxTopBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, new Color(39, 40, 45)));
 
         // Add Chat Topbar
@@ -164,7 +164,7 @@ public class ChatBoxArea extends JPanel {
         typePanel.setOpaque(true);
         typePanel.setBorder(null);
         typePanel.setLayout(null);
-        typePanel.setBackground(new Color(56, 58, 64));
+        typePanel.setBackground(new Color(52, 54, 60));
         typePanel.setSize(chatBoxScrollPane.getWidth() - 60, 73);
         typePanel.setLocation(30, getHeight() - 120);
 
@@ -179,7 +179,7 @@ public class ChatBoxArea extends JPanel {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setText("Write a Message");
-        textArea.setBackground(new Color(56, 58, 64));
+        textArea.setBackground(new Color(52, 54, 60));
         textArea.setForeground(new Color(255, 255, 255));
         textArea.setFont(new Font("Whitney", Font.PLAIN, 28));
 

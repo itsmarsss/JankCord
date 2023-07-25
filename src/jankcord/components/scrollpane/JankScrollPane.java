@@ -38,8 +38,8 @@ public class JankScrollPane extends JScrollPane {
         getVerticalScrollBar().setBackground(getBackground());
         getVerticalScrollBar().setPreferredSize(new Dimension(15, 0));
         getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), true));
-        getHorizontalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(32, 34, 37), false));
+        getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(26, 27, 30), true));
+        getHorizontalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(26, 27, 30), false));
 
         // Assign smooth scrolling variables
         multiplier = 175;
