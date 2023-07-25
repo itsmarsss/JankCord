@@ -99,14 +99,27 @@ public class JankcordAdmin {
                 }
                 """.formatted(accountList.toString());
 
-        if (JankFileKit.writeFile(getParent() + "/accounts/accounts.json", accounts)) {
-            return "Successfully written accounts.json file.";
+        File file = new File(getParent() + "/accounts/accounts.json");
+        if (file.exists()) {
+            if (JankFileKit.writeFile(getParent() + "/accounts/accounts.json", accounts)) {
+                return "Successfully written accounts.json file.";
+            } else {
+                return "IO error writing.";
+            }
         } else {
-            return "IO error writing.";
+            JankFileKit.create(file);
+            return "Created accounts.json.";
         }
     }
 
     public static String readAccounts() {
+        File accountsDir = new File(getParent() + "/accounts");
+
+        if (!accountsDir.isDirectory()) {
+            accountsDir.mkdir();
+            return "Created accounts directory.";
+        }
+
         String textJSON = JankFileKit.readFile(getParent() + "/accounts/accounts.json");
 
         if (textJSON == null) {
@@ -403,6 +416,7 @@ public class JankcordAdmin {
 
         if (!messageDir.isDirectory()) {
             messageDir.mkdir();
+            System.out.println("Created messages directory.");
         } else {
             File[] files = messageDir.listFiles();
             for (File file : files) {
@@ -415,6 +429,7 @@ public class JankcordAdmin {
 
         if (!groupMessageDir.isDirectory()) {
             groupMessageDir.mkdir();
+            System.out.println("Created groupmessages directory.");
         } else {
             File[] files = groupMessageDir.listFiles();
             for (File file : files) {
