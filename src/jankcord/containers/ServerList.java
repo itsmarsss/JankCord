@@ -1,22 +1,19 @@
 package jankcord.containers;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.LinkedList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.GroupChat;
+import jankcord.objects.SimpleUserCache;
 import jankcord.popups.JankGroupChat;
 import jankcord.tools.ResourceLoader;
 import jankcord.profiles.AddServerProfile;
@@ -177,8 +174,23 @@ public class ServerList extends JankScrollPane {
      * @param index     index of insertion
      */
     public void addServer(GroupChat groupChat, int index) {
+        Image icon = ResourceLoader.loader.getTempProfileIcon().getImage();
+
+        // Try to load image
+        try {
+            // URL of icon url
+            URL url = new URL(groupChat.getChatIconURL());
+
+            // Read image
+            BufferedImage image = ImageIO.read(url);
+
+            // Set icon to read image
+            icon = new ImageIcon(image).getImage();
+        } catch (Exception e) {
+        }
+
         // Server profile with icon and groupchat as parameters
-        ServerProfile sp = new ServerProfile(ResourceLoader.loader.getTempProfileIcon().getImage(), groupChat);
+        ServerProfile sp = new ServerProfile(SimpleUserCache.circularize(icon), groupChat);
 
         // Add serverProfiles to arraylist
         serverProfiles.add(sp);

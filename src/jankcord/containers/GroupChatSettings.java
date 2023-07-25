@@ -6,6 +6,7 @@ import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.texts.JankTextField;
 import jankcord.objects.GroupChat;
 import jankcord.objects.SimpleUserCache;
+import jankcord.tools.JankFileKit;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
@@ -122,8 +123,8 @@ public class GroupChatSettings extends JPanel {
             public void run() {
                 String newChatName = chatNameInput.getText();
 
-                if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 30) {
-                    statusLabel.setText("Chat Name: ASCII, < 30 character.");
+                if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 20) {
+                    statusLabel.setText("Chat Name: ASCII, < 20 character.");
                     return;
                 }
 
@@ -154,6 +155,8 @@ public class GroupChatSettings extends JPanel {
                 // Otherwise set text to normal and grey
                 Jankcord.getTitleLabel().setText("JankCord");
                 Jankcord.getTitleLabel().setForeground(new Color(114, 118, 125));
+
+                Jankcord.getChatBoxArea().setChannelName(newChatName);
             }
         });
 

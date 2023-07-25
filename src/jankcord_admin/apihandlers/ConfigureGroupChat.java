@@ -28,7 +28,7 @@ public class ConfigureGroupChat implements HttpHandler {
         String newChatName = requestHeaders.get("newChatName").get(0);
         String newChatIconURL = requestHeaders.get("newChatIconURL").get(0);
 
-        if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 30) {
+        if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 20) {
             // Return 404 response code
             ServerCommunicator.sendResponse(exchange, "404");
             // Return
