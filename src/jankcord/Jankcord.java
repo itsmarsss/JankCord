@@ -125,9 +125,6 @@ public class Jankcord implements JankDraggable {
         viewPanel.setBackground(new Color(32, 34, 37));
         viewPanel.setSize(frame.getWidth() - 10, frame.getHeight() - 10);
 
-        System.out.println(frame.getWidth());
-        System.out.println(viewPanel.getWidth());
-
         // Drag 'n' Drop Mouse listeners
         viewPanel.addMouseListener(new MouseAdapter() {
             // Call mouse press on mouse press
