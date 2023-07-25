@@ -187,6 +187,19 @@ public class ChannelList extends JPanel {
         channelPanel.repaint();
     }
 
+    public void showGroupChatSettings() {
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        // Add channelprofile
+        channelPanel.add(new GroupChatSettings(), gbc);
+
+        // Make sure to repaint
+        channelPanel.revalidate();
+        channelPanel.repaint();
+
+    }
+
     // Getters and setters
     public JPanel getChannelPanel() {
         return channelPanel;
