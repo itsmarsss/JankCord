@@ -46,7 +46,7 @@ public class JankcordAdmin {
 
             String cmdReq = sc.next();
 
-            if(cmdReq.equals("quit")) {
+            if (cmdReq.equals("quit")) {
                 break;
             }
 
@@ -150,7 +150,7 @@ public class JankcordAdmin {
         String username = sc.nextLine();
 
         String usernameValid = validateUsername(username);
-        if(usernameValid != null) {
+        if (usernameValid != null) {
             return usernameValid;
         }
 
@@ -159,14 +159,12 @@ public class JankcordAdmin {
         String password = sc.nextLine();
 
         String passwordValid = validatePassword(password);
-        if(passwordValid != null) {
+        if (passwordValid != null) {
             return passwordValid;
         }
 
-        for (FullUser account : getAccounts()) {
-            if (account.getUsername().equalsIgnoreCase(username)) {
-                return "Username already in use; command sequence exited";
-            }
+        if (!usernameAvailable(username)) {
+            return "Username already in use; command sequence exited";
         }
 
         if (getAccounts().isEmpty()) {
@@ -216,6 +214,8 @@ public class JankcordAdmin {
 
         getAccounts().remove(index);
 
+        writeAccounts();
+
         return "Account ID [" + idNum + "] has been deleted.";
     }
 
@@ -244,7 +244,7 @@ public class JankcordAdmin {
         String username = sc.nextLine();
 
         String usernameValid = validateUsername(username);
-        if(usernameValid != null) {
+        if (usernameValid != null) {
             return usernameValid;
         }
 
@@ -253,7 +253,7 @@ public class JankcordAdmin {
         String password = sc.nextLine();
 
         String passwordValid = validatePassword(password);
-        if(passwordValid != null) {
+        if (passwordValid != null) {
             return passwordValid;
         }
 
@@ -265,19 +265,20 @@ public class JankcordAdmin {
         }
 
         if (!user.getUsername().equals(username)) {
-            for (FullUser account : getAccounts()) {
-                if (account.getUsername().equalsIgnoreCase(username)) {
-                    return "Username already in use; command sequence exited";
-                }
+            if (!usernameAvailable(username)) {
+                return "Username already in use; command sequence exited";
             }
         }
-
 
         getAccounts().get(index).setUsername(username);
         getAccounts().get(index).setPassword(password);
         getAccounts().get(index).setAvatarURL(avatarURL);
 
-        return "Account ID [" + idNum + "] now has username \"" + username + "\", password \"" + password + "\", and avatarURL \"" + avatarURL + "\".";
+        writeAccounts();
+
+        return String.format("Account ID [%s] now has username \"%s\", password \"%s\", and avatarURL \"%s\".",
+                idNum, username, password, avatarURL
+        );
     }
 
     public static String setAccountStatus() {
@@ -309,7 +310,7 @@ public class JankcordAdmin {
         return "Account ID [" + idNum + "] new has status \"" + status + "\".";
     }
 
-    private static String validateUsername(String username) {
+    public static String validateUsername(String username) {
         if (!ServerCommunicator.headerable(username)) {
             return "Username must only contain ASCII characters; command sequence exited";
         }
@@ -329,7 +330,7 @@ public class JankcordAdmin {
         return null;
     }
 
-    private static String validatePassword(String password) {
+    public static String validatePassword(String password) {
         if (!ServerCommunicator.headerable(password)) {
             return "Password must only contain ASCII characters; command sequence exited";
         }
@@ -347,6 +348,16 @@ public class JankcordAdmin {
         }
 
         return null;
+    }
+
+    public static boolean usernameAvailable(String username) {
+        for (FullUser account : getAccounts()) {
+            if (account.getUsername().equalsIgnoreCase(username)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -389,11 +400,11 @@ public class JankcordAdmin {
     public static void loadInAllMessages() {
         File messageDir = new File(getParent() + "/messages");
 
-        if(!messageDir.isDirectory()) {
+        if (!messageDir.isDirectory()) {
             messageDir.mkdir();
         } else {
             File[] files = messageDir.listFiles();
-            for(File file : files) {
+            for (File file : files) {
                 JankFileKit.readMessages(file.getName());
             }
         }
@@ -401,11 +412,11 @@ public class JankcordAdmin {
 
         File groupMessageDir = new File(getParent() + "/groupmessages");
 
-        if(!groupMessageDir.isDirectory()) {
+        if (!groupMessageDir.isDirectory()) {
             groupMessageDir.mkdir();
         } else {
             File[] files = groupMessageDir.listFiles();
-            for(File file : files) {
+            for (File file : files) {
                 JankFileKit.readGroupMessages(file.getName());
             }
         }

@@ -3,6 +3,7 @@ package jankcord_admin.apihandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
+import jankcord.tools.ServerCommunicator;
 import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
@@ -31,13 +32,7 @@ public class Login implements HttpHandler {
                 }
             }
             if(user == null) {
-                exchange.getResponseHeaders().set("Content-Type", "text/html");
-                exchange.sendResponseHeaders(200, 3);
-
-                OutputStream outputStream = exchange.getResponseBody();
-                outputStream.write("403".getBytes());
-                outputStream.close();
-
+                ServerCommunicator.sendResponse(exchange, "403");
                 return;
             }
 
@@ -49,11 +44,7 @@ public class Login implements HttpHandler {
                     """.formatted(user.getId(), user.getAvatarURL());
         }
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html");
-        exchange.sendResponseHeaders(200, response.length());
 
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(response.getBytes());
-        outputStream.close();
+        ServerCommunicator.sendResponse(exchange, response);
     }
 }
