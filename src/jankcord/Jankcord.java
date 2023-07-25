@@ -55,7 +55,7 @@ public class Jankcord implements JankDraggable {
         if (isServer) {
             JankcordAdmin.startAdmin();
         } else {
-            System.setProperty("sun.java2d.uiScale", "0.5");
+            System.setProperty("sun.java2d.uiScale", "1");
 
             new JankLogin().setVisible(true);
         }
@@ -564,7 +564,7 @@ public class Jankcord implements JankDraggable {
 
         chatBoxArea.setSize(Jankcord.getViewPanel().getWidth() - 646, Jankcord.getViewPanel().getHeight() - 50);
         chatBoxArea.getChatBoxTopBarPanel().setSize(chatBoxArea.getWidth(), 106);
-        chatBoxArea.getSettingsLabel().setLocation(chatBoxArea.getChatBoxTopBarPanel().getWidth() - 280, 20);
+        chatBoxArea.getSettingsLabel().setLocation(chatBoxArea.getChatBoxTopBarPanel().getWidth() - 320, 20);
         chatBoxArea.getChatBoxScrollPane().setSize(chatBoxArea.getWidth() - 540, chatBoxArea.getHeight() - 256);
 
         chatBoxArea.getTypePanel().setSize(chatBoxArea.getChatBoxScrollPane().getWidth() - 60, 100);

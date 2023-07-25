@@ -78,9 +78,9 @@ public class ChatBoxArea extends JPanel {
         settingsLabel.setBackground(null);
         settingsLabel.setForeground(new Color(255, 255, 255));
         settingsLabel.setFont(new Font("Whitney", Font.BOLD, 45));
-        settingsLabel.setLocation(chatBoxTopBarPanel.getWidth() - 280, 20);
+        settingsLabel.setLocation(chatBoxTopBarPanel.getWidth() - 320, 20);
 
-        settingsLabel.setSize(settingsLabel.getPreferredSize());
+        settingsLabel.setSize((int) (settingsLabel.getPreferredSize().getWidth() + 40), (int) settingsLabel.getPreferredSize().getHeight());
 
         settingsLabel.addMouseListener(new MouseListener() {
             @Override
