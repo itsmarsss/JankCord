@@ -57,7 +57,7 @@ public class Jankcord implements JankDraggable {
             JankcordAdmin.startAdmin();
         } else {
             // If client -> set ui scaling
-            System.setProperty("sun.java2d.uiScale", "0.5");
+            System.setProperty("sun.java2d.uiScale", "1");
 
             // Jank login
             new JankLogin().setVisible(true);
@@ -67,8 +67,6 @@ public class Jankcord implements JankDraggable {
     // Main frame and components
     private static JankFrame frame;                    // Window holding everything
     private static JPanel viewPanel;
-    private static JankTitleLabel logoLabel;
-    private static WindowButtons windowButtons;
     private static ServerList serverList;
     private static ChannelList channelList;
     private static ChatBoxArea chatBoxArea;
@@ -138,22 +136,13 @@ public class Jankcord implements JankDraggable {
         // Add View Panel to Frame
         frame.getContentPane().add(viewPanel);
 
-        // Logo
-        logoLabel = new JankTitleLabel("JankCord");
-        logoLabel.setName("JankCordLogo");
-        logoLabel.setSize(300, logoLabel.getHeight());
-
-
-        //viewPanel.add(logoLabel);
 
         // Other components
-        windowButtons = new WindowButtons();
         serverList = new ServerList();
         channelList = new ChannelList();
         chatBoxArea = new ChatBoxArea();
 
         // Add Other Components
-        viewPanel.add(windowButtons);
         viewPanel.add(serverList);
         viewPanel.add(channelList);
         viewPanel.add(chatBoxArea);
@@ -204,12 +193,12 @@ public class Jankcord implements JankDraggable {
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
 
         if (friendsJSON == null) {
-            logoLabel.setText("JankCord - OFFLINE");
-            logoLabel.setForeground(new Color(198, 36, 36));
+            frame.getTitleLabel().setText("JankCord - OFFLINE");
+            frame.getTitleLabel().setForeground(new Color(198, 36, 36));
             return;
         }
-        logoLabel.setText("JankCord");
-        logoLabel.setForeground(new Color(114, 118, 125));
+        frame.getTitleLabel().setText("JankCord");
+        frame.getTitleLabel().setForeground(new Color(114, 118, 125));
 
         System.out.println(friendsJSON);
 
@@ -301,12 +290,12 @@ public class Jankcord implements JankDraggable {
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
         if (groupsJSON == null) {
-            logoLabel.setText("JankCord - OFFLINE");
-            logoLabel.setForeground(new Color(198, 36, 36));
+            frame.getTitleLabel().setText("JankCord - OFFLINE");
+            frame.getTitleLabel().setForeground(new Color(198, 36, 36));
             return;
         }
-        logoLabel.setText("JankCord");
-        logoLabel.setForeground(new Color(114, 118, 125));
+        frame.getTitleLabel().setText("JankCord");
+        frame.getTitleLabel().setForeground(new Color(114, 118, 125));
 
         //System.out.println(groupsJSON);
         ArrayList<GroupChat> groupChats = new ArrayList<>();
@@ -386,12 +375,12 @@ public class Jankcord implements JankDraggable {
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
 
         if (messagesJSON == null) {
-            logoLabel.setText("JankCord - OFFLINE");
-            logoLabel.setForeground(new Color(198, 36, 36));
+            frame.getTitleLabel().setText("JankCord - OFFLINE");
+            frame.getTitleLabel().setForeground(new Color(198, 36, 36));
             return;
         }
-        logoLabel.setText("JankCord");
-        logoLabel.setForeground(new Color(114, 118, 125));
+        frame.getTitleLabel().setText("JankCord");
+        frame.getTitleLabel().setForeground(new Color(114, 118, 125));
 
         //System.out.println(messagesJSON);
 
@@ -537,7 +526,7 @@ public class Jankcord implements JankDraggable {
         viewPanel.setSize(frame.getWidth() - 10, frame.getHeight() - 10);
 
         // Window Buttons location
-        windowButtons.setLocation(Jankcord.viewPanel.getWidth() - 186, 0);
+        frame.getWindowButtons().setLocation(Jankcord.viewPanel.getWidth() - 186, 0);
 
         // Server List size
         serverList.setSize(serverList.getWidth(), Jankcord.viewPanel.getHeight() - 50);
@@ -656,20 +645,12 @@ public class Jankcord implements JankDraggable {
         Jankcord.viewPanel = viewPanel;
     }
 
-    public static JankTitleLabel getLogoLabel() {
-        return logoLabel;
+    public static JankTitleLabel getTitleLabel() {
+        return frame.getTitleLabel();
     }
 
-    public static void setLogoLabel(JankTitleLabel logoLabel) {
-        Jankcord.logoLabel = logoLabel;
-    }
-
-    public static WindowButtons getWindowButtons() {
-        return windowButtons;
-    }
-
-    public static void setWindowButtons(WindowButtons windowButtons) {
-        Jankcord.windowButtons = windowButtons;
+    public static void setTitleLabel(JankTitleLabel titleLabel) {
+        frame.setTitleLabel(titleLabel);
     }
 
     public static ServerList getServerList() {

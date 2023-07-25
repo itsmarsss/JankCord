@@ -3,6 +3,7 @@ package jankcord.components.frame;
 import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.components.label.JankTitleLabel;
 import jankcord.components.windowbuttons.JankCloseButton;
+import jankcord.components.windowbuttons.WindowButtons;
 import jankcord.tools.ResourceLoader;
 
 import javax.swing.*;
@@ -11,6 +12,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class JankFrame extends JFrame implements JankDraggable {
+    // Instance fields
+    private JankTitleLabel titleLabel;
+    private WindowButtons windowButtons;
+
     // Frame dragging fields
     public int posX = 0, posY = 0;
     public boolean drag = false;
@@ -51,11 +56,13 @@ public class JankFrame extends JFrame implements JankDraggable {
         });
 
         // Add window topbar logo
-        getContentPane().add(new JankTitleLabel(name));
+        titleLabel = new JankTitleLabel(name);
+        getContentPane().add(titleLabel);
 
         // Check windows control
         if (fullWindowControls) {
-
+            windowButtons = new WindowButtons();
+            getContentPane().add(windowButtons);
         } else {
             // Add window close button only
             getContentPane().add(new JankCloseButton(getWidth(), this));
@@ -76,5 +83,22 @@ public class JankFrame extends JFrame implements JankDraggable {
         if (drag) {
             setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
         }
+    }
+
+    // Getters and setters
+    public JankTitleLabel getTitleLabel() {
+        return titleLabel;
+    }
+
+    public void setTitleLabel(JankTitleLabel titleLabel) {
+        this.titleLabel = titleLabel;
+    }
+
+    public WindowButtons getWindowButtons() {
+        return windowButtons;
+    }
+
+    public void setWindowButtons(WindowButtons windowButtons) {
+        this.windowButtons = windowButtons;
     }
 }

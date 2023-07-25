@@ -226,8 +226,8 @@ public class JankSettings extends JankFrame {
                     statusLabel.setText("Error contacting server.");
 
                     // Set text and color to offline and red
-                    Jankcord.getLogoLabel().setText("JankCord - OFFLINE");
-                    Jankcord.getLogoLabel().setForeground(new Color(198, 36, 36));
+                    Jankcord.getTitleLabel().setText("JankCord - OFFLINE");
+                    Jankcord.getTitleLabel().setForeground(new Color(198, 36, 36));
 
                     // Return
                     return;
@@ -243,8 +243,8 @@ public class JankSettings extends JankFrame {
                 }
 
                 // Otherwise set text to normal and grey
-                Jankcord.getLogoLabel().setText("JankCord");
-                Jankcord.getLogoLabel().setForeground(new Color(114, 118, 125));
+                Jankcord.getTitleLabel().setText("JankCord");
+                Jankcord.getTitleLabel().setForeground(new Color(114, 118, 125));
 
                 // Update local username, password, and avatarURL
                 Jankcord.getFullUser().setUsername(newUsername);
