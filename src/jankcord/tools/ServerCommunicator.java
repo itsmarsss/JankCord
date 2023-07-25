@@ -94,7 +94,7 @@ public class ServerCommunicator {
      * @param string string to check headerable
      * @return true/false depending on how headerable string is
      */
-    public static boolean headerable(String string) {
+    public static boolean notHeaderable(String string) {
         // Allowed characters
         final String CHECK = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ :;.,\\/\"'?!(){}[]@<>=-+*#$&`|~^%";
 
@@ -103,11 +103,11 @@ public class ServerCommunicator {
             // If character invalid
             if (!CHECK.contains(c + "")) {
                 // Return false
-                return false;
+                return true;
             }
         }
 
         // If for loop does latch onto something, return true
-        return true;
+        return false;
     }
 }

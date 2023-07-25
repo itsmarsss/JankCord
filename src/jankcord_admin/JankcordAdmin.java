@@ -260,7 +260,7 @@ public class JankcordAdmin {
 
         System.out.print("AvatarURL [" + user.getAvatarURL() + "]: ");
         String avatarURL = sc.nextLine();
-        if (!ServerCommunicator.headerable(avatarURL)) {
+        if (ServerCommunicator.notHeaderable(avatarURL)) {
             return "Invalid URL; command sequence exited";
         }
 
@@ -311,7 +311,7 @@ public class JankcordAdmin {
     }
 
     public static String validateUsername(String username) {
-        if (!ServerCommunicator.headerable(username)) {
+        if (ServerCommunicator.notHeaderable(username)) {
             return "Username must only contain ASCII characters; command sequence exited";
         }
 
@@ -331,7 +331,7 @@ public class JankcordAdmin {
     }
 
     public static String validatePassword(String password) {
-        if (!ServerCommunicator.headerable(password)) {
+        if (ServerCommunicator.notHeaderable(password)) {
             return "Password must only contain ASCII characters; command sequence exited";
         }
 
