@@ -1,8 +1,5 @@
 package jankcord;
 
-// Imports
-// AWT
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -39,7 +36,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-// JankCord Class
+// JankCord Main Class
 public class Jankcord implements JankDraggable {
     // Main Function
     public static void main(String[] args) {
@@ -83,39 +80,7 @@ public class Jankcord implements JankDraggable {
         drawUI();
     }
 
-    public static void setFullUser(FullUser fullUser) {
-        Jankcord.fullUser = fullUser;
-    }
-
-    public static FullUser getFullUser() {
-        return fullUser;
-    }
-
-    public static void setOtherID(String otherID) {
-        Jankcord.otherID = otherID;
-    }
-
-    public static String getOtherID() {
-        return otherID;
-    }
-
-    public static boolean isNewOtherID() {
-        return newOtherID;
-    }
-
-    public static void setNewOtherID(boolean newOtherID) {
-        Jankcord.newOtherID = newOtherID;
-    }
-
-    public static boolean isInServer() {
-        return inServer;
-    }
-
-    public static void setInServer(boolean inServer) {
-        Jankcord.inServer = inServer;
-    }
-
-    // render frame and viewPanel
+    // Render frame and viewPanel
     private void drawUI() {
         // Frame Icon
         ArrayList<Image> icons = new ArrayList<>();
@@ -577,6 +542,39 @@ public class Jankcord implements JankDraggable {
         chatBoxArea.resetMessageWidths();
     }
 
+
+
+    public static void setFullUser(FullUser fullUser) {
+        Jankcord.fullUser = fullUser;
+    }
+
+    public static FullUser getFullUser() {
+        return fullUser;
+    }
+
+    public static void setOtherID(String otherID) {
+        Jankcord.otherID = otherID;
+    }
+
+    public static String getOtherID() {
+        return otherID;
+    }
+
+    public static boolean isNewOtherID() {
+        return newOtherID;
+    }
+
+    public static void setNewOtherID(boolean newOtherID) {
+        Jankcord.newOtherID = newOtherID;
+    }
+
+    public static boolean isInServer() {
+        return inServer;
+    }
+
+    public static void setInServer(boolean inServer) {
+        Jankcord.inServer = inServer;
+    }
 
     public static JankLabel getLogoLabel() {
         return logoLabel;
