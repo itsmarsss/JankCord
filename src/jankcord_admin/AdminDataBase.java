@@ -7,13 +7,16 @@ import jankcord.objects.Message;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// Database for running JankCord Admin instance
 public class AdminDataBase {
+    // Private static fields
     private static final ArrayList<FullUser> accounts = new ArrayList<>();
     private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
     private static final HashMap<String, GroupChat> groupChats = new HashMap<>();
     private static String parent;
 
 
+    // Getters
     public static ArrayList<FullUser> getAccounts() {
         return accounts;
     }
@@ -30,6 +33,7 @@ public class AdminDataBase {
         return parent;
     }
 
+    // Setters
     public static void setParent(String newParent) {
         parent = newParent;
     }
