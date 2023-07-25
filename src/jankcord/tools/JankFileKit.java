@@ -31,10 +31,10 @@ public class JankFileKit {
             // Make sure to close writer
             bw.close();
 
-            // Return success
+            // Return successful
             return true;
         } catch (Exception e) {
-            // Return unsuccess
+            // Return unsuccessful
             return false;
         }
     }
