@@ -8,7 +8,6 @@ import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.objects.FullUser;
-import jankcord.objects.SimpleUserCache;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.JankDraggable;
 import jankcord.tools.ResourceLoader;
@@ -55,7 +54,7 @@ public class JankSettings extends JFrame implements JankDraggable {
         JankLabel logoLabel = new JankLabel("JankCord Settings");
         getContentPane().add(logoLabel);
 
-        JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
+        JankCloseButton closeButton = new JankCloseButton(getWidth(), this);
         getContentPane().add(closeButton);
 
         JLabel iconLabel = new JLabel();
