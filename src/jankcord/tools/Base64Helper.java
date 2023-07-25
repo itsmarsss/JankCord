@@ -22,10 +22,16 @@ public class Base64Helper {
      * @return string decoded version of encodedString
      */
     public static String decode(String encodedString) {
-        // Decode
-        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+        // Try decode
+        try {
+            // Decode
+            byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
 
-        // Return decoded
-        return new String(decodedBytes);
+            // Return decoded
+            return new String(decodedBytes);
+        } catch (Exception e) { // Unsuccessful
+            // Return original string
+            return encodedString;
+        }
     }
 }
