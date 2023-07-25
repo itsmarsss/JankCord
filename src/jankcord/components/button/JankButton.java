@@ -6,27 +6,33 @@ import jankcord.components.button.buttonlistener.JankMouseListener;
 import javax.swing.*;
 import java.awt.*;
 
+// JankCord's Button ui presets, child of JButton
 public class JankButton extends JButton {
-
+    // Add a JankMouseListener listener
     private JankMouseListener jml;
 
+    // Constructor to set text, size, and location
     public JankButton(String text, int width, int height, int x, int y) {
+        // Super; set text
         super(text);
 
+        // Initialize mouse listener
         jml = new JankMouseListener();
 
-        setSize(width, height);
+        // Set JButton properties
+        setBorder(null);
         setLocation(x, y);
+        setSize(width, height);
         setBackground(new Color(78, 80, 88));
         setForeground(new Color(219, 222, 225));
         setFont(new Font("Whitney", Font.BOLD, 28));
-        setBorder(null);
 
+        // Initialize mouse events
         jml.setMouseClicked(new JankMLRunnable() {
             @Override
-            public void run() {
-            }
+            public void run() {}
         });
+        // Color change on press
         jml.setMousePressed(new JankMLRunnable() {
             @Override
             public void run() {
@@ -35,9 +41,9 @@ public class JankButton extends JButton {
         });
         jml.setMouseReleased(new JankMLRunnable() {
             @Override
-            public void run() {
-            }
+            public void run() {}
         });
+        // Color change on hover and unhover
         jml.setMouseEntered(new JankMLRunnable() {
             @Override
             public void run() {
@@ -54,10 +60,12 @@ public class JankButton extends JButton {
         addMouseListener(jml);
     }
 
+    // Getter for mouse listener
     public JankMouseListener getMouseListener() {
         return jml;
     }
 
+    // Setter for mouse listener
     public void setMouseListener(JankMouseListener jml) {
         this.jml = jml;
     }

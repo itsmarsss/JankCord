@@ -3,15 +3,16 @@ package jankcord.components.button.buttonlistener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// JankCord's mouse listener, implements MouseListener
 public class JankMouseListener implements MouseListener {
-
+    // All 5 mouse events, using JankMLRunnable
     private JankMLRunnable mouseClicked;
     private JankMLRunnable mousePressed;
     private JankMLRunnable mouseEntered;
     private JankMLRunnable mouseExited;
     private JankMLRunnable mouseReleased;
 
-
+    // Call corresponding runnables on event
     @Override
     public void mouseClicked(MouseEvent e) {
         mouseClicked.runEvent(e);
@@ -37,6 +38,7 @@ public class JankMouseListener implements MouseListener {
         mouseExited.runEvent(e);
     }
 
+    // All getters
     public Runnable getMouseClicked() {
         return mouseClicked;
     }
@@ -57,7 +59,7 @@ public class JankMouseListener implements MouseListener {
         return mouseExited;
     }
 
-
+    // All setters
     public void setMouseClicked(JankMLRunnable mouseClicked) {
         this.mouseClicked = mouseClicked;
     }
