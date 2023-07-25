@@ -578,6 +578,10 @@ public class Jankcord implements JankDraggable {
     }
 
 
+    public static JankLabel getLogoLabel() {
+        return logoLabel;
+    }
+
     public static ChatBoxArea getChatBoxArea() {
         return chatBoxArea;
     }

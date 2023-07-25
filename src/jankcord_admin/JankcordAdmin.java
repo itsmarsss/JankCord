@@ -380,6 +380,7 @@ public class JankcordAdmin {
         server.createContext("/api/v1/sendmessage", new NewMessage());
         server.createContext("/api/v1/sendgroupmessage", new NewGroupMessage());
         server.createContext("/api/v1/creategroupchat", new CreateGroupChat());
+        server.createContext("/api/v1/editaccount", new ConfigureAccount());
         server.setExecutor(null);
         server.start();
 

@@ -30,29 +30,33 @@ public class ConfigureAccount implements HttpHandler {
         String newPassword = requestHeaders.get("newPassword").get(0);
         String avatarURL = requestHeaders.get("avatarURL").get(0);
 
-        if (!JankcordAdmin.usernameAvailable(newUsername)) {
-            ServerCommunicator.sendResponse(exchange, "409");
-            return;
+        if (!username.equals(newUsername)) {
+            if (!JankcordAdmin.usernameAvailable(newUsername)) {
+                ServerCommunicator.sendResponse(exchange, "409");
+                return;
+            }
         }
 
-        if(JankcordAdmin.validateUsername(newUsername) != null) {
+        if (JankcordAdmin.validateUsername(newUsername) != null) {
             ServerCommunicator.sendResponse(exchange, "404");
             return;
         }
 
-        if(JankcordAdmin.validatePassword(newPassword) != null) {
+        if (JankcordAdmin.validatePassword(newPassword) != null) {
             ServerCommunicator.sendResponse(exchange, "404");
             return;
         }
 
-        for(FullUser account : AdminDataBase.getAccounts()) {
-            if(account.getUsername().equals(username)){
+        for (FullUser account : AdminDataBase.getAccounts()) {
+            if (account.getUsername().equals(username)) {
                 account.setUsername(newUsername);
-                account.setPassword(password);
+                account.setPassword(newPassword);
                 account.setAvatarURL(avatarURL);
             }
         }
 
         JankcordAdmin.writeAccounts();
+
+        ServerCommunicator.sendResponse(exchange, "200");
     }
 }

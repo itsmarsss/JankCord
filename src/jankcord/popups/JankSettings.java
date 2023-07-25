@@ -12,6 +12,7 @@ import jankcord.tools.Base64Helper;
 import jankcord.tools.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
+import jankcord_admin.JankcordAdmin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -75,8 +76,8 @@ public class JankSettings extends JFrame implements JankDraggable {
 
         JLabel statusLabel = new JLabel();
 
-        JankButton uploadButton = new JankButton("Upload", 300, 45, 100, 450);
-        uploadButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
+        JankButton previewButton = new JankButton("Preview", 300, 45, 100, 450);
+        previewButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
                 Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
@@ -95,7 +96,7 @@ public class JankSettings extends JFrame implements JankDraggable {
                 iconLabel.setIcon(new ImageIcon(avatar));
             }
         });
-        getContentPane().add(uploadButton);
+        getContentPane().add(previewButton);
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setLocation(450, 100);
@@ -129,7 +130,7 @@ public class JankSettings extends JFrame implements JankDraggable {
         getContentPane().add(passwordAgainInput);
 
         statusLabel.setLocation(100, 515);
-        statusLabel.setSize(300, 30);
+        statusLabel.setSize(650, 30);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
         getContentPane().add(statusLabel);
@@ -138,54 +139,59 @@ public class JankSettings extends JFrame implements JankDraggable {
         loginButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
+                String newUsername = usernameInput.getText();
+
+                if(JankcordAdmin.validateUsername(newUsername) != null) {
+                    statusLabel.setText("Username: ASCII, no spaces, not blank, < 20 characters");
+                    return;
+                }
+
+                String newPassword = new String(passwordInput.getPassword());
+                if (!newPassword.equals(new String(passwordAgainInput.getPassword()))) {
+                    statusLabel.setText("Passwords do not match.");
+                    return;
+                }
+
+                if(JankcordAdmin.validatePassword(newPassword) != null) {
+                    statusLabel.setText("Password: ASCII, no spaces, not blank, < 20 characters");
+                    return;
+                }
+
                 HashMap<String, String> headers = new HashMap<>();
 
-                String username = usernameInput.getText();
-                String password = new String(passwordInput.getPassword());
-                String server = Base64Helper.decode(avatarInput.getText()) + "/api/v1/";
+                String username = Jankcord.getFullUser().getUsername();
+                String password = Jankcord.getFullUser().getPassword();
+
+                String avatarURL = avatarInput.getText();
 
                 headers.put("username", username);
                 headers.put("password", password);
 
-                String response = ServerCommunicator.sendHttpRequest(server + "login", headers);
+                headers.put("newUsername", newUsername);
+                headers.put("newPassword", newPassword);
+                headers.put("avatarURL", avatarURL);
 
-                // System.out.println(response);
+                String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "editaccount", headers);
+
+                System.out.println(response);
 
                 if (response == null) {
                     statusLabel.setText("Error contacting server.");
-
+                    Jankcord.getLogoLabel().setText("JankCord - OFFLINE");
+                    Jankcord.getLogoLabel().setForeground(new Color(198, 36, 36));
                     return;
                 }
+                Jankcord.getLogoLabel().setText("JankCord");
+                Jankcord.getLogoLabel().setForeground(new Color(114, 118, 125));
 
-                if (response.equals("403")) {
-                    System.out.println("Credentials incorrect; exiting program");
-                    statusLabel.setText("Incorrect credentials.");
-                }
-
-                long id;
-                String avatarURL;
-
-                try {
-                    // Parse the JSON string
-                    JSONParser parser = new JSONParser();
-                    JSONObject jsonObject = (JSONObject) parser.parse(response);
-
-                    // Read values from each message object
-                    id = (Long) jsonObject.get("id");
-                    avatarURL = (String) jsonObject.get("avatarURL");
-
-                    Jankcord.setFullUser(new FullUser(id, username, avatarURL, password, server));
-
-                    dispose();
-
-                    new Jankcord();
-                } catch (Exception ex) {
-                }
+                Jankcord.getFullUser().setUsername(newUsername);
+                Jankcord.getFullUser().setPassword(newPassword);
+                Jankcord.getFullUser().setAvatarURL(avatarURL);
             }
         });
         getContentPane().add(loginButton);
 
-        uploadButton.getMouseListener().getMouseReleased().run();
+        previewButton.getMouseListener().getMouseReleased().run();
     }
 
 
