@@ -1,6 +1,7 @@
 package jankcord.components.texts;
 
 import jankcord.texthelpers.DeletePrevCharAction;
+import jankcord.texthelpers.UndoRedo;
 
 import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
@@ -23,5 +24,8 @@ public class JankTextField extends JTextField {
 
         // Add deletePrevCharAction to action map
         getActionMap().put(DefaultEditorKit.deletePrevCharAction, new DeletePrevCharAction());
+
+        // Make undo-/redo-able
+        UndoRedo.makeUndoable(this);
     }
 }
