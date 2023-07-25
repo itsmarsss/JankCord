@@ -1,6 +1,5 @@
 package jankcord.objects;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // GroupChat, contains all group chat information
