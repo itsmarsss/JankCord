@@ -116,6 +116,9 @@ public class JankLogin extends JankFrame {
                 // Send http request with headers to end point
                 String response = ServerCommunicator.sendHttpRequest(server + "login", headers);
 
+
+                System.out.println(response);
+
                 // If null
                 if (response == null) {
                     // Error contacting server
@@ -128,6 +131,8 @@ public class JankLogin extends JankFrame {
                 if (response.equals("403")) {
                     // Incorrect credentials
                     statusLabel.setText("Incorrect credentials.");
+                    // Return
+                    return;
                 }
 
                 // Otherwise read id and avatarURL

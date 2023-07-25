@@ -60,10 +60,7 @@ public class JankFrame extends JFrame implements JankDraggable {
         getContentPane().add(titleLabel);
 
         // Check windows control
-        if (fullWindowControls) {
-            windowButtons = new WindowButtons();
-            getContentPane().add(windowButtons);
-        } else {
+        if (!fullWindowControls) {
             // Add window close button only
             getContentPane().add(new JankCloseButton(getWidth(), this));
         }
