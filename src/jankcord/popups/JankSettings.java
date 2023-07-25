@@ -8,6 +8,7 @@ import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.objects.FullUser;
+import jankcord.objects.SimpleUserCache;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.JankDraggable;
 import jankcord.tools.ResourceLoader;
@@ -85,7 +86,7 @@ public class JankSettings extends JFrame implements JankDraggable {
                 try {
                     URL url = new URL(avatarInput.getText());
 
-                    BufferedImage image = ImageIO.read(url);
+                    Image image = SimpleUserCache.circularize(ImageIO.read(url));
 
                     avatar = new ImageIcon(image).getImage();
                 } catch (Exception e) {
