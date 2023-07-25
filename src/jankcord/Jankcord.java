@@ -191,11 +191,11 @@ public class Jankcord implements JankDraggable {
 
         // SchedulesExecutorService for friend querying
         sesFriend = Executors.newSingleThreadScheduledExecutor();
-        sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
+        sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 1, TimeUnit.SECONDS);
 
         // SchedulesExecutorService for group chat querying
         sesGroup = Executors.newSingleThreadScheduledExecutor();
-        sesGroup.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
+        sesGroup.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 1, TimeUnit.SECONDS);
 
         // SchedulesExecutorService for message querying
         sesMessage = Executors.newSingleThreadScheduledExecutor();

@@ -231,7 +231,7 @@ public class JankcordAdmin {
         System.out.println("Creating new JankCord account for user...");
 
         // Ask for username
-        System.out.print("Username (no spaces | 20 characters max): ");
+        System.out.print("Username (no spaces | 15 characters max): ");
 
         // Similar to [BufferedReader#flush();]
         sc.nextLine();
@@ -250,7 +250,7 @@ public class JankcordAdmin {
 
 
         // Ask for password
-        System.out.print("Password (no spaces | 20 characters max): ");
+        System.out.print("Password (no spaces | 15 characters max): ");
 
         // Get password
         String password = sc.nextLine();
@@ -548,9 +548,9 @@ public class JankcordAdmin {
         }
 
         // Check if too long
-        if (username.length() > 20) {
+        if (username.length() > 15) {
             // Return error
-            return "Username cannot be longer than 20 character; command sequence exited";
+            return "Username cannot be longer than 15 character; command sequence exited";
         }
 
         // No error
@@ -583,9 +583,9 @@ public class JankcordAdmin {
         }
 
         // Check if too long
-        if (password.length() > 20) {
+        if (password.length() > 15) {
             // Return error
-            return "Password cannot be longer than 20 character; command sequence exited";
+            return "Password cannot be longer than 15 character; command sequence exited";
         }
 
         // No error

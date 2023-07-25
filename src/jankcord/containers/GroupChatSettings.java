@@ -156,7 +156,7 @@ public class GroupChatSettings extends JPanel {
                 Jankcord.getTitleLabel().setText("JankCord");
                 Jankcord.getTitleLabel().setForeground(new Color(114, 118, 125));
 
-                Jankcord.getChatBoxArea().setChannelName(newChatName);
+                Jankcord.getChatBoxArea().setChannelName("#" + newChatName);
             }
         });
 
