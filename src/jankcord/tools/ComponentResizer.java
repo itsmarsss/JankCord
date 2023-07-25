@@ -162,7 +162,7 @@ public class ComponentResizer extends MouseAdapter {
     /**
      * Remove listeners from the specified component
      *
-     * @param component the component the listeners are removed from
+     * @param components the component the listeners are removed from
      */
     public void deregisterComponent(Component... components) {
         for (Component component : components) {
@@ -174,7 +174,7 @@ public class ComponentResizer extends MouseAdapter {
     /**
      * Add the required listeners to the specified component
      *
-     * @param component the component the listeners are added to
+     * @param components the component the listeners are added to
      */
     public void registerComponent(Component... components) {
         for (Component component : components) {
