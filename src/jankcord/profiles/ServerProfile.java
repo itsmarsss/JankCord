@@ -10,53 +10,66 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+// Server Profile, child of JLabel; group chat/server entry
 public class ServerProfile extends JLabel {
+	// Instance field
 	private GroupChat groupChat;
+
+	// Constructor to set serverIcon and groupChat
 	public ServerProfile(Image serverIcon, GroupChat groupChat) {
-		Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_FAST);
-		setSize(96, 96);
-		setIcon(new ImageIcon(scaledIcon));
-		
+		// Set field
 		this.groupChat = groupChat;
 
+		// Get group chat icon or default icon
+		Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_FAST);
+
+		// Set JLabel properties
+		setSize(96, 96);
+		setIcon(new ImageIcon(scaledIcon));
+
+		// Add mouse listener
 		addMouseListener(new MouseListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
+			public void mouseClicked(MouseEvent e) {}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {}
 
-			}
-
+			// Mouse release
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				// If current text place isn't this text place
 				if (!Jankcord.getOtherID().equals(groupChat.getId())) {
+					// Update text place to this one
 					Jankcord.setOtherID(groupChat.getId());
+
+					// Notify of text place update
 					Jankcord.setNewOtherID(true);
 					Jankcord.setInServer(true);
 
+					// Reset all messages
 					Jankcord.getChatBoxArea().resetMessages();
+
+					// Query for new messages
 					Jankcord.queryForNewMessages();
+
+					// Clear channel list
 					Jankcord.getChannelList().clear();
 
+					// Update channel name
 					Jankcord.getChatBoxArea().setChannelName(groupChat.getChatName());
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
+			public void mouseEntered(MouseEvent e) {}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
+			public void mouseExited(MouseEvent e) {}
 		});
 	}
 
+	// Getters and setters
 	public GroupChat getGroupChat() {
 		return groupChat;
 	}
