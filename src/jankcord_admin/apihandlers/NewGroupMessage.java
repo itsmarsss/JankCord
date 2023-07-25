@@ -28,6 +28,11 @@ public class NewGroupMessage implements HttpHandler {
         String chatID = requestHeaders.get("otherID").get(0);
         String content = requestHeaders.get("content").get(0);
 
+        if(content.isBlank()) {
+            ServerCommunicator.sendResponse(exchange, "405");
+            return;
+        }
+
         FullUser current = null;
 
         for (FullUser account : AdminDataBase.getAccounts()) {

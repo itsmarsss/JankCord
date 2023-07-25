@@ -42,8 +42,13 @@ public class GetMessages implements HttpHandler {
             }
         }
 
-        if (current == null || other == null) {
+        if (current == null) {
             ServerCommunicator.sendResponse(exchange, "403");
+            return;
+        }
+
+        if(other == null) {
+            ServerCommunicator.sendResponse(exchange, "404");
             return;
         }
 

@@ -28,6 +28,11 @@ public class NewMessage implements HttpHandler {
         String otherID = requestHeaders.get("otherID").get(0);
         String content = requestHeaders.get("content").get(0);
 
+        if(content.isBlank()) {
+            ServerCommunicator.sendResponse(exchange, "405");
+            return;
+        }
+
         FullUser current = null;
         FullUser other = null;
 
@@ -41,8 +46,13 @@ public class NewMessage implements HttpHandler {
             }
         }
 
-        if(current == null || other == null) {
+        if(current == null) {
             ServerCommunicator.sendResponse(exchange, "403");
+            return;
+        }
+
+        if(other == null) {
+            ServerCommunicator.sendResponse(exchange, "404");
             return;
         }
 
