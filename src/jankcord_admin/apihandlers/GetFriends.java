@@ -56,7 +56,7 @@ public class GetFriends implements HttpHandler {
 
         // If account ID is -1 (unchanged)
         if (currentID == -1) {
-            // Return 409 response code
+            // Return 403 response code
             ServerCommunicator.sendResponse(exchange, "403");
             // Return
             return;
