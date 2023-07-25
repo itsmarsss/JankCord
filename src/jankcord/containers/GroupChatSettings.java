@@ -6,10 +6,8 @@ import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.texts.JankTextField;
 import jankcord.objects.GroupChat;
 import jankcord.objects.SimpleUserCache;
-import jankcord.tools.JankFileKit;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
-import jankcord_admin.JankcordAdmin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -157,6 +155,8 @@ public class GroupChatSettings extends JPanel {
                 Jankcord.getTitleLabel().setForeground(new Color(114, 118, 125));
 
                 Jankcord.getChatBoxArea().setChannelName("#" + newChatName);
+
+                statusLabel.setText("");
             }
         });
 

@@ -77,7 +77,7 @@ public class ChatBoxArea extends JPanel {
         channelName = new JLabel();
 
         // Channel name Init
-        channelName.setLocation(50, 20);
+        channelName.setLocation(25, 20);
         channelName.setBackground(new Color(56, 58, 64));
         channelName.setForeground(new Color(255, 255, 255));
         channelName.setFont(new Font("Whitney", Font.BOLD, 45));
