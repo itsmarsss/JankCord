@@ -3,12 +3,10 @@ package jankcord.popups;
 import jankcord.Jankcord;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
-import jankcord.components.label.JankLabel;
+import jankcord.components.frame.JankFrame;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
-import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.objects.SimpleUserCache;
-import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
@@ -16,198 +14,244 @@ import jankcord_admin.JankcordAdmin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.HashMap;
 
-public class JankSettings extends JFrame implements JankDraggable {
+// Popup window containing user account configuration functionality
+public class JankSettings extends JankFrame {
     public JankSettings() {
-        super("JankCord Settings");
+        // Super; set name size and window control state
+        super("JankCord Settings", 850, 670, false);
 
-        setIconImages(ResourceLoader.loader.getIcons());
-
-        // Frame Init
-        setResizable(false);
-        setUndecorated(true);
-        getContentPane().setLayout(null);
-        getContentPane().setBackground(new Color(32, 34, 37));
-        Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(850, 670);
-        setLocation((int) screenDim.getWidth() / 2 - getWidth() / 2, (int) screenDim.getHeight() / 2 - getHeight() / 2);
-
-        getContentPane().addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                mousePress(e);
-            }
-        });
-        getContentPane().addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                mouseDrag(e);
-            }
-        });
+        // Frame content Init
 
 
-        JankLabel logoLabel = new JankLabel("JankCord Settings");
-        getContentPane().add(logoLabel);
-
-        JankCloseButton closeButton = new JankCloseButton(getWidth(), this);
-        getContentPane().add(closeButton);
-
+        // Icon
         JLabel iconLabel = new JLabel();
+
+        // Icon Init
         iconLabel.setLocation(160, 100);
         iconLabel.setSize(160, 160);
+
+        // Add Icon
         getContentPane().add(iconLabel);
 
-        JLabel serverLabel = new JLabel("Avatar URL:");
-        serverLabel.setLocation(100, 300);
-        serverLabel.setSize(200, 30);
-        serverLabel.setForeground(new Color(114, 118, 125));
-        serverLabel.setFont(new Font("Whitney", Font.BOLD, 28));
-        getContentPane().add(serverLabel);
 
+        // Avatar Label
+        JLabel avatarLabel = new JLabel("Avatar URL:");
+
+        // Avatar Label Init
+        avatarLabel.setLocation(100, 300);
+        avatarLabel.setSize(200, 30);
+        avatarLabel.setForeground(new Color(114, 118, 125));
+        avatarLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Avatar Label
+        getContentPane().add(avatarLabel);
+
+
+        // Avatar Input
         JankTextField avatarInput = new JankTextField(300, 45, 100, 350);
+
+        // Avatar Input Init
         avatarInput.setText(Jankcord.getFullUser().getAvatarURL());
+
+        // Add Avatar Input
         getContentPane().add(avatarInput);
 
+
+        // Status
         JLabel statusLabel = new JLabel();
 
+
+        // Preview
         JankButton previewButton = new JankButton("Preview", 300, 45, 100, 450);
+
+        // Edit mouse release listener
         previewButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
+                // Set avatar to temp avatar for now
                 Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
 
+                // Try to get user profile
                 try {
+                    // URL of avatar
                     URL url = new URL(avatarInput.getText());
 
-                    Image image = SimpleUserCache.circularize(ImageIO.read(url));
-
-                    avatar = new ImageIcon(image).getImage();
+                    // Read image and circularize it, set to avatar
+                    avatar = SimpleUserCache.circularize(ImageIO.read(url));
                 } catch (Exception e) {
+                    // If error, statusLabel display it
                     statusLabel.setText("Error getting avatar.");
                 }
 
+                // Scale image to fit iconLabel
                 avatar = avatar.getScaledInstance(160, 160, Image.SCALE_FAST);
+
+                // Set icon
                 iconLabel.setIcon(new ImageIcon(avatar));
             }
         });
+
+        // Add Preview
         getContentPane().add(previewButton);
 
+
+        // Username Label
         JLabel usernameLabel = new JLabel("Username:");
+
+        // Username Label Init
         usernameLabel.setLocation(450, 100);
         usernameLabel.setSize(150, 30);
         usernameLabel.setForeground(new Color(114, 118, 125));
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Username Label
         getContentPane().add(usernameLabel);
 
+
+        // Username
         JankTextField usernameInput = new JankTextField(300, 45, 450, 150);
+
+        // Username Init
         usernameInput.setText(Jankcord.getFullUser().getUsername());
+
+        // Add Username
         getContentPane().add(usernameInput);
 
+
+        // Password Label
         JLabel passwordLabel = new JLabel("Password:");
+
+        // Password Label Init
         passwordLabel.setLocation(450, 250);
         passwordLabel.setSize(150, 30);
         passwordLabel.setForeground(new Color(114, 118, 125));
         passwordLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Password Label
         getContentPane().add(passwordLabel);
 
+
+        // Password
         JankPasswordField passwordInput = new JankPasswordField(300, 45, 450, 300);
+
+        // Add Password
         getContentPane().add(passwordInput);
 
+
+        // Password Again Label
         JLabel passwordAgainLabel = new JLabel("Password Again:");
+
+        // Password Again Label Init
         passwordAgainLabel.setLocation(450, 400);
         passwordAgainLabel.setSize(250, 30);
         passwordAgainLabel.setForeground(new Color(114, 118, 125));
         passwordAgainLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Password Again Label
         getContentPane().add(passwordAgainLabel);
 
+
+        // Password Again
         JankPasswordField passwordAgainInput = new JankPasswordField(300, 45, 450, 450);
+
+        // Add Password Again
         getContentPane().add(passwordAgainInput);
 
+
+        // Status Label Init
         statusLabel.setLocation(100, 515);
         statusLabel.setSize(650, 30);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
+
+        // Add Status Label
         getContentPane().add(statusLabel);
 
-        JankButton loginButton = new JankButton("Update Profile", 650, 50, 100, 550);
-        loginButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
+
+        // Update
+        JankButton updateProfile = new JankButton("Update Profile", 650, 50, 100, 550);
+
+        // Edit mouse release listener
+        updateProfile.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
+                // Store new username
                 String newUsername = usernameInput.getText();
 
-                if(JankcordAdmin.validateUsername(newUsername) != null) {
+                // Check if valid
+                if(JankcordAdmin.validateUsername(newUsername) != null) { // If there is an error message
+                    // Set status label to username specifications
                     statusLabel.setText("Username: ASCII, no spaces, not blank, < 20 characters");
                     return;
                 }
 
+
+                // Store new password
                 String newPassword = new String(passwordInput.getPassword());
+
+                // Check if both password inputs are equal
                 if (!newPassword.equals(new String(passwordAgainInput.getPassword()))) {
+                    // If not, set status label to warn
                     statusLabel.setText("Passwords do not match.");
                     return;
                 }
 
-                if(JankcordAdmin.validatePassword(newPassword) != null) {
+                // Check if valid
+                if(JankcordAdmin.validatePassword(newPassword) != null) { // If there is an error message
+                    // Set status label to password specifications
                     statusLabel.setText("Password: ASCII, no spaces, not blank, < 20 characters");
                     return;
                 }
 
-                HashMap<String, String> headers = new HashMap<>();
-
-                String username = Jankcord.getFullUser().getUsername();
-                String password = Jankcord.getFullUser().getPassword();
-
+                // Store new user avatar
                 String avatarURL = avatarInput.getText();
 
-                headers.put("username", username);
-                headers.put("password", password);
-
+                // Set headers; login information, new login information, and avatarURL
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("username", Jankcord.getFullUser().getUsername());
+                headers.put("password", Jankcord.getFullUser().getPassword());
                 headers.put("newUsername", newUsername);
                 headers.put("newPassword", newPassword);
                 headers.put("avatarURL", avatarURL);
 
+                // Send http request with headers to end point
                 String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "editaccount", headers);
 
-                System.out.println(response);
-
+                // If null
                 if (response == null) {
+                    // Error contacting
                     statusLabel.setText("Error contacting server.");
+
+                    // Set text and color to offline and red
                     Jankcord.getLogoLabel().setText("JankCord - OFFLINE");
                     Jankcord.getLogoLabel().setForeground(new Color(198, 36, 36));
+
+                    // Return
                     return;
                 }
+
+                // Otherwise set text to normal and grey
                 Jankcord.getLogoLabel().setText("JankCord");
                 Jankcord.getLogoLabel().setForeground(new Color(114, 118, 125));
 
+                // Update local username, password, and avatarURL
                 Jankcord.getFullUser().setUsername(newUsername);
                 Jankcord.getFullUser().setPassword(newPassword);
                 Jankcord.getFullUser().setAvatarURL(avatarURL);
 
+                // Dispose settings window
                 dispose();
             }
         });
-        getContentPane().add(loginButton);
 
+        // Add Update
+        getContentPane().add(updateProfile);
+
+
+        // Just preview button load in avatar
         previewButton.getMouseListener().getMouseReleased().run();
-    }
-
-
-    // Frame dragging
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
-
-    @Override
-    public void mousePress(MouseEvent e) {
-        drag = true;
-        posX = e.getX();
-        posY = e.getY();
-    }
-
-    @Override
-    public void mouseDrag(MouseEvent e) {
-        if (drag) {
-            setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
-        }
     }
 }

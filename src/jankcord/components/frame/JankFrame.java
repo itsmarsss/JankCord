@@ -1,6 +1,8 @@
 package jankcord.components.frame;
 
 import jankcord.components.frame.draggable.JankDraggable;
+import jankcord.components.label.JankLabel;
+import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.tools.ResourceLoader;
 
 import javax.swing.*;
@@ -13,8 +15,8 @@ public class JankFrame extends JFrame implements JankDraggable {
     private int posX = 0, posY = 0;
     private boolean drag = false;
 
-    // Constructor to set name location and size
-    public JankFrame(String name, int width, int height, int x, int y) {
+    // Constructor for JankFrame, requires name, size, and window controls state
+    public JankFrame(String name, int width, int height, boolean fullWindowControls) {
         // Super; set JFrame name
         super(name);
 
@@ -27,7 +29,8 @@ public class JankFrame extends JFrame implements JankDraggable {
         getContentPane().setLayout(null);
         getContentPane().setBackground(new Color(32, 34, 37));
         setSize(width, height);
-        setLocation(x, y);
+        Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((int) screenDim.getWidth() / 2 - getWidth() / 2, (int) screenDim.getHeight() / 2 - getHeight() / 2);
 
         // Add mouse press listener
         getContentPane().addMouseListener(new MouseAdapter() {
@@ -44,6 +47,16 @@ public class JankFrame extends JFrame implements JankDraggable {
                 mouseDrag(e);
             }
         });
+
+        // Add window topbar logo
+        getContentPane().add(new JankLabel(name));
+
+        if (fullWindowControls) {
+
+        } else {
+            // Add window close button only
+            getContentPane().add(new JankCloseButton(getWidth(), this));
+        }
     }
 
     // mousePress method, children classes can override

@@ -3,13 +3,10 @@ package jankcord.popups;
 import jankcord.Jankcord;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
-import jankcord.components.label.JankLabel;
+import jankcord.components.frame.JankFrame;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
-import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.tools.Base64Helper;
-import jankcord.components.frame.draggable.JankDraggable;
-import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.objects.FullUser;
 import org.json.simple.JSONObject;
@@ -17,116 +14,127 @@ import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-public class JankLogin extends JFrame implements JankDraggable {
+// Popup window for user to login
+public class JankLogin extends JankFrame {
     public JankLogin() {
-        super("JankCord Login");
-
-        setIconImages(ResourceLoader.loader.getIcons());
-
-        // Frame Init
-        setResizable(false);
-        setUndecorated(true);
-        getContentPane().setLayout(null);
-        getContentPane().setBackground(new Color(32, 34, 37));
-        Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(500, 750);
-        setLocation((int) screenDim.getWidth() / 2 - getWidth() / 2, (int) screenDim.getHeight() / 2 - getHeight() / 2);
-
-        getContentPane().addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                mousePress(e);
-            }
-        });
-        getContentPane().addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                mouseDrag(e);
-            }
-        });
+        // Super; set name size and window control state
+        super("JankCord Login", 500, 750, false);
 
 
-        JankLabel logoLabel = new JankLabel("JankCord Login");
-
-        getContentPane().add(logoLabel);
-
-        JankCloseButton closeButton = new JankCloseButton(getWidth(), null);
-
-        getContentPane().add(closeButton);
-
+        // Username Label
         JLabel usernameLabel = new JLabel("Username:");
+
+        // Username Init
         usernameLabel.setSize(150, 30);
         usernameLabel.setLocation(100, 100);
         usernameLabel.setForeground(new Color(114, 118, 125));
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Username Label
         getContentPane().add(usernameLabel);
 
+
+        // Username
         JankTextField usernameInput = new JankTextField(300, 45, 100, 150);
 
+        // Add Username
         getContentPane().add(usernameInput);
 
+
+        // Password Label
         JLabel passwordLabel = new JLabel("Password:");
+
+        // Password Label Init
         passwordLabel.setSize(150, 30);
         passwordLabel.setLocation(100, 250);
         passwordLabel.setForeground(new Color(114, 118, 125));
         passwordLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Password Label
         getContentPane().add(passwordLabel);
 
+
+        // Password
         JankPasswordField passwordInput = new JankPasswordField(300, 45, 100, 300);
 
+        // Add password
         getContentPane().add(passwordInput);
 
+
+        // Server Label
         JLabel serverLabel = new JLabel("Server Key:");
+
+        // Server Label Init
         serverLabel.setSize(200, 30);
         serverLabel.setLocation(100, 400);
         serverLabel.setForeground(new Color(114, 118, 125));
         serverLabel.setFont(new Font("Whitney", Font.BOLD, 28));
+
+        // Add Server Label
         getContentPane().add(serverLabel);
 
+
+        // Server
         JankTextField serverInput = new JankTextField(300, 45, 100, 450);
 
+        // Add server
         getContentPane().add(serverInput);
 
-        JLabel statusLabel = new JLabel("");
+
+        // Status Label
+        JLabel statusLabel = new JLabel();
+
+        // Status Label Init
         statusLabel.setSize(300, 30);
         statusLabel.setLocation(100, 550);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
+
+        // Add Status Label
         getContentPane().add(statusLabel);
 
+
+        // Login
         JankButton loginButton = new JankButton("Login", 300, 50, 100, 600);
+
+        // Edit mouse release listener
         loginButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
-                HashMap<String, String> headers = new HashMap<>();
-
+                // Save inputted values
                 String username = usernameInput.getText();
                 String password = new String(passwordInput.getPassword());
                 String server = Base64Helper.decode(serverInput.getText()) + "/api/v1/";
 
+                // Set headers; login information
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("username", username);
                 headers.put("password", password);
 
+                // Send http request with headers to end point
                 String response = ServerCommunicator.sendHttpRequest(server + "login", headers);
 
-                // System.out.println(response);
-
+                // If null
                 if (response == null) {
+                    // Error contacting server
                     statusLabel.setText("Error contacting server.");
-
+                    // Return
                     return;
                 }
 
+                // If response is 403
                 if (response.equals("403")) {
-                    System.out.println("Credentials incorrect; exiting program");
+                    // Incorrect credentials
                     statusLabel.setText("Incorrect credentials.");
                 }
 
+                // Otherwise read id and avatarURL
                 long id;
                 String avatarURL;
 
+                // Try reading
                 try {
                     // Parse the JSON string
                     JSONParser parser = new JSONParser();
@@ -136,33 +144,19 @@ public class JankLogin extends JFrame implements JankDraggable {
                     id = (Long) jsonObject.get("id");
                     avatarURL = (String) jsonObject.get("avatarURL");
 
+                    // Set Jankcord's full local user with these values
                     Jankcord.setFullUser(new FullUser(id, username, avatarURL, password, server));
 
-                    dispose();
-
+                    // New Jankcord instance
                     new Jankcord();
+
+                    // Dispose of login windows
+                    dispose();
                 } catch (Exception ex) {}
             }
         });
 
+        // Add Login
         getContentPane().add(loginButton);
-    }
-
-    // Frame dragging
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
-
-    @Override
-    public void mousePress(MouseEvent e) {
-        drag = true;
-        posX = e.getX();
-        posY = e.getY();
-    }
-
-    @Override
-    public void mouseDrag(MouseEvent e) {
-        if (drag) {
-            setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
-        }
     }
 }
