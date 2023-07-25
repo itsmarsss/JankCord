@@ -11,30 +11,51 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+// Helps make text components undo-/redo-able
 public class UndoRedo {
+	// Public undo redo fields
 	public final static String UNDO_ACTION = "Undo";
 	public final static String REDO_ACTION = "Redo";
 
+	/**
+	 * Makes a text component undo-/redo-able
+	 *
+	 * @param pTextComponent text component to alter
+	 */
 	public static void makeUndoable(JTextComponent pTextComponent) {
+		// Declare and create an undo manager
 		final UndoManager undoMgr = new UndoManager();
-		pTextComponent.getDocument().addUndoableEditListener(evt -> undoMgr.addEdit(evt.getEdit()));
 
+		// Add undoable edit lister; lambda
+		pTextComponent.getDocument().addUndoableEditListener((evt) -> undoMgr.addEdit(evt.getEdit()));
+
+		// Put undo action with abstract action into text component's action map
 		pTextComponent.getActionMap().put(UNDO_ACTION, new AbstractAction(UNDO_ACTION) {
 			public void actionPerformed(ActionEvent evt) {
+				// Attempt undo
 				try {
-					for(int i = 0; i < 10; i++) {
+					// Undo 5 times
+					for(int i = 0; i < 5; i++) {
+						// If can undo
 						if (undoMgr.canUndo()) {
+							// Undo
 							undoMgr.undo();
 						}
 					}
 				} catch (CannotUndoException e) {}
 			}
 		});
+
+		// Put redo action with abstract action into text component's action map
 		pTextComponent.getActionMap().put(REDO_ACTION, new AbstractAction(REDO_ACTION) {
 			public void actionPerformed(ActionEvent evt) {
+				// Attempt redo
 				try {
+					// Redo 5 times
 					for(int i = 0; i < 5; i++) {
+						// If can redo
 						if (undoMgr.canRedo()) {
+							// Redo
 							undoMgr.redo();
 						}
 					}
@@ -42,8 +63,10 @@ public class UndoRedo {
 			}
 		});
 
+		// Add undo key triggers (ctrl + z)
 		pTextComponent.getInputMap().put(
 				KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), UNDO_ACTION);
+		// Add redo key triggers (ctrl + y)
 		pTextComponent.getInputMap().put(
 				KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK), REDO_ACTION);
 	}
