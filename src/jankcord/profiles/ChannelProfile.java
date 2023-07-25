@@ -63,7 +63,8 @@ public class ChannelProfile extends JPanel {
         // Add mouse listener to listing
         addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {}
+            public void mouseClicked(MouseEvent e) {
+            }
 
             // Mouse pressed
             @Override

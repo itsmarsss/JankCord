@@ -22,7 +22,7 @@ public class Message {
      * @return true/false depending on similarity
      */
     public boolean isEqual(Message tempMessage) {
-        if(!content.equals(tempMessage.getContent())) {
+        if (!content.equals(tempMessage.getContent())) {
             return false;
         }
         return timestamp == tempMessage.getTimestamp();

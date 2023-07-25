@@ -13,7 +13,7 @@ import jankcord.components.windowbuttons.windowbuttonlistener.WindowButtonListen
 
 // JankCord's window buttons, child of JPanel
 public class WindowButtons extends JPanel {
-    // Constructor to create a windws button
+    // Constructor to create a windows button
     public WindowButtons() {
         // Set JPanel properties
         setLayout(null);

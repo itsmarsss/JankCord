@@ -152,7 +152,8 @@ public class JankLogin extends JankFrame {
 
                     // Dispose of login windows
                     dispose();
-                } catch (Exception ex) {}
+                } catch (Exception ex) {
+                }
             }
         });
 

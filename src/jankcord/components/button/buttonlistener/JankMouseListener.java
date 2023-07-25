@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 // JankCord's mouse listener, implements MouseListener
 public class JankMouseListener implements MouseListener {
-    // All 5 mouse events, using JankMLRunnable
+    // All mouse events, using JankMLRunnable
     private JankMLRunnable mouseClicked;
     private JankMLRunnable mousePressed;
     private JankMLRunnable mouseEntered;

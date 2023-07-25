@@ -17,7 +17,7 @@ public class FullUser extends User {
         this.endPointHost = endPointHost;
     }
 
-    // Altername constructor, set everything
+    // Alternate constructor, set everything
     public FullUser(long id, String username, String avatarURL, String password, String endPointHost, String status) {
         // Super; set id, username, and avatarURL
         super(id, username, avatarURL);

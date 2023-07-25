@@ -174,7 +174,7 @@ public class ServerList extends JankScrollPane {
      * Adds new group chat entry to server list
      *
      * @param groupChat group chat to add to list
-     * @param index index of insertion
+     * @param index     index of insertion
      */
     public void addServer(GroupChat groupChat, int index) {
         // Server profile with icon and groupchat as parameters

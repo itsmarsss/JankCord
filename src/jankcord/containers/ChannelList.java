@@ -137,7 +137,7 @@ public class ChannelList extends JPanel {
      * Add channel entry to list
      *
      * @param friend friend channel to be added
-     * @param index which index
+     * @param index  which index
      */
     public void addChannel(User friend, int index) {
         // Channel Profile with friend as parameter
@@ -155,7 +155,7 @@ public class ChannelList extends JPanel {
 
 
         // Check if current friend is selected already
-        if(Jankcord.getOtherID().equals(friend.getId()+"")) {
+        if (Jankcord.getOtherID().equals(friend.getId() + "")) {
             // If so, update colors
             cp.setBackground(new Color(59, 60, 66));
             cp.getUsernameLabel().setForeground(new Color(255, 255, 255));

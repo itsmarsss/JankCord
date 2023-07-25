@@ -20,7 +20,7 @@ import javax.swing.*;
 
 import jankcord.components.frame.JankFrame;
 import jankcord.components.frame.draggable.JankDraggable;
-import jankcord.components.label.JankLabel;
+import jankcord.components.label.JankTitleLabel;
 import jankcord.containers.ChannelList;
 import jankcord.containers.ChatBoxArea;
 import jankcord.containers.ServerList;
@@ -67,7 +67,7 @@ public class Jankcord implements JankDraggable {
     // Main frame and components
     private static JankFrame frame;                    // Window holding everything
     private static JPanel viewPanel;
-    private static JankLabel logoLabel;
+    private static JankTitleLabel logoLabel;
     private static WindowButtons windowButtons;
     private static ServerList serverList;
     private static ChannelList channelList;
@@ -139,7 +139,7 @@ public class Jankcord implements JankDraggable {
         frame.getContentPane().add(viewPanel);
 
         // Logo
-        logoLabel = new JankLabel("JankCord");
+        logoLabel = new JankTitleLabel("JankCord");
         logoLabel.setName("JankCordLogo");
         logoLabel.setSize(300, logoLabel.getHeight());
 
@@ -656,11 +656,11 @@ public class Jankcord implements JankDraggable {
         Jankcord.viewPanel = viewPanel;
     }
 
-    public static JankLabel getLogoLabel() {
+    public static JankTitleLabel getLogoLabel() {
         return logoLabel;
     }
 
-    public static void setLogoLabel(JankLabel logoLabel) {
+    public static void setLogoLabel(JankTitleLabel logoLabel) {
         Jankcord.logoLabel = logoLabel;
     }
 

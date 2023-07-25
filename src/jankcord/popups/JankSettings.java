@@ -182,7 +182,7 @@ public class JankSettings extends JankFrame {
                 String newUsername = usernameInput.getText();
 
                 // Check if valid
-                if(JankcordAdmin.validateUsername(newUsername) != null) { // If there is an error message
+                if (JankcordAdmin.validateUsername(newUsername) != null) { // If there is an error message
                     // Set status label to username specifications
                     statusLabel.setText("Username: ASCII, no spaces, not blank, < 20 characters");
                     return;
@@ -200,7 +200,7 @@ public class JankSettings extends JankFrame {
                 }
 
                 // Check if valid
-                if(JankcordAdmin.validatePassword(newPassword) != null) { // If there is an error message
+                if (JankcordAdmin.validatePassword(newPassword) != null) { // If there is an error message
                     // Set status label to password specifications
                     statusLabel.setText("Password: ASCII, no spaces, not blank, < 20 characters");
                     return;

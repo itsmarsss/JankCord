@@ -15,7 +15,7 @@ public class JankFileKit {
     /**
      * Write to a file
      *
-     * @param file name + path
+     * @param file    name + path
      * @param content content as a string
      * @return true/false depending on how successful write was
      */
@@ -85,7 +85,7 @@ public class JankFileKit {
             // Try to create it
             try {
                 // Create
-                if(!file.createNewFile()) {
+                if (!file.createNewFile()) {
                     // If unsuccessful
                     // Throw exception
                     throw new RuntimeException();
@@ -137,7 +137,8 @@ public class JankFileKit {
                 // Add new entry to messages
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         // Add new conversation to hashmap in database
         AdminDataBase.getConversations().put(file.replaceFirst("[.][^.]+$", ""), messages);
@@ -208,7 +209,8 @@ public class JankFileKit {
                 // Add new entry to messages
                 messages.add(new Message(id, content, timestamp));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         // Remove file extension
         String rawFileName = fileName.replaceFirst("[.][^.]+$", "");

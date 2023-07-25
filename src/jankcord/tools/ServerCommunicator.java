@@ -17,7 +17,7 @@ public class ServerCommunicator {
      * Sends an http request for client
      *
      * @param apiEndpoint endpoint url
-     * @param header header values
+     * @param header      header values
      * @return string response from server
      */
     public static String sendHttpRequest(String apiEndpoint, HashMap<String, String> header) {

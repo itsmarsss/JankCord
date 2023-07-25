@@ -12,69 +12,73 @@ import javax.swing.JLabel;
 
 // Server Profile, child of JLabel; group chat/server entry
 public class ServerProfile extends JLabel {
-	// Instance field
-	private GroupChat groupChat;
+    // Instance field
+    private GroupChat groupChat;
 
-	// Constructor to set serverIcon and groupChat
-	public ServerProfile(Image serverIcon, GroupChat groupChat) {
-		// Set field
-		this.groupChat = groupChat;
+    // Constructor to set serverIcon and groupChat
+    public ServerProfile(Image serverIcon, GroupChat groupChat) {
+        // Set field
+        this.groupChat = groupChat;
 
-		// Get group chat icon or default icon
-		Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_FAST);
+        // Get group chat icon or default icon
+        Image scaledIcon = serverIcon.getScaledInstance(106, 106, Image.SCALE_FAST);
 
-		// Set JLabel properties
-		setSize(96, 96);
-		setIcon(new ImageIcon(scaledIcon));
+        // Set JLabel properties
+        setSize(96, 96);
+        setIcon(new ImageIcon(scaledIcon));
 
-		// Add mouse listener
-		addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {}
+        // Add mouse listener
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
 
-			@Override
-			public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-			// Mouse release
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// If current text place isn't this text place
-				if (!Jankcord.getOtherID().equals(groupChat.getId())) {
-					// Update text place to this one
-					Jankcord.setOtherID(groupChat.getId());
+            // Mouse release
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // If current text place isn't this text place
+                if (!Jankcord.getOtherID().equals(groupChat.getId())) {
+                    // Update text place to this one
+                    Jankcord.setOtherID(groupChat.getId());
 
-					// Notify of text place update
-					Jankcord.setNewOtherID(true);
-					Jankcord.setInServer(true);
+                    // Notify of text place update
+                    Jankcord.setNewOtherID(true);
+                    Jankcord.setInServer(true);
 
-					// Reset all messages
-					Jankcord.getChatBoxArea().resetMessages();
+                    // Reset all messages
+                    Jankcord.getChatBoxArea().resetMessages();
 
-					// Query for new messages
-					Jankcord.queryForNewMessages();
+                    // Query for new messages
+                    Jankcord.queryForNewMessages();
 
-					// Clear channel list
-					Jankcord.getChannelList().clear();
+                    // Clear channel list
+                    Jankcord.getChannelList().clear();
 
-					// Update channel name
-					Jankcord.getChatBoxArea().setChannelName(groupChat.getChatName());
-				}
-			}
+                    // Update channel name
+                    Jankcord.getChatBoxArea().setChannelName(groupChat.getChatName());
+                }
+            }
 
-			@Override
-			public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
 
-			@Override
-			public void mouseExited(MouseEvent e) {}
-		});
-	}
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+    }
 
-	// Getters and setters
-	public GroupChat getGroupChat() {
-		return groupChat;
-	}
+    // Getters and setters
+    public GroupChat getGroupChat() {
+        return groupChat;
+    }
 
-	public void setGroupChat(GroupChat groupChat) {
-		this.groupChat = groupChat;
-	}
+    public void setGroupChat(GroupChat groupChat) {
+        this.groupChat = groupChat;
+    }
 }

@@ -1,7 +1,7 @@
 package jankcord.components.frame;
 
 import jankcord.components.frame.draggable.JankDraggable;
-import jankcord.components.label.JankLabel;
+import jankcord.components.label.JankTitleLabel;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.tools.ResourceLoader;
 
@@ -29,6 +29,8 @@ public class JankFrame extends JFrame implements JankDraggable {
         getContentPane().setLayout(null);
         getContentPane().setBackground(new Color(32, 34, 37));
         setSize(width, height);
+
+        // Calculate center of screen
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((int) screenDim.getWidth() / 2 - getWidth() / 2, (int) screenDim.getHeight() / 2 - getHeight() / 2);
 
@@ -49,7 +51,7 @@ public class JankFrame extends JFrame implements JankDraggable {
         });
 
         // Add window topbar logo
-        getContentPane().add(new JankLabel(name));
+        getContentPane().add(new JankTitleLabel(name));
 
         // Check windows control
         if (fullWindowControls) {

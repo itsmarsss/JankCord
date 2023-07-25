@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 // JankCord's label, child of JLabel
-public class JankLabel extends JLabel {
+public class JankTitleLabel extends JLabel {
     // Constructor to set text
-    public JankLabel(String text) {
+    public JankTitleLabel(String text) {
         // Super; set text
         super(text);
 

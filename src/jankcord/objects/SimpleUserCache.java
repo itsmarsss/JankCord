@@ -47,7 +47,7 @@ public class SimpleUserCache {
      */
     public static Image circularize(Image originalImage) {
         // Check if originalImage is an image via size
-        if(originalImage.getWidth(null) <= 0 || originalImage.getHeight(null) <= 0) {
+        if (originalImage.getWidth(null) <= 0 || originalImage.getHeight(null) <= 0) {
             // Return if not image
             return originalImage;
         }

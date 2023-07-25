@@ -43,7 +43,8 @@ public class DeletePrevCharAction extends TextAction {
 
                     doc.remove(dot - delChars, delChars);
                 }
-            } catch (BadLocationException bl) {}
+            } catch (BadLocationException bl) {
+            }
         }
     }
 }
