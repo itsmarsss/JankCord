@@ -122,7 +122,7 @@ public class GroupChatSettings extends JPanel {
             public void run() {
                 String newChatName = chatNameInput.getText();
 
-                if(ServerCommunicator.notHeaderable(newChatName)) {
+                if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 30) {
                     statusLabel.setText("Chat Name: ASCII, < 30 character.");
                     return;
                 }
