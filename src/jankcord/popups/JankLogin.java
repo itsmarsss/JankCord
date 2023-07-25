@@ -8,7 +8,7 @@ import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.tools.Base64Helper;
-import jankcord.tools.JankDraggable;
+import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord.objects.FullUser;

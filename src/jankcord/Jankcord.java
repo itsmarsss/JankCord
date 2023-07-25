@@ -6,7 +6,6 @@ package jankcord;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,6 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // Components
+import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.components.label.JankLabel;
 import jankcord.containers.ChannelList;
 import jankcord.containers.ChatBoxArea;

@@ -1,4 +1,4 @@
-package jankcord.tools;
+package jankcord.components.frame.draggable;
 
 import java.awt.event.MouseEvent;
 

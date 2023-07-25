@@ -7,22 +7,17 @@ import jankcord.components.label.JankLabel;
 import jankcord.components.texts.JankPasswordField;
 import jankcord.components.texts.JankTextField;
 import jankcord.components.windowbuttons.JankCloseButton;
-import jankcord.objects.FullUser;
 import jankcord.objects.SimpleUserCache;
-import jankcord.tools.Base64Helper;
-import jankcord.tools.JankDraggable;
+import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.JankcordAdmin;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.HashMap;
 

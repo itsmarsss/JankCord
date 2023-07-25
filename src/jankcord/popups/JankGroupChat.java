@@ -8,7 +8,7 @@ import jankcord.components.label.JankLabel;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.windowbuttons.JankCloseButton;
 import jankcord.objects.User;
-import jankcord.tools.JankDraggable;
+import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.tools.ResourceLoader;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.tools.ServerCommunicator;
