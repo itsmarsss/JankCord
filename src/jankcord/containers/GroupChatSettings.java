@@ -105,7 +105,7 @@ public class GroupChatSettings extends JPanel {
         add(previewButton);
 
 
-        statusLabel.setLocation(0, 615);
+        statusLabel.setLocation(0, 565);
         statusLabel.setSize(390, 30);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
@@ -114,7 +114,7 @@ public class GroupChatSettings extends JPanel {
 
 
         // Update
-        JankButton updateGroupChat = new JankButton("Update Group Chat", 390, 50, 0, 650);
+        JankButton updateGroupChat = new JankButton("Update Group Chat", 390, 50, 0, 600);
 
         // Edit mouse release listener
         updateGroupChat.getMouseListener().setMouseReleased(new JankMLRunnable() {
@@ -133,8 +133,8 @@ public class GroupChatSettings extends JPanel {
                 headers.put("password", Jankcord.getFullUser().getPassword());
 
                 headers.put("chatID", Jankcord.getOtherID());
-                headers.put("chatName", newChatName);
-                headers.put("chatIconURL", iconInput.getText());
+                headers.put("newChatName", newChatName);
+                headers.put("newChatIconURL", iconInput.getText());
 
                 // Send http request with headers to end point
                 String response = ServerCommunicator.sendHttpRequest(Jankcord.getFullUser().getEndPointHost() + "editgroupchat", headers);

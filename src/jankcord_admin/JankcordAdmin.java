@@ -641,6 +641,7 @@ public class JankcordAdmin {
         server.createContext("/api/v1/sendgroupmessage", new NewGroupMessage());
         server.createContext("/api/v1/creategroupchat", new CreateGroupChat());
         server.createContext("/api/v1/editaccount", new ConfigureAccount());
+        server.createContext("/api/v1/editgroupchat", new ConfigureGroupChat());
 
         // No executor; small scaled no need to thread... yet
         server.setExecutor(null);
