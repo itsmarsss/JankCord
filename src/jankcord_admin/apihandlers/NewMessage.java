@@ -31,7 +31,7 @@ public class NewMessage implements HttpHandler {
         String content = requestHeaders.get("content").get(0);
 
         // If content is blank
-        if(content.isBlank()) {
+        if (content.isBlank()) {
             // Return 405 not allowed response code
             ServerCommunicator.sendResponse(exchange, "405");
             // Return
@@ -51,14 +51,14 @@ public class NewMessage implements HttpHandler {
             }
 
             // If id matches
-            if(String.valueOf(account.getId()).equals(otherID)) {
+            if (String.valueOf(account.getId()).equals(otherID)) {
                 // Update other User object
                 other = account;
             }
         }
 
         // If current user not exist
-        if(current == null) {
+        if (current == null) {
             // Return 403 response code
             ServerCommunicator.sendResponse(exchange, "403");
             // Return
@@ -66,7 +66,7 @@ public class NewMessage implements HttpHandler {
         }
 
         // If other user not exist
-        if(other == null) {
+        if (other == null) {
             // Return 404 response code
             ServerCommunicator.sendResponse(exchange, "404");
             return;

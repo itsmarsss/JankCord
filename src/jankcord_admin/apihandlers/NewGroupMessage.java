@@ -31,7 +31,7 @@ public class NewGroupMessage implements HttpHandler {
         String content = requestHeaders.get("content").get(0);
 
         // If content is blank
-        if(content.isBlank()) {
+        if (content.isBlank()) {
             // Return 405 not allowed response code
             ServerCommunicator.sendResponse(exchange, "405");
             // Return
@@ -51,7 +51,7 @@ public class NewGroupMessage implements HttpHandler {
         }
 
         // If user unchanged
-        if(current == null) {
+        if (current == null) {
             // Return 403 response code
             ServerCommunicator.sendResponse(exchange, "403");
             // Return
