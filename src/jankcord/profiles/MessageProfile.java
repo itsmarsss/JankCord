@@ -155,7 +155,6 @@ public class MessageProfile extends JPanel {
         });
 
         // Add mouse listener to listing
-        //for (Component jc : getComponents()) {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -185,7 +184,6 @@ public class MessageProfile extends JPanel {
                 messageArea.setBackground(new Color(49, 51, 56));
             }
         });
-        //}
     }
 
     public void updateMessageWidth() {

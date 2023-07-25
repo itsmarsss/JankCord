@@ -170,7 +170,9 @@ public class ChannelList extends JPanel {
      * Resets all entry's display colors
      */
     public void resetDisplays() {
+        // Loop each profile
         for (ChannelProfile profile : channelProfiles) {
+            // Reset
             profile.resetDisplay();
         }
     }
@@ -187,12 +189,12 @@ public class ChannelList extends JPanel {
         channelPanel.repaint();
     }
 
+    /**
+     * Show settings plane for group chats
+     */
     public void showGroupChatSettings() {
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-
-        // Add channelprofile
-        channelPanel.add(new GroupChatSettings(), gbc);
+        // Add group chat settings
+        channelPanel.add(new GroupChatSettings());
 
         // Make sure to repaint
         channelPanel.revalidate();

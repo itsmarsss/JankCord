@@ -15,88 +15,110 @@ import java.awt.*;
 import java.net.URL;
 import java.util.HashMap;
 
+// JankCord's group chat settings, child of JPanel
 public class GroupChatSettings extends JPanel {
+    // Constructor to create gc settings
     public GroupChatSettings() {
+        // Set JPanel properties
         setLayout(null);
         setBackground(null);
         setLocation(0, 0);
         setPreferredSize(new Dimension(400, 700));
 
 
+        // Icon Label
         JLabel iconLabel = new JLabel();
 
+        // Icon Label Init
         iconLabel.setLocation(5, 100);
         iconLabel.setSize(200, 200);
         iconLabel.setLocation(90, 0);
 
+        // Add Icon Label
         add(iconLabel);
 
 
+        // Chat Name
         JLabel chatNameLabel = new JLabel("Chat Name:");
 
+        // Chat Name Init
         chatNameLabel.setLocation(5, 250);
         chatNameLabel.setSize(250, 30);
         chatNameLabel.setForeground(new Color(114, 118, 125));
         chatNameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
 
+        // Add Chat Name
         add(chatNameLabel);
 
 
+        // Chat Name Input
         JankTextField chatNameInput = new JankTextField(390, 40, 0, 300);
 
+        // Add Chat Name Input
         add(chatNameInput);
 
 
+        // Icon URL
         JLabel iconURLLabel = new JLabel("Icon URL:");
 
+        // Icon URL Init
         iconURLLabel.setLocation(5, 400);
         iconURLLabel.setSize(250, 30);
         iconURLLabel.setForeground(new Color(114, 118, 125));
         iconURLLabel.setFont(new Font("Whitney", Font.BOLD, 28));
 
+        // Add Icon URL
         add(iconURLLabel);
 
 
+        // Icon Input
         JankTextField iconInput = new JankTextField(390, 40, 0, 450);
 
-        for(GroupChat gc : Jankcord.getTempGroupChats()) {
-            if(gc.getId().equals(Jankcord.getOtherID())) {
+        // Loop through all group chats
+        for (GroupChat gc : Jankcord.getTempGroupChats()) {
+            // If ID matches
+            if (gc.getId().equals(Jankcord.getOtherID())) {
+                // Set name and icon url
                 chatNameInput.setText(gc.getChatName());
                 iconInput.setText(gc.getChatIconURL());
             }
         }
 
+        // Add icon input
         add(iconInput);
 
 
+        // Status
         JLabel statusLabel = new JLabel();
 
+
+        // Preview
         JankButton previewButton = new JankButton("Preview", 390, 45, 0, 500);
 
         // Edit mouse release listener
         previewButton.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
-                // Set avatar to temp avatar for now
-                Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
+                // Set icon to temp icon for now
+                Image icon = ResourceLoader.loader.getTempProfileIcon().getImage();
 
-                // Try to get user profile
+                // Try to get inputted URL
                 try {
-                    // URL of avatar
+                    // URL of icon
                     URL url = new URL(iconInput.getText());
 
-                    // Read image and circularize it, set to avatar
-                    avatar = SimpleUserCache.circularize(ImageIO.read(url));
+                    // Read image and circularize it, set to icon
+                    icon = SimpleUserCache.circularize(ImageIO.read(url));
                 } catch (Exception e) {
                     // If error, statusLabel display it
-                    statusLabel.setText("Error getting avatar.");
+                    statusLabel.setText("Error getting icon.");
                 }
 
                 // Scale image to fit iconLabel
-                avatar = avatar.getScaledInstance(200, 200, Image.SCALE_FAST);
+                icon = icon.getScaledInstance(200, 200, Image.SCALE_FAST);
 
                 // Set icon
-                iconLabel.setIcon(new ImageIcon(avatar));
+                iconLabel.setIcon(new ImageIcon(icon));
             }
         });
 
@@ -104,11 +126,13 @@ public class GroupChatSettings extends JPanel {
         add(previewButton);
 
 
+        // Status Init
         statusLabel.setLocation(0, 565);
         statusLabel.setSize(390, 30);
         statusLabel.setForeground(new Color(237, 66, 69));
         statusLabel.setFont(new Font("Whitney", Font.BOLD, 20));
 
+        // Add status
         add(statusLabel);
 
 
@@ -119,14 +143,18 @@ public class GroupChatSettings extends JPanel {
         updateGroupChat.getMouseListener().setMouseReleased(new JankMLRunnable() {
             @Override
             public void run() {
+                // Get new chat name
                 String newChatName = chatNameInput.getText();
 
-                if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 20) {
+                // Check validity: should not be larger than 20 chars and should be headerable
+                if (ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 20) {
+                    // Error
                     statusLabel.setText("Chat Name: ASCII, < 20 character.");
+                    // Return
                     return;
                 }
 
-                // Set headers; login information, new login information, and avatarURL
+                // Set headers; login information, chat id, new chat name, new chat icon url
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("username", Jankcord.getFullUser().getUsername());
                 headers.put("password", Jankcord.getFullUser().getPassword());
@@ -150,20 +178,23 @@ public class GroupChatSettings extends JPanel {
                     // Return
                     return;
                 }
+
                 // Otherwise set text to normal and grey
                 Jankcord.getTitleLabel().setText("JankCord");
                 Jankcord.getTitleLabel().setForeground(new Color(114, 118, 125));
 
+                // Update channel name
                 Jankcord.getChatBoxArea().setChannelName("# " + newChatName);
 
+                // Reset label
                 statusLabel.setText("");
             }
         });
 
+        // Add update
         add(updateGroupChat);
 
-        // Just preview button load in avatar
+        // Click preview button load in icon
         previewButton.getMouseListener().getMouseReleased().run();
-
     }
 }

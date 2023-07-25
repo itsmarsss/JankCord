@@ -15,8 +15,11 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
+// Popup window for user to create new group chat
 public class JankGroupChat extends JankFrame {
+    // Constructor to create new JankGroupChat
     public JankGroupChat() {
+        // Super: set name, size, and window control type
         super("JankCord New Group Chat", 700, 800, false);
 
 

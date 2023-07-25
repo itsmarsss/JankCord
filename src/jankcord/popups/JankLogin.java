@@ -120,9 +120,6 @@ public class JankLogin extends JankFrame {
                 // Send http request with headers to end point
                 String response = ServerCommunicator.sendHttpRequestForLogin(server + "login", headers);
 
-
-                System.out.println(response);
-
                 // If null
                 if (response == null) {
                     // Error contacting server

@@ -62,12 +62,11 @@ public class JankButton extends JButton {
         addMouseListener(jml);
     }
 
-    // Getter for mouse listener
+    // Getters and setters
     public JankMouseListener getMouseListener() {
         return jml;
     }
 
-    // Setter for mouse listener
     public void setMouseListener(JankMouseListener jml) {
         this.jml = jml;
     }

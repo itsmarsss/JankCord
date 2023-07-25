@@ -8,6 +8,9 @@ import java.util.*;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
+// This code was NOT written by me.
+// Source: https://github.com/naver/ngrinder-recorder/blob/master/src/main/java/org/ngrinder/recorder/ui/component/ComponentResizer.java
+
 /**
  * The ComponentResizer allows you to resize a component by dragging a border
  * of the component.

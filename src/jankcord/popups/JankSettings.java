@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 // Popup window containing user account configuration functionality
 public class JankSettings extends JankFrame {
+    // Constructor to create new JankSettings
     public JankSettings() {
         // Super; set name size and window control state
         super("JankCord Settings", 850, 670, false);
@@ -260,7 +261,7 @@ public class JankSettings extends JankFrame {
         getContentPane().add(updateProfile);
 
 
-        // Just preview button load in avatar
+        // Click preview button load in avatar
         previewButton.getMouseListener().getMouseReleased().run();
     }
 }

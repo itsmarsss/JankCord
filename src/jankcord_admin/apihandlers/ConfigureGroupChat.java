@@ -28,6 +28,7 @@ public class ConfigureGroupChat implements HttpHandler {
         String newChatName = requestHeaders.get("newChatName").get(0);
         String newChatIconURL = requestHeaders.get("newChatIconURL").get(0);
 
+        // Check if new chat name is valid, must be headerable and no longer than 20
         if(ServerCommunicator.notHeaderable(newChatName) || newChatName.length() > 20) {
             // Return 404 response code
             ServerCommunicator.sendResponse(exchange, "404");
@@ -35,16 +36,20 @@ public class ConfigureGroupChat implements HttpHandler {
             return;
         }
 
+        // Check if group chat exists
         if (!AdminDataBase.getGroupChats().containsKey(chatID)) {
+            // If not
             // Return 404 response code
             ServerCommunicator.sendResponse(exchange, "404");
             // Return
             return;
         }
 
+        // Set chat name and icon
         AdminDataBase.getGroupChats().get(chatID).setChatName(newChatName);
         AdminDataBase.getGroupChats().get(chatID).setChatIconURL(newChatIconURL);
 
+        // Return 200 response code
         ServerCommunicator.sendResponse(exchange, "200");
     }
 }

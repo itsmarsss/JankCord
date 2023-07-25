@@ -50,12 +50,10 @@ public class JankList extends JList {
         });
     }
 
-    // Getter for prev
+    // Getters and setters
     public int[] getPrev() {
         return prev;
     }
-
-    // Setter for prev
     public void setPrev(int[] prev) {
         this.prev = prev;
     }
