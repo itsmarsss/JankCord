@@ -121,5 +121,10 @@ public class SimpleUserCache {
 
     public void setAvatarOriginal(Image avatarOriginal) {
         this.avatarOriginal = avatarOriginal;
+
+        // Make cached icons circles
+        this.avatar72 = circularize(avatarOriginal.getScaledInstance(72, 72, Image.SCALE_FAST));
+        this.avatar80 = circularize(avatarOriginal.getScaledInstance(80, 80, Image.SCALE_FAST));
+
     }
 }

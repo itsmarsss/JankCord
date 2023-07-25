@@ -295,7 +295,15 @@ public class Jankcord implements JankDraggable {
         channelList.initChannelPanel();
 
         for (int i = 0; i < friends.size(); i++) {
-            if (!friends.get(i).getUsername().equals(fullUser.getUsername())) {
+            User friend = friends.get(i);
+            SimpleUserCache cachedFriend = avatarCache.get(friend.getId());
+
+            if(!cachedFriend.getUsername().equals(friend.getUsername()) ||
+            !cachedFriend.getAvatarURL().equals(friend.getAvatarURL())) {
+                avatarCache.remove(friend.getId());
+            }
+
+            if (!friend.getUsername().equals(fullUser.getUsername())) {
                 channelList.addChannel(friends.get(i), i + 2);
                 // System.out.println(friends.get(i).getUsername());
             }
