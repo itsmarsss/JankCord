@@ -43,7 +43,7 @@ public class MessageProfile extends JPanel {
         usernameLabel.setForeground(new Color(242, 243, 245));
         usernameLabel.setFont(new Font("Whitney", Font.BOLD, 28));
 
-        usernameLabel.setSize((int) usernameLabel.getPreferredSize().getWidth(), 40);
+        usernameLabel.setSize((int) (usernameLabel.getPreferredSize().getWidth() + 20), 40);
 
         // Time stamp
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm a");
@@ -54,7 +54,7 @@ public class MessageProfile extends JPanel {
         timeLabel.setFont(new Font("Whitney", Font.PLAIN, 24));
         timeLabel.setLocation(usernameLabel.getX() + usernameLabel.getWidth() + 10, 12);
 
-        timeLabel.setSize((int) timeLabel.getPreferredSize().getWidth(), 40);
+        timeLabel.setSize((int) (timeLabel.getPreferredSize().getWidth() + 20), 40);
 
         // Message content
         String content = message.getContent().replaceAll("\\n", "<br>");
