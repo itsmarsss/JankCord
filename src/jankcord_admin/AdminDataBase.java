@@ -10,30 +10,41 @@ import java.util.HashMap;
 // Database for running JankCord Admin instance
 public class AdminDataBase {
     // Private static fields
-    private static final ArrayList<FullUser> accounts = new ArrayList<>();
-    private static final HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
-    private static final HashMap<String, GroupChat> groupChats = new HashMap<>();
+    private static ArrayList<FullUser> accounts = new ArrayList<>();
+    private static HashMap<String, ArrayList<Message>> conversations = new HashMap<>();
+    private static HashMap<String, GroupChat> groupChats = new HashMap<>();
     private static String parent;
 
 
-    // Getters
+    // Getters and setters
     public static ArrayList<FullUser> getAccounts() {
         return accounts;
+    }
+
+    public static void setAccounts(ArrayList<FullUser> accounts) {
+        AdminDataBase.accounts = accounts;
     }
 
     public static HashMap<String, ArrayList<Message>> getConversations() {
         return conversations;
     }
 
+    public static void setConversations(HashMap<String, ArrayList<Message>> conversations) {
+        AdminDataBase.conversations = conversations;
+    }
+
     public static HashMap<String, GroupChat> getGroupChats() {
         return groupChats;
+    }
+
+    public static void setGroupChats(HashMap<String, GroupChat> groupChats) {
+        AdminDataBase.groupChats = groupChats;
     }
 
     public static String getParent() {
         return parent;
     }
 
-    // Setters
     public static void setParent(String newParent) {
         parent = newParent;
     }
