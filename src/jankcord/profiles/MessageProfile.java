@@ -26,10 +26,10 @@ public class MessageProfile extends JPanel {
         this.message = message;
 
         // Get cached user
-        SimpleUserCache cachedUser = Jankcord.avatarCache.get(message.getSenderID());
+        SimpleUserCache cachedUser = Jankcord.getAvatarCache().get(message.getSenderID());
 
         // Get avatar of friend or default to default pfp
-        Image avatar = Jankcord.avatarCache.getOrDefault(message.getSenderID(), new SimpleUserCache()).getAvatar80();
+        Image avatar = Jankcord.getAvatarCache().getOrDefault(message.getSenderID(), new SimpleUserCache()).getAvatar80();
 
         // Set JPanel properties
         setLayout(null);

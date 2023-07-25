@@ -12,8 +12,8 @@ import java.awt.event.MouseEvent;
 
 public class JankFrame extends JFrame implements JankDraggable {
     // Frame dragging fields
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
+    public int posX = 0, posY = 0;
+    public boolean drag = false;
 
     // Constructor for JankFrame, requires name, size, and window controls state
     public JankFrame(String name, int width, int height, boolean fullWindowControls) {
@@ -51,6 +51,7 @@ public class JankFrame extends JFrame implements JankDraggable {
         // Add window topbar logo
         getContentPane().add(new JankLabel(name));
 
+        // Check windows control
         if (fullWindowControls) {
 
         } else {

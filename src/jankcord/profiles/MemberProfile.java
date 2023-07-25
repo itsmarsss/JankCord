@@ -26,7 +26,7 @@ public class MemberProfile extends JPanel {
         this.member = member;
 
         // Get avatar of member or default to default pfp
-        Image avatar = Jankcord.avatarCache.getOrDefault(member.getId(), new SimpleUserCache()).getAvatar72();
+        Image avatar = Jankcord.getAvatarCache().getOrDefault(member.getId(), new SimpleUserCache()).getAvatar72();
 
         // Set JPanel properties
         setLayout(null);

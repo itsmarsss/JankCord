@@ -9,6 +9,7 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.TextAction;
 
+// Prevents annoying windows sound when backspace is typed on empty text component
 public class DeletePrevCharAction extends TextAction {
     public DeletePrevCharAction() {
         super(DefaultEditorKit.deletePrevCharAction);

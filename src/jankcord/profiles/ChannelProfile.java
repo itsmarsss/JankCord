@@ -27,7 +27,7 @@ public class ChannelProfile extends JPanel {
         this.friend = friend;
 
         // Get avatar of friend or default to default pfp
-        Image avatar = Jankcord.avatarCache.getOrDefault(friend.getId(), new SimpleUserCache()).getAvatar72();
+        Image avatar = Jankcord.getAvatarCache().getOrDefault(friend.getId(), new SimpleUserCache()).getAvatar72();
 
         // Set JPanel Properties
         setLayout(null);

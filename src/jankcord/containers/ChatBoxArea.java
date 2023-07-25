@@ -125,14 +125,14 @@ public class ChatBoxArea extends JPanel {
                 jankSettings.setVisible(true);
 
                 // Update background color
-                settingsLabel.setBackground(new Color(50, 50, 50));
+                settingsLabel.setBackground(new Color(45, 45, 45));
             }
 
             // Mouse entered
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Update background color
-                settingsLabel.setBackground(new Color(50, 50, 50));
+                settingsLabel.setBackground(new Color(45, 45, 45));
             }
 
             // Mouse exited

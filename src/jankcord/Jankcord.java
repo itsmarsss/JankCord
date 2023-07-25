@@ -1,7 +1,6 @@
 package jankcord;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
@@ -16,11 +15,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-// Swing
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-// Components
+import jankcord.components.frame.JankFrame;
 import jankcord.components.frame.draggable.JankDraggable;
 import jankcord.components.label.JankLabel;
 import jankcord.containers.ChannelList;
@@ -40,86 +38,90 @@ import org.json.simple.parser.JSONParser;
 public class Jankcord implements JankDraggable {
     // Main Function
     public static void main(String[] args) {
+        // Check if instance is a server
         boolean isServer = false;
 
+        // Loop through all args
         for (String arg : args) {
+            // If --server found
             if (arg.equals("--server")) {
+                // Set flag
                 isServer = true;
                 break;
             }
         }
 
+        // Determine which to initialize
         if (isServer) {
+            // If server -> startAdmin
             JankcordAdmin.startAdmin();
         } else {
+            // If client -> set ui scaling
             System.setProperty("sun.java2d.uiScale", "1");
 
+            // Jank login
             new JankLogin().setVisible(true);
         }
     }
 
     // Main frame and components
-    private static JFrame frame;                    // Window holding everything
+    private static JankFrame frame;                    // Window holding everything
     private static JPanel viewPanel;
     private static JankLabel logoLabel;
-    private static WindowButtons windowButtons;        // Other components...
+    private static WindowButtons windowButtons;
     private static ServerList serverList;
     private static ChannelList channelList;
     private static ChatBoxArea chatBoxArea;
 
+    // Useful fields for setting text place
     private static String otherID = "";
     private static boolean newOtherID = true;
     private static boolean inServer = false;
+    private static boolean inServerCheck = false;
     private static FullUser fullUser;
 
     // JankCord Default Constructor
     public Jankcord() {
-        // Init
-        frame = new JFrame("JankCord");
-        viewPanel = new JPanel();
+        // Init -> straight to drawUI
         drawUI();
     }
 
     // Render frame and viewPanel
     private void drawUI() {
-        // Frame Icon
-        ArrayList<Image> icons = new ArrayList<>();
-        icons.add(ResourceLoader.loader.getIcon1().getImage());
-        icons.add(ResourceLoader.loader.getIcon2().getImage());
-        icons.add(ResourceLoader.loader.getIcon3().getImage());
-        icons.add(ResourceLoader.loader.getIcon4().getImage());
-
-        frame.setIconImages(icons);
-
-        // Frame Init
-        frame.setUndecorated(true);
-        frame.getContentPane().setLayout(null);
-        frame.setMinimumSize(new Dimension(1880, 1000));
-        frame.getContentPane().setBackground(new Color(32, 34, 37));
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setSize((int) (screenDim.getWidth() / 1.5), (int) (screenDim.getHeight() / 1.5));
-        frame.setLocation((int) screenDim.getWidth() / 2 - frame.getWidth() / 2, (int) screenDim.getHeight() / 2 - frame.getHeight() / 2);
+
+        // Frame and View Panel Init
+        frame = new JankFrame("JankCord", (int) (screenDim.getWidth() / 1.5), (int) (screenDim.getHeight() / 1.5), true);
+        viewPanel = new JPanel();
+
+        // Set minimim size
+        frame.setMinimumSize(new Dimension(1880, 1000));
 
         // Entire View
 
-        // View Init
+        // Component Resizer
         ComponentResizer cr = new ComponentResizer();
+
+        // Component Resizer Init
         cr.registerComponent(frame);
         cr.setSnapSize(new Dimension(1, 1));
         cr.setMinimumSize(new Dimension(1880, 1000));
         cr.setMaximumSize(screenDim);
 
+        // View Init
         viewPanel.setLayout(null);
         viewPanel.setLocation(5, 5);
         viewPanel.setBackground(new Color(32, 34, 37));
         viewPanel.setSize(frame.getWidth() - 10, frame.getHeight() - 10);
 
-        // Drag 'n' Drop
+        // Drag 'n' Drop Mouse listeners
         viewPanel.addMouseListener(new MouseAdapter() {
+            // Call mouse press on mouse press
             public void mousePressed(MouseEvent e) {
                 mousePress(e);
             }
 
+            // Toggle full screen on double click
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     doFullscreen();
@@ -127,11 +129,13 @@ public class Jankcord implements JankDraggable {
             }
         });
         viewPanel.addMouseMotionListener(new MouseAdapter() {
+            // Call mouse drag on drag
             public void mouseDragged(MouseEvent e) {
                 mouseDrag(e);
             }
         });
 
+        // Add View Panel to Frame
         frame.getContentPane().add(viewPanel);
 
         // Logo
@@ -139,52 +143,57 @@ public class Jankcord implements JankDraggable {
         logoLabel.setName("JankCordLogo");
         logoLabel.setSize(300, logoLabel.getHeight());
 
-        viewPanel.add(logoLabel);
 
-        // Add Other Components
+        //viewPanel.add(logoLabel);
+
+        // Other components
         windowButtons = new WindowButtons();
         serverList = new ServerList();
         channelList = new ChannelList();
         chatBoxArea = new ChatBoxArea();
 
+        // Add Other Components
         viewPanel.add(windowButtons);
         viewPanel.add(serverList);
         viewPanel.add(channelList);
         viewPanel.add(chatBoxArea);
 
-        for (Component i : viewPanel.getComponents())
-            System.out.println(i.getName());
-
-        // Friend list panel
+        // Friend List Panel
         JScrollPane friendsScrollPane = new JScrollPane();
+
+        // Friend List Panel Init
         friendsScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
-        // Channel list panel
+        // Channel List Panel
         JScrollPane channelScrollPane = new JScrollPane();
+
+        // Channel List Panel Init
         channelScrollPane.getVerticalScrollBar().setUI(new JankScrollBar(new Color(43, 45, 49), new Color(32, 34, 37), true));
 
+        // Make frame visible
         frame.setVisible(true);
 
+        // Set default channel name
         chatBoxArea.setChannelName("~ Select a channel.");
 
+        // SchedulesExecutorService for friend querying
         ScheduledExecutorService sesFriend = Executors.newSingleThreadScheduledExecutor();
         sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
 
+        // SchedulesExecutorService for group chat querying
         ScheduledExecutorService sesGroup = Executors.newSingleThreadScheduledExecutor();
         sesGroup.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
 
+        // SchedulesExecutorService for message querying
         ScheduledExecutorService sesMessage = Executors.newSingleThreadScheduledExecutor();
         sesMessage.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
-
     }
 
-    public static final HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
+    private static HashMap<Long, SimpleUserCache> avatarCache = new HashMap<>();
     private static ArrayList<User> tempFriends = new ArrayList<>();
 
-    private static boolean inServerCheck = false;
-
     public static void queryForNewFriend() {
-        //System.out.println("New friend query");
+        System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -202,7 +211,7 @@ public class Jankcord implements JankDraggable {
         logoLabel.setText("JankCord");
         logoLabel.setForeground(new Color(114, 118, 125));
 
-        // System.out.println(friendsJSON);
+        System.out.println(friendsJSON);
 
         ArrayList<User> friends = new ArrayList<>();
 
@@ -276,14 +285,6 @@ public class Jankcord implements JankDraggable {
                 // System.out.println(friends.get(i).getUsername());
             }
         }
-    }
-
-    public static void setInServerCheck(boolean inServerCheck) {
-        Jankcord.inServerCheck = inServerCheck;
-    }
-
-    public static ArrayList<User> getTempFriends() {
-        return tempFriends;
     }
 
     private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
@@ -500,64 +501,207 @@ public class Jankcord implements JankDraggable {
         }
     }
 
+    /**
+     * Caches a user's avatar
+     *
+     * @param id        user id
+     * @param username  user username
+     * @param avatarURL user avatar url
+     */
     public static void cacheAvatar(long id, String username, String avatarURL) {
+        // Set avatar to default for now
         Image avatar = ResourceLoader.loader.getTempProfileIcon().getImage();
 
+        // Try to load image
         try {
+            // URL of avater url
             URL url = new URL(avatarURL);
 
+            // Read image
             BufferedImage image = ImageIO.read(url);
 
+            // Set avatar to read image
             avatar = new ImageIcon(image).getImage();
         } catch (Exception e) {
-            //System.out.println("Error getting avatar");
         }
 
+        // Cache image
         avatarCache.put(id, new SimpleUserCache(username, avatarURL, avatar));
     }
 
+    /**
+     * Resizes Frame's children components
+     */
     public static void resize() {
-        viewPanel.setLocation(5, 5);
+        // View Panel size
         viewPanel.setSize(frame.getWidth() - 10, frame.getHeight() - 10);
 
+        // Window Buttons location
         windowButtons.setLocation(Jankcord.viewPanel.getWidth() - 186, 0);
 
+        // Server List size
         serverList.setSize(serverList.getWidth(), Jankcord.viewPanel.getHeight() - 50);
 
+        // Channel List size and size of scroll pane
         channelList.setSize(channelList.getWidth(), Jankcord.viewPanel.getHeight() - 50);
         channelList.getChannelScrollPane().setSize(477, channelList.getHeight() - 110);
 
+        // Chat Box area size and its children components
         chatBoxArea.setSize(Jankcord.getViewPanel().getWidth() - 646, Jankcord.getViewPanel().getHeight() - 50);
         chatBoxArea.getChatBoxTopBarPanel().setSize(chatBoxArea.getWidth(), 106);
         chatBoxArea.getSettingsLabel().setLocation(chatBoxArea.getChatBoxTopBarPanel().getWidth() - 320, 20);
         chatBoxArea.getChatBoxScrollPane().setSize(chatBoxArea.getWidth() - 540, chatBoxArea.getHeight() - 256);
 
+        // Chat Box area: Type Panel
         chatBoxArea.getTypePanel().setSize(chatBoxArea.getChatBoxScrollPane().getWidth() - 60, 100);
         chatBoxArea.getTypePanel().setLocation(30, chatBoxArea.getHeight() - 125);
         chatBoxArea.getTypeScrollPane().setSize(chatBoxArea.getTypePanel().getWidth() - 20, chatBoxArea.getTypePanel().getHeight() - 16);
         chatBoxArea.reline();
 
+        // Chat Box area: Members Scroll Pane
         chatBoxArea.getMembersScrollPane().setSize(540, chatBoxArea.getHeight() - 106);
         chatBoxArea.getMembersScrollPane().setLocation(chatBoxArea.getChatBoxScrollPane().getWidth() + 5, 106);
         chatBoxArea.resetMessageWidths();
     }
 
+    // Non-fullscreen dimensions and toggle
+    private static int oldW;
+    private static int oldH;
+    private static int oldX;
+    private static int oldY;
+    private static boolean full = false;
 
-
-    public static void setFullUser(FullUser fullUser) {
-        Jankcord.fullUser = fullUser;
+    // Override existing press
+    @Override
+    public void mousePress(MouseEvent e) {
+        // Make sure the tap bar is the draggable one
+        if (e.getY() < 50 && e.getY() > 10) {
+            // Set dragging to true and store location
+            frame.drag = true;
+            frame.posX = e.getX();
+            frame.posY = e.getY();
+        } else {
+            // Otherwise set not dragging
+            frame.drag = false;
+        }
     }
 
-    public static FullUser getFullUser() {
-        return fullUser;
+    // Override exiting draggable
+    @Override
+    public void mouseDrag(MouseEvent e) {
+        // If frame is dragging
+        if (frame.drag) {
+            // If frame is in fullscreen
+            if (full) {
+                // Set size and location to default
+                frame.setSize(oldW, oldH);
+                frame.setLocation(oldX, oldY);
+
+                // Set full screen to false
+                full = false;
+
+                // Resize components
+                resize();
+            }
+
+            // Set new frame location
+            frame.setLocation(e.getXOnScreen() - frame.posX, e.getYOnScreen() - frame.posY);
+        }
     }
 
-    public static void setOtherID(String otherID) {
-        Jankcord.otherID = otherID;
+    /**
+     * Toggle frame full screen
+     */
+    public static void doFullscreen() {
+        // If is already full
+        if (full) {
+            // Set to original size and location
+            frame.setSize(oldW, oldH);
+            frame.setLocation(oldX, oldY);
+
+            // Make full screen false
+            full = false;
+        } else { // Otherwise
+            // Save current size and location
+            oldW = frame.getWidth();
+            oldH = frame.getHeight();
+            oldX = frame.getX();
+            oldY = frame.getY();
+
+            // Set state to max
+            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
+            // Make full screen true
+            full = true;
+        }
+
+        // Resize components
+        resize();
+    }
+
+    // Getters and setters
+    public static JFrame getFrame() {
+        return frame;
+    }
+
+    public static void setFrame(JankFrame frame) {
+        Jankcord.frame = frame;
+    }
+
+    public static JPanel getViewPanel() {
+        return viewPanel;
+    }
+
+    public static void setViewPanel(JPanel viewPanel) {
+        Jankcord.viewPanel = viewPanel;
+    }
+
+    public static JankLabel getLogoLabel() {
+        return logoLabel;
+    }
+
+    public static void setLogoLabel(JankLabel logoLabel) {
+        Jankcord.logoLabel = logoLabel;
+    }
+
+    public static WindowButtons getWindowButtons() {
+        return windowButtons;
+    }
+
+    public static void setWindowButtons(WindowButtons windowButtons) {
+        Jankcord.windowButtons = windowButtons;
+    }
+
+    public static ServerList getServerList() {
+        return serverList;
+    }
+
+    public static void setServerList(ServerList serverList) {
+        Jankcord.serverList = serverList;
+    }
+
+    public static ChannelList getChannelList() {
+        return channelList;
+    }
+
+    public static void setChannelList(ChannelList channelList) {
+        Jankcord.channelList = channelList;
+    }
+
+    public static ChatBoxArea getChatBoxArea() {
+        return chatBoxArea;
+    }
+
+    public static void setChatBoxArea(ChatBoxArea chatBoxArea) {
+        Jankcord.chatBoxArea = chatBoxArea;
     }
 
     public static String getOtherID() {
         return otherID;
+    }
+
+    public static void setOtherID(String otherID) {
+        Jankcord.otherID = otherID;
     }
 
     public static boolean isNewOtherID() {
@@ -576,75 +720,59 @@ public class Jankcord implements JankDraggable {
         Jankcord.inServer = inServer;
     }
 
-    public static JankLabel getLogoLabel() {
-        return logoLabel;
+    public static boolean getInServerCheck() {
+        return inServerCheck;
     }
 
-    public static ChatBoxArea getChatBoxArea() {
-        return chatBoxArea;
+    public static void setInServerCheck(boolean inServerCheck) {
+        Jankcord.inServerCheck = inServerCheck;
     }
 
-    public static ChannelList getChannelList() {
-        return channelList;
+    public static FullUser getFullUser() {
+        return fullUser;
     }
 
-    public static JPanel getViewPanel() {
-        return viewPanel;
+    public static void setFullUser(FullUser fullUser) {
+        Jankcord.fullUser = fullUser;
     }
 
-    public static JFrame getFrame() {
-        return frame;
+    public static HashMap<Long, SimpleUserCache> getAvatarCache() {
+        return avatarCache;
     }
 
-    // Non-fullscreen dimensions and toggle
-    private static int oldW;
-    private static int oldH;
-    private static int oldX;
-    private static int oldY;
-    private static boolean full = false;
-
-    // Frame dragging
-    private int posX = 0, posY = 0;
-    private boolean drag = false;
-
-    @Override
-    public void mousePress(MouseEvent e) {
-        if (e.getY() < 50 && e.getY() > 10) {
-            drag = true;
-            posX = e.getX();
-            posY = e.getY();
-        } else {
-            drag = false;
-        }
+    public static void setAvatarCache(HashMap<Long, SimpleUserCache> avatarCache) {
+        Jankcord.avatarCache = avatarCache;
     }
 
-    @Override
-    public void mouseDrag(MouseEvent e) {
-        if (drag) {
-            if (full) {
-                frame.setSize(oldW, oldH);
-                frame.setLocation(oldX, oldY);
-                full = false;
-                resize();
-            }
-            frame.setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
-        }
+    public static ArrayList<User> getTempFriends() {
+        return tempFriends;
     }
 
+    public static void setTempFriends(ArrayList<User> tempFriends) {
+        Jankcord.tempFriends = tempFriends;
+    }
 
-    public static void doFullscreen() {
-        if (full) {
-            frame.setSize(oldW, oldH);
-            frame.setLocation(oldX, oldY);
-            full = false;
-        } else {
-            oldW = frame.getWidth();
-            oldH = frame.getHeight();
-            oldX = frame.getX();
-            oldY = frame.getY();
-            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-            full = true;
-        }
-        resize();
+    public static ArrayList<GroupChat> getTempGroupChats() {
+        return tempGroupChats;
+    }
+
+    public static void setTempGroupChats(ArrayList<GroupChat> tempGroupChats) {
+        Jankcord.tempGroupChats = tempGroupChats;
+    }
+
+    public static ArrayList<Message> getTempMessages() {
+        return tempMessages;
+    }
+
+    public static void setTempMessages(ArrayList<Message> tempMessages) {
+        Jankcord.tempMessages = tempMessages;
+    }
+
+    public static ArrayList<User> getTempMembers() {
+        return tempMembers;
+    }
+
+    public static void setTempMembers(ArrayList<User> tempMembers) {
+        Jankcord.tempMembers = tempMembers;
     }
 }
