@@ -38,7 +38,7 @@ public class Login implements HttpHandler {
 
             // If user not updated
             if (user == null) {
-                // If not authorized, return 403 response code
+                // Return 403 response code
                 ServerCommunicator.sendResponse(exchange, "403");
                 // Return
                 return;
