@@ -239,6 +239,7 @@ public class JankSettings extends JankFrame {
                     statusLabel.setText("Username already taken.");
 
                     // Return
+                    return;
                 }
 
                 // Otherwise set text to normal and grey

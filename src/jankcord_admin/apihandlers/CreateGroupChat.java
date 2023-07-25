@@ -16,29 +16,37 @@ import java.util.UUID;
 public class CreateGroupChat implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // System.out.println("Create gc Requested");
-
+        // Check if user is authorized
         if (!JankcordAdmin.authorized(exchange)) {
+            // If not authorized, return 403 response code
             ServerCommunicator.sendResponse(exchange, "403");
+            // Return
             return;
         }
 
+        // Get header
         Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
 
         String users = requestHeaders.get("users").get(0);
 
+        // Get member list array
         String[] memberList = users.split(",");
 
+        // Member list long
         ArrayList<Long> memberListLong = new ArrayList<>();
 
+        // Convert all string to long
         for(String member : memberList) {
             memberListLong.add(Long.parseLong(member));
         }
 
+        // Generate unique chat id
         String chatID = UUID.randomUUID().toString();
 
+        // Add chat to database
         AdminDataBase.getGroupChats().put(chatID, new GroupChat(chatID, memberListLong, new ArrayList<>()));
 
+        // Return 200 response code
         ServerCommunicator.sendResponse(exchange, "200");
     }
 }
