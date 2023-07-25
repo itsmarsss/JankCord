@@ -11,7 +11,6 @@ import javax.swing.*;
 import jankcord.Jankcord;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.components.texts.JankTextArea;
-import jankcord.popups.JankGroupChat;
 import jankcord.popups.JankSettings;
 import jankcord.tools.Base64Helper;
 import jankcord.tools.ServerCommunicator;
