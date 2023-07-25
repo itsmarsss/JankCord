@@ -26,6 +26,7 @@ public class GroupChat {
         // Set all fields
         this.id = id;
         this.chatName = "Unnamed Group Chat"; // Placeholder, cannot be empty
+        this.chatIconURL = ""; // Better than "null"
         this.members = members;
         this.messages = messages;
     }
