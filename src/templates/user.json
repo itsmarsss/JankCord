@@ -1,6 +1,6 @@
 {
   "id": 1234567890,
-  "username": "usrnm",
-  "password": "pwdwd",
-  "avatarURL": "atURL"
+  "username": "user",
+  "password": "pass",
+  "avatarURL": "avatar"
 }

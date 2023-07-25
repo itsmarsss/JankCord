@@ -36,7 +36,7 @@ public class UndoRedo {
                 try {
                     // Undo 5 times
                     for (int i = 0; i < 5; i++) {
-                        // If undoable
+                        // If undo-able
                         if (undoMgr.canUndo()) {
                             // Undo
                             undoMgr.undo();
@@ -50,11 +50,11 @@ public class UndoRedo {
         // Put redo action with abstract action into text component's action map
         pTextComponent.getActionMap().put(REDO_ACTION, new AbstractAction(REDO_ACTION) {
             public void actionPerformed(ActionEvent evt) {
-                // Attempt redoable
+                // Attempt redo
                 try {
                     // Redo 5 times
                     for (int i = 0; i < 5; i++) {
-                        // If redoable
+                        // If redo-able
                         if (undoMgr.canRedo()) {
                             // Redo
                             undoMgr.redo();

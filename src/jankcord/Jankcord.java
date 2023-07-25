@@ -94,7 +94,7 @@ public class Jankcord implements JankDraggable {
         frame = new JankFrame("JankCord", (int) (screenDim.getWidth() / 1.5), (int) (screenDim.getHeight() / 1.5), true);
         viewPanel = new JPanel();
 
-        // Set minimim size
+        // Set minimum size
         frame.setMinimumSize(new Dimension(1880, 1000));
 
         // Entire View
@@ -514,7 +514,7 @@ public class Jankcord implements JankDraggable {
 
         // Try to load image
         try {
-            // URL of avater url
+            // URL of avatar url
             URL url = new URL(avatarURL);
 
             // Read image

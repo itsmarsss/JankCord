@@ -1,7 +1,7 @@
 package jankcord.popups;
 
 import jankcord.Jankcord;
-import jankcord.components.JankList.JankList;
+import jankcord.components.list.JankList;
 import jankcord.components.button.JankButton;
 import jankcord.components.button.buttonlistener.JankMLRunnable;
 import jankcord.components.frame.JankFrame;

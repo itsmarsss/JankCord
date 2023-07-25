@@ -40,7 +40,7 @@ public class SimpleUserCache {
     }
 
     /**
-     * Turns any shaped imaes into a circle
+     * Turns any shaped images into a circle
      *
      * @param originalImage image to circularize
      * @return image that is successfully or not successfully circularized
@@ -61,7 +61,7 @@ public class SimpleUserCache {
         g2.setClip(new Ellipse2D.Float(0, 0, originalImage.getWidth(null), originalImage.getHeight(null)));
         g2.drawImage(originalImage, 0, 0, null);
 
-        // Dipose of painter
+        // Dispose of painter
         g2.dispose();
 
         // Return circularized image
@@ -92,7 +92,7 @@ public class SimpleUserCache {
             return temp72;
         }
 
-        // Returne cache
+        // Return cache
         return avatar72;
     }
 
@@ -101,13 +101,13 @@ public class SimpleUserCache {
     }
 
     public Image getAvatar80() {
-        // If cache doesnt exist
+        // If cache doesn't exist
         if (avatar80 == null) {
             // Return default
             return temp80;
         }
 
-        // Returne cache
+        // Return cache
         return avatar80;
     }
 
@@ -115,11 +115,11 @@ public class SimpleUserCache {
         this.avatar80 = avatar80;
     }
 
-    public Image getAvatarOrginal() {
+    public Image getAvatarOriginal() {
         return avatarOriginal;
     }
 
-    public void setAvatarOrginal(Image avatarOriginal) {
+    public void setAvatarOriginal(Image avatarOriginal) {
         this.avatarOriginal = avatarOriginal;
     }
 }

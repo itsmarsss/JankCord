@@ -14,7 +14,7 @@ import java.util.Map;
 // Add client <-> server communication related Helper
 public class ServerCommunicator {
     /**
-     * Sends an http request for client
+     * Sends a http request for client
      *
      * @param apiEndpoint endpoint url
      * @param header      header values

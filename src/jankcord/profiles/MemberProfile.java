@@ -82,7 +82,7 @@ public class MemberProfile extends JPanel {
                     // Set new chat place
                     Jankcord.setOtherID(member.getId() + "");
 
-                    // Notify new chat palce
+                    // Notify new chat place
                     Jankcord.setNewOtherID(true);
                     Jankcord.setInServer(false);
                     Jankcord.setInServerCheck(true);

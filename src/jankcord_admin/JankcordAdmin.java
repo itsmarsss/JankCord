@@ -70,7 +70,7 @@ public class JankcordAdmin {
             // Try to invoke requested method
             try {
                 System.out.println(JankcordAdmin.class.getMethod(cmdReq).invoke(null));
-            } catch (Exception e) { // Otherise
+            } catch (Exception e) { // Otherwise
                 // Command not recognized
                 System.out.println("Command \"" + cmdReq + "\" is not recognized. Use 'help' for more commands.");
             }
@@ -693,7 +693,7 @@ public class JankcordAdmin {
                 System.out.println("Error creating messages directory.");
             }
         } else { // If directory exists
-            // Get all subfiles
+            // Get all sub-files
             File[] files = messageDir.listFiles();
 
             // Loop each file
@@ -718,7 +718,7 @@ public class JankcordAdmin {
                 System.out.println("Error creating messages directory.");
             }
         } else { // If directory exists
-            // Get all subfiles
+            // Get all sub-files
             File[] files = groupMessageDir.listFiles();
 
             // Loop each file
