@@ -148,31 +148,19 @@ public class JankcordAdmin {
         System.out.print("Username (no spaces | 20 characters max): ");
         sc.nextLine();
         String username = sc.nextLine();
-        if (!ServerCommunicator.headerable(username)) {
-            return "Username must only contain ASCII characters; command sequence exited";
-        }
 
-        if (username.contains(" ")) {
-            return "Username cannot contain spaces; command sequence exited";
-        }
-
-        if (username.length() > 20) {
-            return "Username cannot be longer than 20 character; command sequence exited";
+        String usernameValid = validateUsername(username);
+        if(usernameValid != null) {
+            return usernameValid;
         }
 
 
         System.out.print("Password (no spaces | 20 characters max): ");
         String password = sc.nextLine();
-        if (!ServerCommunicator.headerable(password)) {
-            return "Password must only contain ASCII characters; command sequence exited";
-        }
 
-        if (password.contains(" ")) {
-            return "Password cannot contain spaces; command sequence exited";
-        }
-
-        if (password.length() > 20) {
-            return "Password cannot be longer than 20 character; command sequence exited";
+        String passwordValid = validatePassword(password);
+        if(passwordValid != null) {
+            return passwordValid;
         }
 
         for (FullUser account : getAccounts()) {
@@ -182,15 +170,17 @@ public class JankcordAdmin {
         }
 
         if (getAccounts().isEmpty()) {
-            getAccounts().add(new FullUser(0, username, "N/A", password, "", "active"));
+            getAccounts().add(new FullUser(0, username, "", password, "", "active"));
         } else {
             long id = getAccounts().get(getAccounts().size() - 1).getId() + 1;
-            getAccounts().add(new FullUser(id, username, "N/A", password, "", "active"));
+            getAccounts().add(new FullUser(id, username, "", password, "", "active"));
         }
 
         writeAccounts();
 
-        return "Account \"" + username + "\" with password \"" + password + "\" created successfully";
+        return String.format("Account \"%s\" with password \"%s\" created successfully",
+                username, password
+        );
     }
 
     public static String viewAccounts() {
@@ -252,31 +242,19 @@ public class JankcordAdmin {
         System.out.print("Username [" + user.getUsername() + "]: ");
         sc.nextLine();
         String username = sc.nextLine();
-        if (!ServerCommunicator.headerable(username)) {
-            return "Username must only contain ASCII characters; command sequence exited";
-        }
 
-        if (username.contains(" ")) {
-            return "Username cannot contain spaces; command sequence exited";
-        }
-
-        if (username.length() > 20) {
-            return "Username cannot be longer than 20 character; command sequence exited";
+        String usernameValid = validateUsername(username);
+        if(usernameValid != null) {
+            return usernameValid;
         }
 
 
         System.out.print("Password [" + user.getPassword() + "]: ");
         String password = sc.nextLine();
-        if (!ServerCommunicator.headerable(password)) {
-            return "Password must only contain ASCII characters; command sequence exited";
-        }
 
-        if (password.contains(" ")) {
-            return "Password cannot contain spaces; command sequence exited";
-        }
-
-        if (password.length() > 20) {
-            return "Password cannot be longer than 20 character; command sequence exited";
+        String passwordValid = validatePassword(password);
+        if(passwordValid != null) {
+            return passwordValid;
         }
 
 
@@ -329,6 +307,46 @@ public class JankcordAdmin {
         getAccounts().get(index).setStatus(status);
 
         return "Account ID [" + idNum + "] new has status \"" + status + "\".";
+    }
+
+    private static String validateUsername(String username) {
+        if (!ServerCommunicator.headerable(username)) {
+            return "Username must only contain ASCII characters; command sequence exited";
+        }
+
+        if (username.contains(" ")) {
+            return "Username cannot contain spaces; command sequence exited";
+        }
+
+        if (username.isBlank()) {
+            return "Username cannot be blank; command sequence exited";
+        }
+
+        if (username.length() > 20) {
+            return "Username cannot be longer than 20 character; command sequence exited";
+        }
+
+        return null;
+    }
+
+    private static String validatePassword(String password) {
+        if (!ServerCommunicator.headerable(password)) {
+            return "Password must only contain ASCII characters; command sequence exited";
+        }
+
+        if (password.contains(" ")) {
+            return "Password cannot contain spaces; command sequence exited";
+        }
+
+        if (password.isBlank()) {
+            return "Password cannot be blank; command sequence exited";
+        }
+
+        if (password.length() > 20) {
+            return "Password cannot be longer than 20 character; command sequence exited";
+        }
+
+        return null;
     }
 
 
