@@ -475,7 +475,7 @@ public class ChatBoxArea extends JPanel {
     }
 
     public void setChannelName(String chatName) {
-        channelName.setText("# " + chatName);
+        channelName.setText(chatName);
         // Update size to reflect name length
         channelName.setSize(channelName.getPreferredSize());
     }

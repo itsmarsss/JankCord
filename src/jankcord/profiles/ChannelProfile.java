@@ -97,7 +97,7 @@ public class ChannelProfile extends JPanel {
                     Jankcord.getChannelList().resetDisplays();
 
                     // Set channel name
-                    Jankcord.getChatBoxArea().setChannelName(friend.getUsername());
+                    Jankcord.getChatBoxArea().setChannelName("@ " + friend.getUsername());
 
                     // Update colors
                     setBackground(new Color(59, 60, 66));
