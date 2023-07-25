@@ -233,6 +233,14 @@ public class JankSettings extends JankFrame {
                     return;
                 }
 
+                // If conflict
+                if(response.equals("409")) {
+                    // Conflict
+                    statusLabel.setText("Username already taken.");
+
+                    // Return
+                }
+
                 // Otherwise set text to normal and grey
                 Jankcord.getLogoLabel().setText("JankCord");
                 Jankcord.getLogoLabel().setForeground(new Color(114, 118, 125));
