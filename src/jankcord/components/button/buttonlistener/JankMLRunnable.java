@@ -22,5 +22,6 @@ public class JankMLRunnable implements Runnable {
 
     // For child class to override
     @Override
-    public void run() {}
+    public void run() {
+    }
 }

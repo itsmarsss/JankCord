@@ -30,7 +30,8 @@ public class JankButton extends JButton {
         // Initialize mouse events
         jml.setMouseClicked(new JankMLRunnable() {
             @Override
-            public void run() {}
+            public void run() {
+            }
         });
         // Color change on press
         jml.setMousePressed(new JankMLRunnable() {
@@ -41,7 +42,8 @@ public class JankButton extends JButton {
         });
         jml.setMouseReleased(new JankMLRunnable() {
             @Override
-            public void run() {}
+            public void run() {
+            }
         });
         // Color change on hover and unhover
         jml.setMouseEntered(new JankMLRunnable() {
