@@ -18,6 +18,10 @@ import java.util.HashMap;
 
 // Popup window for user to login
 public class JankLogin extends JankFrame {
+    // Instance field
+    private JLabel statusLabel;
+
+    // Constructor to create JankLogin
     public JankLogin() {
         // Super; set name size and window control state
         super("JankCord Login", 500, 750, false);
@@ -84,7 +88,7 @@ public class JankLogin extends JankFrame {
 
 
         // Status Label
-        JLabel statusLabel = new JLabel();
+        statusLabel = new JLabel();
 
         // Status Label Init
         statusLabel.setSize(300, 30);
@@ -114,7 +118,7 @@ public class JankLogin extends JankFrame {
                 headers.put("password", password);
 
                 // Send http request with headers to end point
-                String response = ServerCommunicator.sendHttpRequest(server + "login", headers);
+                String response = ServerCommunicator.sendHttpRequestForLogin(server + "login", headers);
 
 
                 System.out.println(response);
@@ -164,5 +168,14 @@ public class JankLogin extends JankFrame {
 
         // Add Login
         getContentPane().add(loginButton);
+    }
+
+    // Getters and setters
+    public JLabel getStatusLabel() {
+        return statusLabel;
+    }
+
+    public void setStatusLabel(JLabel statusLabel) {
+        this.statusLabel = statusLabel;
     }
 }

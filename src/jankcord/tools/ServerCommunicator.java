@@ -1,6 +1,8 @@
 package jankcord.tools;
 
 import com.sun.net.httpserver.HttpExchange;
+import jankcord.Jankcord;
+import jankcord.popups.JankLogin;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,13 +16,13 @@ import java.util.Map;
 // Add client <-> server communication related Helper
 public class ServerCommunicator {
     /**
-     * Sends a http request for client
+     * Sends a login http request for client
      *
      * @param apiEndpoint endpoint url
      * @param header      header values
      * @return string response from server
      */
-    public static String sendHttpRequest(String apiEndpoint, HashMap<String, String> header) {
+    public static String sendHttpRequestForLogin(String apiEndpoint, HashMap<String, String> header) {
         // Try to send request
         try {
             // Open a connection
@@ -47,6 +49,8 @@ public class ServerCommunicator {
 
                 // String builder
                 StringBuilder response = new StringBuilder();
+
+                // Temp line variable
                 String line;
 
                 // Loop through lines
@@ -68,6 +72,52 @@ public class ServerCommunicator {
             // Return null for error
             return null;
         }
+    }
+
+    /**
+     * Sends a http request for client
+     *
+     * @param apiEndpoint endpoint url
+     * @param header      header values
+     * @return string response from server
+     */
+    public static String sendHttpRequest(String apiEndpoint, HashMap<String, String> header) {
+        // Query using bald http method
+        String response = sendHttpRequestForLogin(apiEndpoint, header);
+
+        // Check if response is null
+        if (response != null) {
+            // It not null check if user should get booted out
+            if (response.equals("403")) {
+                // If yes, try to dispose main frame
+                try {
+                    // Dispose main frame
+                    Jankcord.getFrame().dispose();
+
+                    // Shutdown all running executors
+                    Jankcord.getSesFriend().shutdown();
+                    Jankcord.getSesGroup().shutdown();
+                    Jankcord.getSesMessage().shutdown();
+
+                    // Clear all caches
+                    Jankcord.getTempFriends().clear();
+                    Jankcord.getTempGroupChats().clear();
+                    Jankcord.getTempMembers().clear();
+                    Jankcord.getTempMessages().clear();
+
+                    // Create new login screen
+                    JankLogin login = new JankLogin();
+
+                    // Login Init
+                    login.getStatusLabel().setText("You have been logged out.");
+                    login.setVisible(true);
+                } catch (Exception e) {
+                }
+            }
+        }
+
+        // Return reponse
+        return response;
     }
 
     /**

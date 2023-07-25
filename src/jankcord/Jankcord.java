@@ -80,6 +80,9 @@ public class Jankcord implements JankDraggable {
     private static boolean inServerCheck = false;
     private static FullUser fullUser;
 
+    // ScheduledExecutorServices
+    private static ScheduledExecutorService sesFriend, sesGroup, sesMessage;
+
     // JankCord Default Constructor
     public Jankcord() {
         // Init -> straight to drawUI
@@ -187,15 +190,15 @@ public class Jankcord implements JankDraggable {
         chatBoxArea.setChannelName("~ Select a channel.");
 
         // SchedulesExecutorService for friend querying
-        ScheduledExecutorService sesFriend = Executors.newSingleThreadScheduledExecutor();
+        sesFriend = Executors.newSingleThreadScheduledExecutor();
         sesFriend.scheduleAtFixedRate(Jankcord::queryForNewFriend, 0, 5, TimeUnit.SECONDS);
 
         // SchedulesExecutorService for group chat querying
-        ScheduledExecutorService sesGroup = Executors.newSingleThreadScheduledExecutor();
+        sesGroup = Executors.newSingleThreadScheduledExecutor();
         sesGroup.scheduleAtFixedRate(Jankcord::queryForNewGroupChats, 0, 5, TimeUnit.SECONDS);
 
         // SchedulesExecutorService for message querying
-        ScheduledExecutorService sesMessage = Executors.newSingleThreadScheduledExecutor();
+        sesMessage = Executors.newSingleThreadScheduledExecutor();
         sesMessage.scheduleAtFixedRate(Jankcord::queryForNewMessages, 0, 500, TimeUnit.MILLISECONDS);
     }
 
@@ -203,7 +206,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<User> tempFriends = new ArrayList<>();
 
     public static void queryForNewFriend() {
-        //System.out.println("New friend query");
+        System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -212,6 +215,8 @@ public class Jankcord implements JankDraggable {
         headers.put("password", fullUser.getPassword());
 
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
+
+        System.out.println(friendsJSON);
 
         if (friendsJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");
@@ -300,7 +305,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
 
     private static void queryForNewGroupChats() {
-        //System.out.println("New group chat query");
+        System.out.println("New group chat query");
         // Query api endpoint
 
         // Get messages
@@ -309,6 +314,8 @@ public class Jankcord implements JankDraggable {
         headers.put("password", fullUser.getPassword());
 
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
+
+        System.out.println(groupsJSON);
 
         if (groupsJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");
@@ -378,7 +385,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<User> tempMembers = new ArrayList<>();
 
     public static void queryForNewMessages() {
-        // System.out.println("New messages query");
+         System.out.println("New messages query");
         // Query api endpoint
         // Get messages
         HashMap<String, String> headers = new HashMap<>();
@@ -394,6 +401,8 @@ public class Jankcord implements JankDraggable {
         }
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
+
+        System.out.println(messagesJSON);
 
         if (messagesJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");
@@ -788,5 +797,29 @@ public class Jankcord implements JankDraggable {
 
     public static void setTempMembers(ArrayList<User> tempMembers) {
         Jankcord.tempMembers = tempMembers;
+    }
+
+    public static ScheduledExecutorService getSesFriend(){
+        return sesFriend;
+    }
+
+    public static void setSesFriend(ScheduledExecutorService sesFriend){
+        Jankcord.sesFriend = sesFriend;
+    }
+
+    public static ScheduledExecutorService getSesGroup(){
+        return sesGroup;
+    }
+
+    public static void setSesGroup(ScheduledExecutorService sesGroup){
+        Jankcord.sesGroup = sesGroup;
+    }
+
+    public static ScheduledExecutorService getSesMessage(){
+        return sesMessage;
+    }
+
+    public static void setSesMessage(ScheduledExecutorService sesMessage){
+        Jankcord.sesMessage = sesMessage;
     }
 }

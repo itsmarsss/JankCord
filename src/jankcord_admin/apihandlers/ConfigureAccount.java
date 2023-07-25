@@ -35,7 +35,7 @@ public class ConfigureAccount implements HttpHandler {
         if (!username.equals(newUsername)) {
             // Check if is available
             if (!JankcordAdmin.usernameAvailable(newUsername)) {
-                // If not, return 409 response code
+                // If not, return 409 conflict response code
                 ServerCommunicator.sendResponse(exchange, "409");
                 // Return
                 return;
