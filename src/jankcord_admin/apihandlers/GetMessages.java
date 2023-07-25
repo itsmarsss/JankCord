@@ -59,7 +59,7 @@ public class GetMessages implements HttpHandler {
         }
 
         // If other user is non-existent
-        if(other == null) {
+        if (other == null) {
             // If not authorized, return 403 response code
             ServerCommunicator.sendResponse(exchange, "404");
             // Return

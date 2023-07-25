@@ -14,27 +14,37 @@ import java.util.Map;
 public class Login implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // System.out.println("Account Login Requested");
-
+        // Set default response to 403 response code
         String response = "403";
 
-        if(JankcordAdmin.authorized(exchange)) {
+        // Check if user is authorized
+        if (JankcordAdmin.authorized(exchange)) {
+            // Get header
             Map<String, List<String>> requestHeaders = exchange.getRequestHeaders();
 
             String username = requestHeaders.get("username").get(0);
 
+            // Find user
             FullUser user = null;
 
-            for(FullUser account : AdminDataBase.getAccounts()) {
-                if(account.getUsername().equals(username)){
+            // Loop through all users
+            for (FullUser account : AdminDataBase.getAccounts()) {
+                // If usernames match
+                if (account.getUsername().equals(username)) {
+                    // Update User
                     user = account;
                 }
             }
-            if(user == null) {
+
+            // If user not updated
+            if (user == null) {
+                // If not authorized, return 403 response code
                 ServerCommunicator.sendResponse(exchange, "403");
+                // Return
                 return;
             }
 
+            // Update response including user id and avatarURL
             response = """
                     {
                         "id": %s,
@@ -43,7 +53,7 @@ public class Login implements HttpHandler {
                     """.formatted(user.getId(), user.getAvatarURL());
         }
 
-
+        // Return response to client
         ServerCommunicator.sendResponse(exchange, response);
     }
 }

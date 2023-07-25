@@ -36,7 +36,7 @@ public class CreateGroupChat implements HttpHandler {
         ArrayList<Long> memberListLong = new ArrayList<>();
 
         // Convert all string to long
-        for(String member : memberList) {
+        for (String member : memberList) {
             memberListLong.add(Long.parseLong(member));
         }
 
