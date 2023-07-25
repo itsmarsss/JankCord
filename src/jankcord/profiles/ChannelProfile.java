@@ -85,7 +85,6 @@ public class ChannelProfile extends JPanel {
                     // Inform new text place
                     Jankcord.setNewOtherID(true);
                     Jankcord.setInServer(false);
-                    Jankcord.setInServerCheck(true);
 
                     // Reset messages
                     Jankcord.getChatBoxArea().resetMessages();
