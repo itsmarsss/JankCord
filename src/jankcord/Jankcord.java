@@ -206,7 +206,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<User> tempFriends = new ArrayList<>();
 
     public static void queryForNewFriend() {
-        System.out.println("New friend query");
+        // System.out.println("New friend query");
         // Query api endpoint
 
         // Get messages
@@ -216,7 +216,7 @@ public class Jankcord implements JankDraggable {
 
         String friendsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "friends", headers);
 
-        System.out.println(friendsJSON);
+        // System.out.println(friendsJSON);
 
         if (friendsJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");
@@ -313,7 +313,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<GroupChat> tempGroupChats = new ArrayList<>();
 
     private static void queryForNewGroupChats() {
-        System.out.println("New group chat query");
+        // System.out.println("New group chat query");
         // Query api endpoint
 
         // Get messages
@@ -323,7 +323,7 @@ public class Jankcord implements JankDraggable {
 
         String groupsJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + "groupchats", headers);
 
-        System.out.println(groupsJSON);
+        // System.out.println(groupsJSON);
 
         if (groupsJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");
@@ -393,7 +393,7 @@ public class Jankcord implements JankDraggable {
     private static ArrayList<User> tempMembers = new ArrayList<>();
 
     public static void queryForNewMessages() {
-         System.out.println("New messages query");
+        // System.out.println("New messages query");
         // Query api endpoint
         // Get messages
         HashMap<String, String> headers = new HashMap<>();
@@ -410,7 +410,7 @@ public class Jankcord implements JankDraggable {
 
         String messagesJSON = ServerCommunicator.sendHttpRequest(fullUser.getEndPointHost() + dest, headers);
 
-        System.out.println(messagesJSON);
+        // System.out.println(messagesJSON);
 
         if (messagesJSON == null) {
             titleLabel.setText("JankCord - OFFLINE");

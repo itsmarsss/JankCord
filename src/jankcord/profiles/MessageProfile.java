@@ -84,10 +84,9 @@ public class MessageProfile extends JPanel {
 
 
         // Message Area
-        messageArea = new JLabel();
+        messageArea = new JLabel("<html><body>" + content + "</body></html>");
 
         // Message Area Init
-        messageArea.setText("<html><body>" + content + "</body></html>");
         messageArea.setOpaque(true);
         messageArea.setBackground(new Color(49, 51, 56));
         messageArea.setForeground(new Color(242, 243, 245));
@@ -191,7 +190,7 @@ public class MessageProfile extends JPanel {
 
     public void updateMessageWidth() {
         // Update message area and parent scrollpane sizes based on chat scroll size
-        messageArea.setSize((int) (messageArea.getPreferredSize().getWidth() + 15), (int) (messageArea.getPreferredSize().getHeight() + 15));
+        messageArea.setSize((int) (messageArea.getPreferredSize().getWidth() + 15), (int) (messageArea.getPreferredSize().getHeight()));
         messageAreaScroll.setSize(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - (messageArea.getX() + 300), (int) messageArea.getPreferredSize().getHeight() + 30);
 
         // Set preferred size of listing based on children changes
