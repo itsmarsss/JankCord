@@ -58,7 +58,7 @@ public class ServerList extends JankScrollPane {
         gbc = new GridBagConstraints();
 
         // Set remaining JankScrollPane properties
-        initChannelPanel();
+        initServerPanel();
 
         // Add ending server profiles
         addTrailingProfiles();
@@ -70,7 +70,7 @@ public class ServerList extends JankScrollPane {
     /**
      * Sets remaining JankScrollPane properties
      */
-    public void initChannelPanel() {
+    public void initServerPanel() {
         // Initialize server profiles list
         serverProfiles = new LinkedList<>();
 
