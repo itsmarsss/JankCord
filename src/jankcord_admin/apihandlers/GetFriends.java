@@ -3,14 +3,11 @@ package jankcord_admin.apihandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jankcord.objects.FullUser;
-import jankcord.objects.GroupChat;
-import jankcord.objects.User;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.AdminDataBase;
 import jankcord_admin.JankcordAdmin;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

@@ -2,9 +2,7 @@ package jankcord_admin.apihandlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import jankcord.objects.FullUser;
 import jankcord.objects.Message;
-import jankcord.objects.User;
 import jankcord.tools.JankFileKit;
 import jankcord.tools.ServerCommunicator;
 import jankcord_admin.AdminDataBase;
