@@ -34,12 +34,13 @@ public class ChannelProfile extends JPanel {
         setBackground(null);
         setPreferredSize(new Dimension(420, 92));
 
+
         // Icon
         JLabel channelIcon = new JLabel();
 
         // Icon Init
-        channelIcon.setSize(72, 72);
         channelIcon.setLocation(12, 8);
+        channelIcon.setSize(72, 72);
         channelIcon.setIcon(new ImageIcon(avatar));
 
         // Add Icon
@@ -50,8 +51,8 @@ public class ChannelProfile extends JPanel {
         usernameLabel = new JLabel(friend.getUsername());
 
         // Username Init
-        usernameLabel.setSize(328, 40);
         usernameLabel.setLocation(100, 23);
+        usernameLabel.setSize(328, 40);
         usernameLabel.setForeground(new Color(142, 146, 151));
         usernameLabel.setFont(new Font("Whitney", Font.PLAIN, 28));
 
