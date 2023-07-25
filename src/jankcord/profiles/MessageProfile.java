@@ -66,9 +66,11 @@ public class MessageProfile extends JPanel {
         messageArea.setBackground(new Color(49, 51, 56));
         messageArea.setForeground(new Color(242, 243, 245));
         messageArea.setFont(new Font("Whitney", Font.PLAIN, 28));
+        messageArea.setSize((int) (messageArea.getPreferredSize().getWidth() + 15), (int) (messageArea.getPreferredSize().getHeight() + 15));
+
 
         messageAreaScroll = new JankScrollPane(
-                (int) messageArea.getPreferredSize().getWidth(), (int) messageArea.getPreferredSize().getHeight(),
+                Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - (messageArea.getX() + 300), (int) messageArea.getPreferredSize().getHeight() + 30,
                 usernameLabel.getX(), usernameLabel.getY() + 45, messageArea
         );
 
@@ -78,6 +80,8 @@ public class MessageProfile extends JPanel {
         add(usernameLabel);
         add(timeLabel);
         add(messageAreaScroll);
+
+        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, (int) (messageArea.getPreferredSize().getHeight() + 100)));
 
         updateMessageWidth();
 
@@ -189,8 +193,8 @@ public class MessageProfile extends JPanel {
 //        messageArea.setText(wrappedContent.toString());
 
         messageArea.setSize((int) (messageArea.getPreferredSize().getWidth() + 15), (int) (messageArea.getPreferredSize().getHeight() + 15));
-        messageAreaScroll.setSize((int) getPreferredSize().getWidth() - messageArea.getX(), (int) messageArea.getPreferredSize().getHeight() + 15);
-        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, (int) (messageArea.getPreferredSize().getHeight() + 75)));
+        messageAreaScroll.setSize(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - (messageArea.getX() + 300), (int) messageArea.getPreferredSize().getHeight() + 30);
+        setPreferredSize(new Dimension(Jankcord.getChatBoxArea().getChatBoxScrollPane().getWidth() - 30, (int) (messageArea.getPreferredSize().getHeight() + 100)));
     }
 
     public Message getMessage() {
