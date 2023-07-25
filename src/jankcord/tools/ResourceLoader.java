@@ -5,7 +5,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Resource loader class, loads all images
 public class ResourceLoader {
+    // Public instance of this class
     public static final ResourceLoader loader = new ResourceLoader();
 
     // ServerList Icons
@@ -23,6 +25,7 @@ public class ResourceLoader {
     private final ImageIcon icon3 = new ImageIcon(getClass().getClassLoader().getResource("resources/icons/icon3.png"));
     private final ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("resources/icons/icon4.png"));
 
+    // List of window Icons
     private final ArrayList<Image> icons = new ArrayList<>(Arrays.asList(
             icon1.getImage(),
             icon2.getImage(),
