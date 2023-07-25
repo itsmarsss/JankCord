@@ -188,6 +188,8 @@ public class JankSettings extends JFrame implements JankDraggable {
                 Jankcord.getFullUser().setUsername(newUsername);
                 Jankcord.getFullUser().setPassword(newPassword);
                 Jankcord.getFullUser().setAvatarURL(avatarURL);
+
+                dispose();
             }
         });
         getContentPane().add(loginButton);
