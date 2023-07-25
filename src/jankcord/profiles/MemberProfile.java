@@ -101,7 +101,7 @@ public class MemberProfile extends JPanel {
                     Jankcord.queryForNewFriend();
 
                     // Update channel name
-                    Jankcord.getChatBoxArea().setChannelName(member.getUsername());
+                    Jankcord.getChatBoxArea().setChannelName("@ " + member.getUsername());
                 }
 
                 // Update colors
