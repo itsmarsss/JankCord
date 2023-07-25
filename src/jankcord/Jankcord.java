@@ -430,8 +430,20 @@ public class Jankcord implements JankDraggable {
 
         // Loop through each group chat
         for (int i = 0; i < groupChats.size(); i++) {
+            // Get current groupchat
+            GroupChat gc = groupChats.get(i);
+
             // Add server entry to list
-            serverList.addServer(groupChats.get(i), i + 2);
+            serverList.addServer(gc, i + 2);
+
+            // If current text place is this group chat
+            if(otherID.equals(groupChats.get(i).getId())) {
+                // Update channel name
+                chatBoxArea.setChannelName("#" + gc.getChatName());
+
+                // Update settings panel
+                channelList.showGroupChatSettings();
+            }
         }
 
         // Add training profiles

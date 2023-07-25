@@ -193,6 +193,9 @@ public class ChannelList extends JPanel {
      * Show settings plane for group chats
      */
     public void showGroupChatSettings() {
+        // Remove all children first
+        channelPanel.removeAll();
+
         // Add group chat settings
         channelPanel.add(new GroupChatSettings());
 
