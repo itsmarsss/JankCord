@@ -4,10 +4,7 @@ import jankcord.Jankcord;
 import jankcord.objects.SimpleUserCache;
 import jankcord.objects.User;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -32,6 +29,7 @@ public class MemberProfile extends JPanel {
         setLayout(null);
         setBackground(null);
         setPreferredSize(new Dimension(475, 92));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         // Icon

@@ -35,6 +35,7 @@ public class JankCloseButton extends JLabel {
         setForeground(new Color(159, 161, 165));
         setLocation(containerWidth - getWidth(), 0);
         setFont(new Font(null, Font.PLAIN, 28));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add mouse listener to set colors or perform events
         addMouseListener(new MouseListener() {

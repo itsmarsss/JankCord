@@ -26,6 +26,7 @@ public class JankButton extends JButton {
         setBackground(new Color(78, 80, 88));
         setForeground(new Color(219, 222, 225));
         setFont(new Font("Whitney", Font.BOLD, 28));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Initialize mouse events
         jml.setMouseClicked(new JankMLRunnable() {

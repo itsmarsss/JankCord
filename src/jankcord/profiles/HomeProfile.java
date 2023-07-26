@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import jankcord.Jankcord;
 import jankcord.tools.ResourceLoader;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,6 +15,7 @@ public class HomeProfile extends JLabel {
     public HomeProfile() {
         // Set icon to home profile icon
         setIcon(ResourceLoader.loader.getHomeProfileIcon());
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add mouse listener
         addMouseListener(new MouseListener() {

@@ -3,7 +3,7 @@ package jankcord.profiles;
 import jankcord.Jankcord;
 import jankcord.objects.GroupChat;
 
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -26,6 +26,7 @@ public class ServerProfile extends JLabel {
         // Set JLabel properties
         setSize(96, 96);
         setIcon(new ImageIcon(scaledIcon));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add mouse listener
         addMouseListener(new MouseListener() {

@@ -1,7 +1,6 @@
 package jankcord.components.windowbuttons;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +18,7 @@ public class WindowButtons extends JPanel {
         setLayout(null);
         setSize(186, 50);
         setBackground(new Color(0, 0, 0, 0));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         setLocation(Jankcord.getViewPanel().getWidth() - 186, 0);
 
         // Button font
