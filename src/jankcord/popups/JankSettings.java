@@ -82,6 +82,9 @@ public class JankSettings extends JankFrame {
 
                     // Read image and circularize it, set to avatar
                     avatar = SimpleUserCache.circularize(ImageIO.read(url));
+
+                    // Reset status label
+                    statusLabel.setText("");
                 } catch (Exception e) {
                     // If error, statusLabel display it
                     statusLabel.setText("Error getting avatar.");
@@ -92,6 +95,7 @@ public class JankSettings extends JankFrame {
 
                 // Set icon
                 iconLabel.setIcon(new ImageIcon(avatar));
+
             }
         });
 

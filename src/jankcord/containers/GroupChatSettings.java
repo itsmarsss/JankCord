@@ -109,6 +109,9 @@ public class GroupChatSettings extends JPanel {
 
                     // Read image and circularize it, set to icon
                     icon = SimpleUserCache.circularize(ImageIO.read(url));
+
+                    // Reset status label
+                    statusLabel.setText("");
                 } catch (Exception e) {
                     // If error, statusLabel display it
                     statusLabel.setText("Error getting icon.");
