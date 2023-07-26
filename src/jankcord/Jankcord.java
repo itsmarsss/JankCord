@@ -1,10 +1,6 @@
 package jankcord;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -327,8 +323,8 @@ public class Jankcord implements JankDraggable {
             SimpleUserCache cachedFriend = avatarCache.get(friend.getId());
 
             // If username or avatar is different
-            if(!cachedFriend.getUsername().equals(friend.getUsername()) ||
-            !cachedFriend.getAvatarURL().equals(friend.getAvatarURL())) {
+            if (!cachedFriend.getUsername().equals(friend.getUsername()) ||
+                    !cachedFriend.getAvatarURL().equals(friend.getAvatarURL())) {
                 // Recache user
                 cacheAvatar(friend.getId(), friend.getUsername(), friend.getAvatarURL());
             }
@@ -437,9 +433,9 @@ public class Jankcord implements JankDraggable {
             serverList.addServer(gc, i + 2);
 
             // If current text place is this group chat
-            if(otherID.equals(groupChats.get(i).getId())) {
+            if (otherID.equals(groupChats.get(i).getId())) {
                 // Update channel name
-                chatBoxArea.setChannelName("#" + gc.getChatName());
+                chatBoxArea.setChannelName("# " + gc.getChatName());
 
                 // Update settings panel
                 channelList.showGroupChatSettings();
@@ -911,27 +907,27 @@ public class Jankcord implements JankDraggable {
         Jankcord.tempMembers = tempMembers;
     }
 
-    public static ScheduledExecutorService getSesFriend(){
+    public static ScheduledExecutorService getSesFriend() {
         return sesFriend;
     }
 
-    public static void setSesFriend(ScheduledExecutorService sesFriend){
+    public static void setSesFriend(ScheduledExecutorService sesFriend) {
         Jankcord.sesFriend = sesFriend;
     }
 
-    public static ScheduledExecutorService getSesGroup(){
+    public static ScheduledExecutorService getSesGroup() {
         return sesGroup;
     }
 
-    public static void setSesGroup(ScheduledExecutorService sesGroup){
+    public static void setSesGroup(ScheduledExecutorService sesGroup) {
         Jankcord.sesGroup = sesGroup;
     }
 
-    public static ScheduledExecutorService getSesMessage(){
+    public static ScheduledExecutorService getSesMessage() {
         return sesMessage;
     }
 
-    public static void setSesMessage(ScheduledExecutorService sesMessage){
+    public static void setSesMessage(ScheduledExecutorService sesMessage) {
         Jankcord.sesMessage = sesMessage;
     }
 }
