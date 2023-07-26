@@ -27,8 +27,10 @@ public class JankListSearch extends JList {
 
         // Add mouse listener; action when list item is being selected
         addMouseListener(new MouseAdapter() {
+            // Mouse released
             @Override
             public void mouseReleased(MouseEvent e) {
+                // Get selected value
                 JankListItem selection = list.get(getSelectedIndex());
 
                 // If selection is a group chat
