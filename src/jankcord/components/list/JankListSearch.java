@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// JankCord's list, child of JList
+// JankCord's search list, child of JList
 public class JankListSearch extends JList {
     // Constructor, with list of objects
     public JankListSearch(DefaultListModel<JankListItem> list) {

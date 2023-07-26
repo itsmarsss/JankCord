@@ -1,5 +1,6 @@
 package jankcord.components.list.listitem;
 
+// JankListItem to be used with JankListSearch
 public class JankListItem {
     // Instance fields for list item
     private String displayName;
@@ -13,6 +14,11 @@ public class JankListItem {
         this.isGroupChat = isGroupChat;
     }
 
+    /**
+     * Override toString method to only return display name with prefix
+     *
+     * @return display name with prefix
+     */
     @Override
     public String toString() {
         return (isGroupChat ? "# " : "@ ") + displayName;
