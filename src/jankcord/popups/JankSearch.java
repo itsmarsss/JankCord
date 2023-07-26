@@ -12,6 +12,8 @@ import jankcord.objects.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class JankSearch extends JankFrame {
     public JankSearch() {
@@ -63,5 +65,27 @@ public class JankSearch extends JankFrame {
 
         // Add User List Scroll
         getContentPane().add(userListScroll);
+
+
+        searchInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String searchTerm = searchInput.getText().toLowerCase();
+
+                list.clear();
+
+                for (User friend : Jankcord.getTempFriends()) {
+                    if (friend.getUsername().toLowerCase().contains(searchTerm)) {
+                        list.addElement(new JankListItem(friend.getUsername(), friend.getId() + "", false));
+                    }
+                }
+
+                for (GroupChat groupChat : Jankcord.getTempGroupChats()) {
+                    if (groupChat.getChatName().toLowerCase().contains(searchTerm)) {
+                        list.addElement(new JankListItem(groupChat.getChatName(), groupChat.getId(), true));
+                    }
+                }
+            }
+        });
     }
 }
