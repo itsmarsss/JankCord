@@ -1,11 +1,8 @@
 package jankcord.containers;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -14,6 +11,7 @@ import jankcord.Jankcord;
 import jankcord.components.scrollbar.JankScrollBar;
 import jankcord.components.scrollpane.JankScrollPane;
 import jankcord.objects.User;
+import jankcord.popups.JankSearch;
 import jankcord.profiles.ChannelProfile;
 import jankcord.profiles.FriendProfile;
 
@@ -24,6 +22,7 @@ public class ChannelList extends JPanel {
     private JankScrollPane channelScrollPane;
     private LinkedList<ChannelProfile> channelProfiles;
     private GridBagConstraints gbc;
+    private JankSearch jankSearch;
 
     // Constructor, no parameters needed
     public ChannelList() {
@@ -59,9 +58,27 @@ public class ChannelList extends JPanel {
         searchLabel.setBackground(new Color(32, 34, 37));
         searchLabel.setForeground(new Color(163, 166, 170));
         searchLabel.setFont(new Font("Whitney", Font.PLAIN, 25));
+        searchLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add search label to top bar panel
         channelTopBarPanel.add(searchLabel);
+
+        // Add mouse listener
+        searchLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // If jankSearch exists
+                if (jankSearch != null) {
+                    // Dispose/destroy it
+                    jankSearch.dispose();
+                }
+
+                // Create new instance of JankSearch
+                jankSearch = new JankSearch();
+                // Make it visible
+                jankSearch.setVisible(true);
+            }
+        });
 
 
         // Channel Section

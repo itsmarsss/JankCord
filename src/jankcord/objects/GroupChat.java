@@ -58,6 +58,16 @@ public class GroupChat {
         return chatIconURL.equals(tempGroupChat.getChatIconURL());
     }
 
+    /**
+     * Override toString method to only return chat name
+     *
+     * @return string chatName
+     */
+    @Override
+    public String toString() {
+        return chatName;
+    }
+
     // Getters and setters
     public String getId() {
         return id;

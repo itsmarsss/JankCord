@@ -52,7 +52,7 @@ public class GroupChatSettings extends JPanel {
 
 
         // Chat Name Input
-        JankTextField chatNameInput = new JankTextField(390, 40, 0, 300);
+        JankTextField chatNameInput = new JankTextField(390, 45, 0, 300);
 
         // Add Chat Name Input
         add(chatNameInput);
@@ -72,7 +72,7 @@ public class GroupChatSettings extends JPanel {
 
 
         // Icon Input
-        JankTextField iconInput = new JankTextField(390, 40, 0, 450);
+        JankTextField iconInput = new JankTextField(390, 45, 0, 450);
 
         // Loop through all group chats
         for (GroupChat gc : Jankcord.getTempGroupChats()) {
