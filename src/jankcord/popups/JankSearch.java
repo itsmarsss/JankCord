@@ -86,13 +86,13 @@ public class JankSearch extends JankFrame {
                         continue;
                     }
 
-                    if (friend.getUsername().toLowerCase().contains(searchTerm)) {
+                    if (("@ w" + friend.getUsername().toLowerCase()).contains(searchTerm)) {
                         list.addElement(new JankListItem(friend.getUsername(), friend.getId() + "", false));
                     }
                 }
 
                 for (GroupChat groupChat : Jankcord.getTempGroupChats()) {
-                    if (groupChat.getChatName().toLowerCase().contains(searchTerm)) {
+                    if (("# w" + groupChat.getChatName().toLowerCase()).contains(searchTerm)) {
                         list.addElement(new JankListItem(groupChat.getChatName(), groupChat.getId(), true));
                     }
                 }
