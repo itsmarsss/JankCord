@@ -87,7 +87,9 @@ public class JankSearch extends JankFrame {
 
         // User List Scroll Init
         userListScroll.setMultiplier(25);
+        userListScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 15));
         userListScroll.getVerticalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(0, 0, 0), true));
+        userListScroll.getHorizontalScrollBar().setUI(new JankScrollBar(new Color(46, 51, 56), new Color(0, 0, 0), false));
 
         // Add User List Scroll
         getContentPane().add(userListScroll);
