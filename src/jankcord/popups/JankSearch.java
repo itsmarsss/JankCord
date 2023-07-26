@@ -14,10 +14,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class JankSearch extends JankFrame {
     public JankSearch() {
-        super("JankCord Search", 700, 1000, false);
+        super("JankCord Search", 700, 950, false);
 
         JLabel searchLabel = new JLabel("Search Term:");
 
@@ -46,6 +48,10 @@ public class JankSearch extends JankFrame {
         DefaultListModel<JankListItem> list = new DefaultListModel<>();
 
         for (User friend : Jankcord.getTempFriends()) {
+            // If friend is self
+            if ((friend.getId() + "").equals(Jankcord.getFullUser().getId() + "")) {
+                continue;
+            }
             list.addElement(new JankListItem(friend.getUsername(), friend.getId() + "", false));
         }
 
@@ -75,6 +81,11 @@ public class JankSearch extends JankFrame {
                 list.clear();
 
                 for (User friend : Jankcord.getTempFriends()) {
+                    // If friend is self
+                    if ((friend.getId() + "").equals(Jankcord.getFullUser().getId() + "")) {
+                        continue;
+                    }
+
                     if (friend.getUsername().toLowerCase().contains(searchTerm)) {
                         list.addElement(new JankListItem(friend.getUsername(), friend.getId() + "", false));
                     }
@@ -85,6 +96,13 @@ public class JankSearch extends JankFrame {
                         list.addElement(new JankListItem(groupChat.getChatName(), groupChat.getId(), true));
                     }
                 }
+            }
+        });
+
+        resultsList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                dispose();
             }
         });
     }

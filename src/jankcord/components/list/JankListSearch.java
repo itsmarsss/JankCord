@@ -30,49 +30,48 @@ public class JankListSearch extends JList {
             @Override
             public void mousePressed(MouseEvent e) {
                 JankListItem selection = list.get(getSelectedIndex());
+
+                // If selection is a group chat
                 if (selection.isGroupChat()) {
-                    // If current text place isn't this text place
-                    if (!Jankcord.getOtherID().equals(selection.getOtherId())) {
-                        // Update text place to this one
-                        Jankcord.setOtherID(selection.getOtherId());
+                    // Update text place to this one
+                    Jankcord.setOtherID(selection.getOtherId());
 
-                        // Notify of text place update
-                        Jankcord.setNewOtherID(true);
-                        Jankcord.setInServer(true);
+                    // Notify of text place update
+                    Jankcord.setNewOtherID(true);
+                    Jankcord.setInServer(true);
 
-                        // Reset all messages
-                        Jankcord.getChatBoxArea().resetMessages();
+                    // Reset all messages
+                    Jankcord.getChatBoxArea().resetMessages();
 
-                        // Query for new messages
-                        Jankcord.queryForNewMessages();
+                    // Query for new messages
+                    Jankcord.queryForNewMessages();
 
-                        // Clear channel list
-                        Jankcord.getChannelList().clear();
+                    // Clear channel list
+                    Jankcord.getChannelList().clear();
 
-                        // Show group chat settings list
-                        Jankcord.getChannelList().showGroupChatSettings();
+                    // Show group chat settings list
+                    Jankcord.getChannelList().showGroupChatSettings();
 
-                        // Update channel name
-                        Jankcord.getChatBoxArea().setChannelName("# " + selection.getDisplayName());
-                    } else {
-                        Jankcord.setOtherID(selection.getOtherId() + "");
+                    // Update channel name
+                    Jankcord.getChatBoxArea().setChannelName("# " + selection.getDisplayName());
+                } else { // If is direct message
+                    Jankcord.setOtherID(selection.getOtherId() + "");
 
-                        // Inform new text place
-                        Jankcord.setNewOtherID(true);
-                        Jankcord.setInServer(false);
+                    // Inform new text place
+                    Jankcord.setNewOtherID(true);
+                    Jankcord.setInServer(false);
 
-                        // Reset messages
-                        Jankcord.getChatBoxArea().resetMessages();
+                    // Reset messages
+                    Jankcord.getChatBoxArea().resetMessages();
 
-                        // Query for new messages
-                        Jankcord.queryForNewMessages();
+                    // Query for new messages
+                    Jankcord.queryForNewMessages();
 
-                        // Reset channel list display
-                        Jankcord.getChannelList().resetDisplays();
+                    // Reset channel list display
+                    Jankcord.getChannelList().resetDisplays();
 
-                        // Set channel name
-                        Jankcord.getChatBoxArea().setChannelName("@ " + selection.getDisplayName());
-                    }
+                    // Set channel name
+                    Jankcord.getChatBoxArea().setChannelName("@ " + selection.getDisplayName());
                 }
             }
         });
