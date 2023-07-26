@@ -99,11 +99,7 @@ public class ChatBoxArea extends JPanel {
         settingsLabel.setSize((int) (settingsLabel.getPreferredSize().getWidth() + 40), (int) settingsLabel.getPreferredSize().getHeight());
 
         // Add settings label mouse listener
-        settingsLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
+        settingsLabel.addMouseListener(new MouseAdapter() {
             // Mouse pressed
             @Override
             public void mousePressed(MouseEvent e) {
@@ -188,7 +184,7 @@ public class ChatBoxArea extends JPanel {
         UndoRedo.makeUndoable(textArea);
 
         // Add text area key listener
-        textArea.addKeyListener(new KeyListener() {
+        textArea.addKeyListener(new KeyAdapter() {
             // Key listener
             @Override
             public void keyPressed(KeyEvent e) {
@@ -200,10 +196,6 @@ public class ChatBoxArea extends JPanel {
 
                 // Reline text area
                 reline();
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
             }
 
             // Key released

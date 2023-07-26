@@ -1,8 +1,8 @@
 package jankcord.containers;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.LinkedList;
@@ -120,15 +120,7 @@ public class ServerList extends JankScrollPane {
         AddServerProfile addServerProfile = new AddServerProfile();
 
         // Add mouse listener to add server profile
-        addServerProfile.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
+        addServerProfile.addMouseListener(new MouseAdapter() {
             // Mouse released
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -142,14 +134,6 @@ public class ServerList extends JankScrollPane {
                 jankGroupChat = new JankGroupChat();
                 // Make it visible
                 jankGroupChat.setVisible(true);
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
             }
         });
 

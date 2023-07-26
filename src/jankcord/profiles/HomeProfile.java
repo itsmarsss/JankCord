@@ -6,8 +6,8 @@ import jankcord.Jankcord;
 import jankcord.tools.ResourceLoader;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 // HomeProfile, child of JLabel; home listing
 public class HomeProfile extends JLabel {
@@ -18,15 +18,7 @@ public class HomeProfile extends JLabel {
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add mouse listener
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
+        addMouseListener(new MouseAdapter() {
             // Mouse release
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -53,14 +45,6 @@ public class HomeProfile extends JLabel {
 
                 // Query for new friends
                 Jankcord.queryForNewFriend();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
             }
         });
     }

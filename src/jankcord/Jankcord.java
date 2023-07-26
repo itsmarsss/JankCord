@@ -535,7 +535,7 @@ public class Jankcord implements JankDraggable {
 
                 // Try to check avatar check
                 try {
-                    // If url doesnt equal
+                    // If url doesn't equal
                     if (!avatarCache.get(id).getAvatarURL().equals(avatarURL)) {
                         // Re-cache it
                         cacheAvatar(id, username, avatarURL);

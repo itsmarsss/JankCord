@@ -5,8 +5,8 @@ import jankcord.objects.SimpleUserCache;
 import jankcord.objects.User;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -58,11 +58,7 @@ public class MemberProfile extends JPanel {
 
 
         // Add mouse listener to listing
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
+        addMouseListener(new MouseAdapter() {
             // Mouse press
             @Override
             public void mousePressed(MouseEvent e) {

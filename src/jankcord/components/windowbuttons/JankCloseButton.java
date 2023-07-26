@@ -2,8 +2,8 @@ package jankcord.components.windowbuttons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 // JankCord's close button, child of JLabel
 public class JankCloseButton extends JLabel {
@@ -38,11 +38,7 @@ public class JankCloseButton extends JLabel {
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add mouse listener to set colors or perform events
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
+        addMouseListener(new MouseAdapter() {
             // Mouse pressed
             @Override
             public void mousePressed(MouseEvent e) {

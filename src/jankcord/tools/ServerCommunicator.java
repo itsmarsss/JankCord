@@ -116,7 +116,7 @@ public class ServerCommunicator {
             }
         }
 
-        // Return reponse
+        // Return response
         return response;
     }
 

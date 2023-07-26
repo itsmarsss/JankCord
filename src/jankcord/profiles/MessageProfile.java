@@ -1,8 +1,8 @@
 package jankcord.profiles;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -115,19 +115,7 @@ public class MessageProfile extends JPanel {
         updateMessageWidth();
 
         // Add message area mouse listener
-        messageArea.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
+        messageArea.addMouseListener(new MouseAdapter() {
             // Mouse entered
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -155,19 +143,7 @@ public class MessageProfile extends JPanel {
         });
 
         // Add mouse listener to listing
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
+        addMouseListener(new MouseAdapter() {
             // Mouse entered
             @Override
             public void mouseEntered(MouseEvent e) {
